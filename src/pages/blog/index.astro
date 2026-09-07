@@ -1,0 +1,166 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+// Articolele blog-ului — adaugă obiecte noi în acest array pe măsură ce scrii conținut
+const articles = [
+  {
+    slug: 'cum-alegi-imprimanta-termica',
+    title: 'Cum alegi imprimanta termică potrivită pentru afacerea ta',
+    excerpt: 'Transfer termic sau termic direct? Volum mic, mediu sau mare? Un ghid practic pentru a alege echipamentul corect în funcție de nevoile tale de producție și buget.',
+    category: 'Ghiduri',
+    date: '2026-09-07',
+    readTime: '5 min',
+  },
+  {
+    slug: 'etichete-haccp-obligatorii',
+    title: 'Etichete HACCP: ce sunt, cine e obligat să le folosească și unde le găsești',
+    excerpt: 'Legislația română și europeană impune etichetarea HACCP în industria alimentară. Află ce informații trebuie să conțină o etichetă conformă și care sunt cele mai utilizate formate.',
+    category: 'Legislație',
+    date: '2026-09-07',
+    readTime: '7 min',
+  },
+  {
+    slug: 'riboane-ceara-vs-rasina',
+    title: 'Riboane ceară vs rășină vs mixte — care sunt diferențele și când le folosești',
+    excerpt: 'Alegerea greșită a ribonului poate duce la etichete ilizibile sau care se șterg rapid. Explicăm diferențele dintre cele trei tipuri și condițiile optime de utilizare pentru fiecare.',
+    category: 'Consumabile',
+    date: '2026-09-07',
+    readTime: '4 min',
+  },
+  {
+    slug: 'ambalaje-ecommerce-ghid',
+    title: 'Ghid complet de ambalare pentru e-commerce: cutii, plicuri și materiale de protecție',
+    excerpt: 'Ambalajul potrivit reduce retururile, protejează produsele și îmbunătățește experiența clientului. Ce să alegi pentru produse fragile, textile, documente sau comenzi mixte.',
+    category: 'Ambalare',
+    date: '2026-09-07',
+    readTime: '6 min',
+  },
+];
+---
+<Base
+  title="Blog — Ghiduri etichete, imprimante, ambalaje | LabelShop"
+  description="Articole utile despre etichete autoadezive, imprimante termice, riboane și soluții de ambalare. Ghiduri practice pentru firme și e-commerce."
+>
+  <Header />
+  <main>
+    <section class="cat-hero">
+      <div class="container">
+        <h1>📝 Blog & Ghiduri</h1>
+        <p>Articole practice despre etichete, imprimante termice și soluții de ambalare</p>
+      </div>
+    </section>
+
+    <section class="section-products">
+      <div class="container">
+        <div class="blog-grid">
+          {articles.map(article => (
+            <article class="blog-card">
+              <div class="blog-card-meta">
+                <span class="blog-cat">{article.category}</span>
+                <span class="blog-read">{article.readTime} citire</span>
+              </div>
+              <h2 class="blog-title">
+                <a href={`/blog/${article.slug}`}>{article.title}</a>
+              </h2>
+              <p class="blog-excerpt">{article.excerpt}</p>
+              <div class="blog-footer">
+                <span class="blog-date">{new Date(article.date).toLocaleDateString('ro-RO', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                <a href={`/blog/${article.slug}`} class="blog-read-more">Citește →</a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- Placeholder când nu sunt articole suficiente -->
+        {articles.length === 0 && (
+          <div class="blog-empty">
+            <p>Articolele sunt în pregătire. Revino în curând.</p>
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+.blog-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+}
+.blog-card:hover {
+  box-shadow: var(--shadow);
+  border-color: var(--yellow);
+  transform: translateY(-2px);
+}
+.blog-card-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.blog-cat {
+  background: var(--yellow);
+  color: var(--charcoal);
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-family: var(--font-display);
+}
+.blog-read {
+  font-size: 0.75rem;
+  color: var(--mid);
+}
+.blog-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.blog-title a {
+  color: var(--charcoal);
+  text-decoration: none;
+}
+.blog-title a:hover { color: var(--red); }
+.blog-excerpt {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--mid);
+  flex: 1;
+}
+.blog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.blog-date { font-size: 0.75rem; color: var(--mid); }
+.blog-read-more {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--red);
+}
+.blog-read-more:hover { color: var(--red-dark); }
+.blog-empty {
+  text-align: center;
+  padding: 64px;
+  color: var(--mid);
+}
+@media (max-width: 768px) {
+  .blog-grid { grid-template-columns: 1fr; }
+}
+</style>

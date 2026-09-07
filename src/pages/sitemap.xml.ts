@@ -13,7 +13,7 @@ function pageUrls(slug: string, count: number) {
 
 export const GET: APIRoute = () => {
   const cats = ['etichete', 'echipamente', 'ambalare', 'consumabile'] as const;
-  const staticPages = [BASE, `${BASE}/confidentialitate`];
+  const staticPages = [BASE, `${BASE}/confidentialitate`, `${BASE}/promotii`, `${BASE}/blog`, `${BASE}/blog/cum-alegi-imprimanta-termica`];
   
   const catPages = cats.flatMap(c => {
     const count = products.filter(p => p.category === c).length;

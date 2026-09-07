@@ -1,0 +1,108 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import allProducts from '../../data/products.json';
+
+const relatedProducts = allProducts.filter(p => p.category === 'echipamente').slice(0, 4);
+const article = {
+  title: 'Cum alegi imprimanta termică potrivită pentru afacerea ta',
+  date: '2026-09-07',
+  category: 'Ghiduri',
+  readTime: '5 min',
+};
+---
+<Base
+  title={`${article.title} | Blog LabelShop`}
+  description="Transfer termic sau termic direct? Volum mic, mediu sau mare? Ghid practic pentru alegerea imprimantei de etichete potrivite."
+>
+  <Header />
+  <main>
+    <section class="cat-hero">
+      <div class="container">
+        <p style="color:var(--yellow);font-size:0.8rem;font-weight:700;margin-bottom:8px;">
+          <a href="/blog" style="color:var(--yellow);">← Blog</a> · {article.category}
+        </p>
+        <h1 style="font-size:clamp(1.4rem,3vw,2rem);">{article.title}</h1>
+        <p>{article.readTime} citire · {new Date(article.date).toLocaleDateString('ro-RO', {day:'numeric',month:'long',year:'numeric'})}</p>
+      </div>
+    </section>
+
+    <section class="section-products section-alt">
+      <div class="container">
+        <div class="article-body">
+
+          <p>Dacă ai o afacere care necesită etichetare constantă — fie că vorbim despre un depozit, o patiserie, o firmă de curierat sau un producător de alimente — alegerea imprimantei termice potrivite poate face diferența între eficiență și pierderi de timp și bani.</p>
+
+          <h2>Transfer termic vs termic direct — care e diferența?</h2>
+          <p><strong>Imprimantele termice directe</strong> folosesc căldura pentru a reactiva un strat chimic de pe hârtia specială. Nu au nevoie de ribon. Dezavantajul: etichetele se decolorează în timp la expunerea la lumină, căldură sau frecare. Potrivite pentru etichete de scurtă durată — AWB curierat, prețuri, etichete de raft.</p>
+          <p><strong>Imprimantele transfer termic</strong> folosesc un ribon cermos sau cu rășină care se topește pe etichetă. Rezultatul e durabil, rezistent la apă, grăsimi și UV. Potrivite pentru etichete de produs, logistică, etichetare industrială.</p>
+
+          <h2>Cum alegi în funcție de volum</h2>
+          <ul>
+            <li><strong>Volum mic (sub 500 etichete/zi)</strong> — imprimante desktop compacte, preț accesibil, ideale pentru firme mici și magazine</li>
+            <li><strong>Volum mediu (500–2.000 etichete/zi)</strong> — imprimante semiprofesionale cu alimentator mare de hârtie și capete de imprimare mai durabile</li>
+            <li><strong>Volum mare (peste 2.000 etichete/zi)</strong> — imprimante industriale cu viteză ridicată, conectivitate Ethernet, suport pentru role mari</li>
+          </ul>
+
+          <h2>Ce specificații să urmărești</h2>
+          <ul>
+            <li><strong>Rezoluție (DPI)</strong> — 203 DPI pentru text simplu și coduri de bare, 300 DPI pentru text mic și detalii fine</li>
+            <li><strong>Viteză (mm/s)</strong> — cu cât mai mare, cu atât mai bine pentru volume ridicate</li>
+            <li><strong>Conectivitate</strong> — USB este standard, Ethernet și Wi-Fi sunt utile în rețele de depozit</li>
+            <li><strong>Lățime maximă etichetă</strong> — verifică că se potrivește cu etichetele tale (58mm, 80mm, 104mm)</li>
+          </ul>
+
+          <div class="article-tip">
+            💡 <strong>Sfat practic:</strong> Dacă nu ești sigur ce volum vei produce, începe cu o imprimantă de volum mic și upgrade când depășești constant 300–400 etichete/zi.
+          </div>
+
+        </div>
+
+        <!-- Produse relevante -->
+        <div style="margin-top:48px;">
+          <div class="section-head">
+            <h2>🖨️ Imprimante recomandate</h2>
+            <a href="/echipamente" class="see-all">Toate echipamentele →</a>
+          </div>
+          <div class="products-grid products-grid--4">
+            {relatedProducts.map(p => (
+              <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+.article-body {
+  max-width: 720px;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #333;
+}
+.article-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 32px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--yellow);
+  color: var(--charcoal);
+}
+.article-body p { margin-bottom: 14px; }
+.article-body ul { margin: 0 0 16px 20px; list-style: disc; }
+.article-body li { margin-bottom: 8px; }
+.article-tip {
+  background: var(--yellow-light);
+  border-left: 4px solid var(--yellow);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 24px 0;
+  font-size: 0.9rem;
+}
+</style>

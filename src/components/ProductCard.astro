@@ -1,0 +1,50 @@
+---
+export interface Props {
+  title: string;
+  price: number;
+  old_price?: number | null;
+  brand: string;
+  image: string;
+  url: string;
+  category: string;
+}
+const { title, price, old_price, brand, image, url, category } = Astro.props;
+const discount = old_price && old_price > price
+  ? Math.round(100 - (price / old_price) * 100)
+  : null;
+const formattedPrice = price.toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const formattedOld = old_price ? old_price.toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : null;
+---
+<article class="product-card">
+  {discount && <span class="badge-discount">-{discount}%</span>}
+  <a href={url} target="_blank" rel="nofollow noopener sponsored" class="card-image-link" aria-label={title}>
+    <div class="card-image">
+      <img
+        src={image || '/placeholder.svg'}
+        alt={title}
+        loading="lazy"
+        decoding="async"
+        onerror="this.src='/placeholder.svg'"
+      />
+    </div>
+  </a>
+  <div class="card-body">
+    {brand && <span class="card-brand">{brand}</span>}
+    <h3 class="card-title">
+      <a href={url} target="_blank" rel="nofollow noopener sponsored">{title}</a>
+    </h3>
+    <div class="card-price">
+      <span class="price-current">{formattedPrice} RON</span>
+      {formattedOld && <span class="price-old">{formattedOld} RON</span>}
+    </div>
+    <a
+      href={url}
+      target="_blank"
+      rel="nofollow noopener sponsored"
+      class="btn-buy"
+      onclick="gtag('event','affiliate_click',{item_name:'{title}',category:'{category}'});"
+    >
+      Vezi oferta →
+    </a>
+  </div>
+</article>

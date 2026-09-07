@@ -1,0 +1,205 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProductCard from '../components/ProductCard.astro';
+import products from '../data/products.json';
+
+const totalProducts = products.length;
+const etichete  = products.filter(p => p.category === 'etichete');
+const consumabile = products.filter(p => p.category === 'consumabile');
+const echipamente = products.filter(p => p.category === 'echipamente');
+const ambalare  = products.filter(p => p.category === 'ambalare');
+
+const featured = products.filter(p => p.old_price && p.old_price > p.price).slice(0, 8);
+
+const categories = [
+  { slug: 'etichete', label: 'Etichete autoadezive', count: etichete.length, icon: '🏷️', desc: 'În rolă, în coală A4, HACCP, personalizate, de preț, inkjet' },
+  { slug: 'echipamente', label: 'Echipamente & Imprimante', count: echipamente.length, icon: '🖨️', desc: 'Imprimante termice, inkjet color, aplicatoare, cititoare bare' },
+  { slug: 'ambalare', label: 'Ambalare & Coletare', count: ambalare.length, icon: '📦', desc: 'Cutii carton, plicuri, pungi, folii stretch, bandă adezivă' },
+  { slug: 'consumabile', label: 'Consumabile', count: consumabile.length, icon: '🔧', desc: 'Riboane ceară/rășină, cartușe, capete de imprimare, hârtie' },
+];
+---
+<Base
+  title="LabelShop — Etichete autoadezive, Imprimante termice, Soluții ambalare | labels.gherasimmarius.com"
+  description={`Soluții complete de etichetare & ambalare: etichete autoadezive în rolă sau coală A4, imprimante termice, riboane, cutii carton, plicuri. Livrare rapidă din stoc. ${totalProducts}+ produse disponibile.`}
+>
+  <Header />
+  <main>
+
+    <!-- PROMO STRIP -->
+    <div class="promo-strip">
+      <p>🎉 Oferte și promoții constante, nu doar de Black Friday! <a href="https://www.labelshop.ro/promotii" target="_blank" rel="nofollow noopener">Vezi promoțiile →</a></p>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner container">
+        <div class="hero-text">
+          <p class="hero-eyebrow">Soluții complete de etichetare & ambalare</p>
+          <h1>Etichete autoadezive,<br/><span class="hero-accent">Imprimante termice</span><br/>& Ambalaje</h1>
+          <p class="hero-desc">
+            Etichete în rolă sau coală A4, imprimante termice pentru orice volum, riboane, cutii carton, plicuri și consumabile — totul dintr-o singură sursă, cu 20+ ani de experiență în tipografie industrială.
+          </p>
+          <div class="hero-stats">
+            <div class="stat"><strong>{totalProducts}+</strong><span>produse</span></div>
+            <div class="stat"><strong>20+</strong><span>ani experiență</span></div>
+            <div class="stat"><strong>90 zile</strong><span>cookie afiliere</span></div>
+            <div class="stat"><strong>Stoc</strong><span>livrare aceeași zi</span></div>
+          </div>
+          <div class="hero-cta">
+            <a href="/etichete" class="btn-primary">Etichete autoadezive →</a>
+            <a href="/echipamente" class="btn-secondary">Imprimante termice</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="label-roll-visual">
+            <div class="roll-outer"></div>
+            <div class="roll-inner"></div>
+            <div class="roll-label">ETICHETE<span>autoadezive</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="section-categories">
+      <div class="container">
+        <h2>Categorii de produse</h2>
+        <div class="categories-grid">
+          {categories.map(cat => (
+            <a href={`/${cat.slug}`} class="category-card">
+              <div class="cat-icon">{cat.icon}</div>
+              <div class="cat-info">
+                <strong>{cat.label}</strong>
+                <span class="cat-count">{cat.count} produse</span>
+                <p>{cat.desc}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMOTII -->
+    <section class="section-products">
+      <div class="container">
+        <div class="section-head">
+          <h2>🔥 Oferte & Promoții</h2>
+          <a href="https://www.labelshop.ro/promotii" target="_blank" rel="nofollow noopener" class="see-all">Toate promoțiile →</a>
+        </div>
+        <div class="products-grid">
+          {featured.map(p => (
+            <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ETICHETE -->
+    <section class="section-products section-alt">
+      <div class="container">
+        <div class="section-head">
+          <h2>🏷️ Etichete autoadezive</h2>
+          <a href="/etichete" class="see-all">Toate etichetele ({etichete.length}) →</a>
+        </div>
+        <div class="products-grid products-grid--4">
+          {etichete.slice(0,4).map(p => (
+            <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ECHIPAMENTE -->
+    <section class="section-products">
+      <div class="container">
+        <div class="section-head">
+          <h2>🖨️ Imprimante & Echipamente</h2>
+          <a href="/echipamente" class="see-all">Toate echipamentele ({echipamente.length}) →</a>
+        </div>
+        <div class="products-grid products-grid--4">
+          {echipamente.slice(0,4).map(p => (
+            <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- AMBALARE -->
+    <section class="section-products section-alt">
+      <div class="container">
+        <div class="section-head">
+          <h2>📦 Ambalare & Coletare</h2>
+          <a href="/ambalare" class="see-all">Toate ambalajele ({ambalare.length}) →</a>
+        </div>
+        <div class="products-grid products-grid--4">
+          {ambalare.slice(0,4).map(p => (
+            <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSUMABILE -->
+    <section class="section-products">
+      <div class="container">
+        <div class="section-head">
+          <h2>🔧 Consumabile</h2>
+          <a href="/consumabile" class="see-all">Toate consumabilele ({consumabile.length}) →</a>
+        </div>
+        <div class="products-grid products-grid--4">
+          {consumabile.slice(0,4).map(p => (
+            <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- USP -->
+    <section class="usp-strip">
+      <div class="container">
+        <div class="usp-grid">
+          <div class="usp-item">
+            <span class="usp-icon">🚀</span>
+            <div class="usp-text"><strong>Livrare rapidă din stoc</strong><p>Produsele disponibile expediate în aceeași zi prin curierat rapid</p></div>
+          </div>
+          <div class="usp-item">
+            <span class="usp-icon">🏭</span>
+            <div class="usp-text"><strong>Producție la comandă</strong><p>Etichete personalizate, ambalaje cu logo, în orice volum</p></div>
+          </div>
+          <div class="usp-item">
+            <span class="usp-icon">🔬</span>
+            <div class="usp-text"><strong>Consultanță tehnică</strong><p>Specialiști cu 20+ ani experiență în tipografie industrială</p></div>
+          </div>
+          <div class="usp-item">
+            <span class="usp-icon">🛡️</span>
+            <div class="usp-text"><strong>Soluții complete</strong><p>Etichete + imprimante + riboane + ambalaje dintr-o singură sursă</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO TEXT BLOCK -->
+    <section class="section-products section-alt">
+      <div class="container">
+        <div style="max-width:820px;">
+          <h2 style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;margin-bottom:16px;padding-bottom:10px;border-bottom:3px solid var(--yellow);">
+            Etichete autoadezive în rolă sau coală A4, Imprimante termice, Soluții de ambalare
+          </h2>
+          <p style="font-size:0.92rem;line-height:1.8;color:#444;margin-bottom:12px;">
+            LabelShop vă oferă soluții complete de etichetare & ambalare. Găsiți etichete autoadezive fie ca <strong>etichete în rolă</strong>, fie ca <strong>etichete în coală</strong> (etichete autoadezive A4). Se pot comanda etichete albe, etichete prețuri, dar și etichete personalizate în orice formă sau dimensiune.
+          </p>
+          <p style="font-size:0.92rem;line-height:1.8;color:#444;margin-bottom:12px;">
+            Pentru imprimarea internă de etichete autoadezive în rolă personalizate, puteți opta pentru <strong>imprimante de etichete transfer termic</strong> (imprimante termice) sau <strong>imprimante etichete inkjet color</strong>. Aceste imprimante sunt adaptate în funcție de volum și buget, obținând etichete autoadezive imprimate la o culoare sau policromie.
+          </p>
+          <p style="font-size:0.92rem;line-height:1.8;color:#444;">
+            Din gama de echipamente care simplifică procesul de etichetare și ambalare puteți alege: aplicator etichete manual sau semiautomat, marcator prețuri, dispenser etichete simplu sau profesional. Pentru soluții de ambalare și depozitare găsiți plicuri, cutii carton, coltare și tuburi carton, benzi adezive, folii cu bule și folii stretch.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Base>

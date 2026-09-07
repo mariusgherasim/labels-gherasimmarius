@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import allProducts from '../../data/products.json';
+
+const PER_PAGE = 24;
+const products = allProducts.filter(p => p.category === 'etichete');
+const totalPages = Math.ceil(products.length / PER_PAGE);
+const page = products.slice(0, PER_PAGE);
+---
+<Base title={`Etichete autoadezive ($\{products.length} produse) | LabelShop`} description="Etichete în rolă, coală A4, HACCP alimente, prețuri, inkjet, personalizate, logistică, sticle, borcane">
+  <Header />
+  <main>
+    <section class="cat-hero">
+      <div class="container">
+        <h1>🏷️ Etichete autoadezive — în rolă, în coală A4, personalizate</h1>
+        <p>{products.length} produse disponibile — Etichete în rolă, coală A4, HACCP alimente, prețuri, inkjet, personalizate, logistică, sticle, borcane</p>
+      </div>
+    </section>
+    <section class="section-products">
+      <div class="container">
+        <div class="products-grid">
+          {page.map(p => <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />)}
+        </div>
+        <Pagination currentPage={1} totalPages={totalPages} baseUrl="/etichete" />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

@@ -1,0 +1,52 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+}
+const { title, description = "Magazinul ambalajelor tale — etichete autoadezive, imprimante termice, ambalaje și accesorii de etichetare la prețuri competitive.", canonical } = Astro.props;
+const GA_ID = "G-HS59YL4Y3D";
+const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
+---
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Google Search Console -->
+  <meta name="google-site-verification" content="SEARCH_CONSOLE_TOKEN" />
+
+  <!-- Google Analytics GA4 -->
+  <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+  <script define:vars={{ GA_ID }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+  <slot />
+  <!-- Cookie banner -->
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Consimțământ cookie-uri">
+    <p>Acest site folosește cookie-uri analitice (Google Analytics) pentru a înțelege cum este utilizat. <a href="/confidentialitate">Politica de confidențialitate</a></p>
+    <div class="cookie-actions">
+      <button id="cookie-accept" class="btn-cookie-accept">Accept</button>
+      <button id="cookie-decline" class="btn-cookie-decline">Refuz</button>
+    </div>
+  </div>
+  <script src="/cookie.js" defer></script>
+</body>
+</html>

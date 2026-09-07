@@ -1,0 +1,31 @@
+name: Update feed weekly
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Download feed
+        run: |
+          curl -o feed_341549b6f.xml "https://feeds.2performant.com/affiliates/product_feeds/ad/37f55ab99/feed_341549b6f.xml"
+      - name: Import feed
+        run: node scripts/import-feed.cjs
+      - name: Copy products.json to public
+        run: node -e "const fs=require('fs');const p=JSON.parse(fs.readFileSync('src/data/products.json'));fs.writeFileSync('public/products.json',JSON.stringify(p.map(x=>({id:x.id,title:x.title,price:x.price,brand:x.brand,category:x.category,url:x.url,image:x.image}))));"
+      - name: Commit
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add src/data/products.json public/products.json
+          git diff --staged --quiet || git commit -m "chore: update products [$(date +%Y-%m-%d)]"
+          git push

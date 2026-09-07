@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import allProducts from '../../data/products.json';
+
+const PER_PAGE = 24;
+const products = allProducts.filter(p => p.category === 'ambalare');
+const totalPages = Math.ceil(products.length / PER_PAGE);
+const page = products.slice(0, PER_PAGE);
+---
+<Base title={`Ambalare & Coletare ($\{products.length} produse) | LabelShop`} description="Cutii carton clasice și e-commerce, plicuri AWB și cu bule, pungi curierat, folie stretch, bandă adezivă">
+  <Header />
+  <main>
+    <section class="cat-hero">
+      <div class="container">
+        <h1>📦 Ambalare & Coletare — Cutii, Plicuri, Pungi, Folii</h1>
+        <p>{products.length} produse disponibile — Cutii carton clasice și e-commerce, plicuri AWB și cu bule, pungi curierat, folie stretch, bandă adezivă</p>
+      </div>
+    </section>
+    <section class="section-products">
+      <div class="container">
+        <div class="products-grid">
+          {page.map(p => <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />)}
+        </div>
+        <Pagination currentPage={1} totalPages={totalPages} baseUrl="/ambalare" />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

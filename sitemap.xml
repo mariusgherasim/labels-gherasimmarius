@@ -11,6 +11,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://labels.gherasimmarius.com/promotii</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://labels.gherasimmarius.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://labels.gherasimmarius.com/blog/cum-alegi-imprimanta-termica</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://labels.gherasimmarius.com/etichete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

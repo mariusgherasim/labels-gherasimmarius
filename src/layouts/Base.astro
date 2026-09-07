@@ -6,6 +6,7 @@ export interface Props {
 }
 const { title, description = "Magazinul ambalajelor tale — etichete autoadezive, imprimante termice, ambalaje și accesorii de etichetare la prețuri competitive.", canonical } = Astro.props;
 const GA_ID = "G-HS59YL4Y3D";
+const GA_LABELS = "G-P66P18C438";
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
 ---
 <!DOCTYPE html>
@@ -27,6 +28,7 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', GA_ID);
+    gtag('config', GA_LABELS);
   </script>
 
   <!-- Fonts -->

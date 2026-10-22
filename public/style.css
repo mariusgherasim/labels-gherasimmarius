@@ -267,6 +267,7 @@ button { font: inherit; cursor: pointer; }
 .card-title a:hover { color: var(--red); }
 .card-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; margin-top: auto; padding-top: 4px; }
 .price-current { font-family: var(--font-display); font-weight: 800; font-size: 1.12rem; color: var(--charcoal); }
+.price-from { font-size: .72em; font-weight: 600; color: var(--mid); }
 .price-old { font-size: 13px; color: var(--mid); text-decoration: line-through; }
 .product-card:has(.badge-discount) .price-current { color: var(--red); }
 .btn-buy { display: block; text-align: center; background: var(--charcoal); color: #fff; text-decoration: none; font-weight: 700; font-size: 14px; padding: 10px; border-radius: 9px; margin-top: 6px; }

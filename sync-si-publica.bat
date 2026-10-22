@@ -31,7 +31,7 @@ del build-log.txt
 echo Build OK.
 echo.
 echo [3/3] Public pe GitHub...
-git add src/data/products.json public/data
+git add -A
 git commit -m "chore: sync produse din feed %date%"
 git pull -X ours --no-edit origin main
 git push origin main

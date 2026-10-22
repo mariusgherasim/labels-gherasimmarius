@@ -10,8 +10,9 @@ export interface Props {
   category: string;
   merchant?: string;
   eager?: boolean;
+  sizes?: number; // covoare: câte mărimi are modelul
 }
-const { title, price, old_price, brand, image, url, category, merchant = '', eager = false } = Astro.props;
+const { title, price, old_price, brand, image, url, category, merchant = '', eager = false, sizes = 0 } = Astro.props;
 const discount = old_price && old_price > price ? Math.round(100 - (price / old_price) * 100) : null;
 ---
 <article class="product-card">
@@ -27,12 +28,12 @@ const discount = old_price && old_price > price ? Math.round(100 - (price / old_
       <a href={url} target="_blank" rel="nofollow noopener sponsored" class="aff" data-name={title} data-cat={category}>{title}</a>
     </h3>
     <div class="card-price">
-      <span class="price-current">{fmt(price)} lei</span>
+      <span class="price-current">{sizes > 1 && <small class="price-from">de la </small>}{fmt(price)} lei</span>
       {discount && <span class="price-old">{fmt(old_price as number)} lei</span>}
     </div>
     <a href={url} target="_blank" rel="nofollow noopener sponsored" class="btn-buy aff" data-name={title} data-cat={category}>
       Vezi oferta <span aria-hidden="true">→</span>
     </a>
-    {merchant && <span class="card-merchant">la {merchant}</span>}
+    {(merchant || sizes > 1) && <span class="card-merchant">{sizes > 1 ? `${sizes} mărimi · ` : ''}{merchant && `la ${merchant}`}</span>}
   </div>
 </article>

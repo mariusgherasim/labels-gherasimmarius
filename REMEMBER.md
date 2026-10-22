@@ -4,7 +4,7 @@ Site afiliat 2Performant pe Astro (static). Rulează pe **https://casaatelier.we
 Nume de lucru: **Casa Atelier**. Îl schimbi dintr-un singur loc: `src/lib/site.ts` → `SITE`.
 
 ## Magazine (feeduri 2Performant)
-labelshop.ro · a2t.ro · micul-meserias.ro · mobilalaguna.ro (2 feeduri) · decasamobilaitalia.ro · paa-home.ro · printingmall.ro · patuldeacasa.ro · depozitsolar.ro
+mezoni.ro (cel mai mare, ~90.000 produse după comasare) · labelshop.ro · a2t.ro · micul-meserias.ro · mobilalaguna.ro (2 feeduri) · decasamobilaitalia.ro · paa-home.ro · printingmall.ro · patuldeacasa.ro · depozitsolar.ro
 
 ## Prima instalare (o singură dată)
 1. Copiezi conținutul arhivei peste folderul `labels-site`. Se suprascriu fișierele cu același nume.
@@ -35,6 +35,12 @@ Ce face sync-ul:
 - Lista și numele lor: `src/data/categories.json`. Fiecare categorie are `accent` (culoarea ei), iar fiecare subcategorie are `slug` și `name`.
 - O subcategorie cu `"hidden": true` (acum doar **Piese de schimb**, 6.300+ produse) are pagina ei, dar nu apare în pagina principală a categoriei, pe homepage, în Promoții și în panoul de căutare.
 - Regulile de clasificare: `scripts/classify.cjs`. Fiecare regulă e de forma `R(/cuvinte/, categorie, subcategorie)`, iar prima regulă potrivită câștigă. Ca să muți un tip de produs, adaugi o regulă mai sus în listă, apoi rulezi din nou sync-ul.
+
+## Volum și limite (de la adăugarea mezoni.ro)
+- ~122.000 de produse în 10 categorii. Covoarele mezoni care diferă doar prin mărime apar o singură dată (cea mai ieftină mărime, cu „de la” și numărul de mărimi).
+- Paginile statice sunt limitate (`MAX_PAGES` în `src/lib/site.ts`): 40 pe categorie, 120 pe subcategorie, 80 la Promoții. Paginile de după limită se deschid ca `/categorie/subcategorie?p=200` și se încarcă în browser. Așa site-ul rămâne la ~3.000 de pagini (~280 MB), sub limita de 1 GB a GitHub Pages.
+- `products.json` are ~62 MB (GitHub avertizează peste 50 MB, limita e 100 MB). Fișierul e scris cu un produs pe rând, ca git să salveze doar diferențele la fiecare sync.
+- Produsele mezoni din Lifestyle (genți, haine, îngrijire personală, sport) nu intră pe site. Apar în `feeds/_neclasificate.txt`.
 
 ## URL-uri
 - `/gradina-agricultura` · `/gradina-agricultura/2` (paginare, 24 de produse pe pagină)

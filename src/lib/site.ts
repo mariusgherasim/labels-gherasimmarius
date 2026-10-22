@@ -12,10 +12,15 @@ export const SITE = {
 };
 
 export const PER_PAGE = 24;
+// Câte pagini se generează static pe listare. Paginile de după limită se încarcă în browser
+// (din /data/s-<categorie>.json) — așa site-ul rămâne sub limita de 1 GB a GitHub Pages.
+export const MAX_PAGES = { cat: 40, sub: 120, promo: 80 };
+export const staticPages = (count: number, kind: 'cat' | 'sub' | 'promo') =>
+  Math.min(Math.max(1, Math.ceil(count / PER_PAGE)), MAX_PAGES[kind]);
 
 export interface Product {
   id: string; title: string; price: number; old_price: number | null; brand: string;
-  image: string; url: string; cat: string; sub: string; merchant: string;
+  image: string; url: string; cat: string; sub: string; merchant: string; sizes?: number;
 }
 export interface Sub { slug: string; name: string; hidden?: boolean }
 export interface Category { slug: string; name: string; short: string; icon: string; accent: string; desc: string; subs: Sub[] }

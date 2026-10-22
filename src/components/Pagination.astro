@@ -4,9 +4,11 @@ export interface Props {
   currentPage: number;
   totalPages: number;
   baseUrl: string;
+  staticCount?: number;
 }
-const { currentPage, totalPages, baseUrl } = Astro.props;
-const href = (p: number) => (p === 1 ? baseUrl : `${baseUrl}/${p}`);
+const { currentPage, totalPages, baseUrl, staticCount = totalPages } = Astro.props;
+// paginile peste limita statică sunt servite de browser: /categorie?p=150
+const href = (p: number) => (p === 1 ? baseUrl : p <= staticCount ? `${baseUrl}/${p}` : `${baseUrl}?p=${p}`);
 const prev = currentPage > 1 ? href(currentPage - 1) : null;
 const next = currentPage < totalPages ? href(currentPage + 1) : null;
 

@@ -69,7 +69,7 @@ const pickFor = (slug: string): Product[] => {
           <a href="/promotii" class="see-all">Toate promoțiile ({fmtInt(allDeals.length)}) →</a>
         </div>
         <div class="products-grid products-grid--6">
-          {topDeals.map((p, i) => <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.cat} merchant={p.merchant} eager={i < 4} />)}
+          {topDeals.map((p, i) => <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.cat} merchant={p.merchant} sizes={p.sizes} eager={i < 4} />)}
         </div>
       </div>
     </section>
@@ -87,7 +87,7 @@ const pickFor = (slug: string): Product[] => {
             ))}
           </div>
           <div class="products-grid products-grid--4">
-            {pickFor(c.slug).map(p => <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.cat} merchant={p.merchant} />)}
+            {pickFor(c.slug).map(p => <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.cat} merchant={p.merchant} sizes={p.sizes} />)}
           </div>
         </div>
       </section>

@@ -11,18 +11,22 @@ const norm = (s) => String(s || '')
 const R = (re, cat, sub) => ({ re, cat, sub });
 const MOB = 'mobila-living', EL = 'electrocasnice-curatenie', GR = 'gradina-agricultura',
   SC = 'scule-utilaje', CL = 'clima-energie', SEC = 'securitate-smart-home',
-  ER = 'electric-retea', BIR = 'birou-etichete-ambalare';
+  ER = 'electric-retea', BIR = 'birou-etichete-ambalare',
+  DEC = 'decoratiuni-textile', BUC = 'bucatarie-servire';
 
 // ---------- Mobilă (mobilalaguna, decasamobilaitalia, patuldeacasa) ----------
 const FURNITURE_TITLE_FIRST = [
-  R(/perne? decorativ|set \d+ perne|\bperna\b|\bperne\b|pilot|cuvertur|patur[ai]/, MOB, 'lenjerii-saltele'),
+  R(/perne? decorativ|set \d+ perne|\bperna\b|\bperne\b/, DEC, 'perne-decorative'),
+  R(/lenjer|cuvertur|patur[ai]|cearsaf/, DEC, 'lenjerii-pat'),
+  R(/pilot|saltea|topper/, MOB, 'lenjerii-saltele'),
   R(/panou decorativ|tablie|tablii/, MOB, 'paturi-dormitor'),
   R(/oglind|lampa|veioza|lustra/, MOB, 'lampi-oglinzi'),
   R(/^scaun/, MOB, 'scaune'),
   R(/^(taburet|fotoliu|fotolii|puf)\b/, MOB, 'fotolii-taburete'),
 ];
 const FURNITURE = [
-  R(/lenjer|cearsaf|husa (de )?pat|bedding|bed sheet|saltea|saltele|perna|perne|pilot/, MOB, 'lenjerii-saltele'),
+  R(/lenjer|cearsaf|husa (de )?pat|bedding|bed sheet/, DEC, 'lenjerii-pat'),
+  R(/saltea|saltele|perna|perne|pilot/, MOB, 'lenjerii-saltele'),
   R(/terasa|gradina/, GR, 'curte-terasa'),
   R(/baie/, MOB, 'mobila-baie'),
   R(/copii|copil/, MOB, 'camera-copiilor'),
@@ -39,6 +43,50 @@ const FURNITURE = [
   R(/living|sufragerie|corp(uri)?\b|mobilier/, MOB, 'living-sufragerie'),
 ];
 const GENERIC_CAT = /oferte|feed|pachete|fara categorie|online|lichidari|resigilate|^altele$|^produse /;
+
+// ---------- mezoni.ro (text = "categorie > subcategorie" din feed) ----------
+const MEZONI = [
+  R(/craciun|paste/, DEC, 'craciun'),
+  R(/^copii > (jucarii|plimbare|accesorii|imbracaminte)/, MOB, 'camera-copiilor'),
+  R(/^copii > (lenjerii|pilote|perne|saltele|covoare|draperii|mobilier)/, MOB, 'camera-copiilor'),
+  R(/caini|pisici/, GR, 'animale-companie'),
+  R(/^gradina > iluminat/, ER, 'iluminat'),
+  R(/^gradina > (aparate de spalat|unelte|masini tuns|motosape)/, GR, 'unelte-gradina'),
+  R(/^gradina > gratare/, GR, 'curte-terasa'),
+  R(/^gradina/, GR, 'curte-terasa'),
+  R(/^covoare|> covor/, DEC, 'covoare'),
+  R(/tablouri|rame foto/, DEC, 'tablouri'),
+  R(/oglinzi/, MOB, 'lampi-oglinzi'),
+  R(/^decoratiuni|lifestyle > accesorii casa/, DEC, 'decoratiuni'),
+  R(/^iluminat > becuri/, ER, 'iluminat'),
+  R(/^iluminat/, MOB, 'lampi-oglinzi'),
+  R(/perne decorative/, DEC, 'perne-decorative'),
+  R(/prosoape|halate/, DEC, 'prosoape-baie'),
+  R(/draperii|perdele|huse canapele/, DEC, 'draperii-huse'),
+  R(/naproane|fete de masa/, BUC, 'textile-masa'),
+  R(/lenjeri|cearceaf|fete de perna|cuverturi|^textile/, DEC, 'lenjerii-pat'),
+  R(/saltea|saltele|toppere|protectii saltea|spuma|^perne|> perne|pilote/, MOB, 'lenjerii-saltele'),
+  R(/^electrocasnice > (aeroterme|aparate filtrare)/, CL, 'climatizare-ventilatie'),
+  R(/^electrocasnice > aparate ingrijire/, null, null),
+  R(/^electrocasnice/, EL, 'electrocasnice-mici'),
+  R(/mopuri|detergenti|stergatoare|echipamente de protectie/, EL, 'curatenie'),
+  R(/^accesorii curatenie/, EL, 'organizare-casa'),
+  R(/vase pentru (gatit|copt)/, BUC, 'vase-gatit'),
+  R(/servire|servicii de masa|boluri/, BUC, 'servire'),
+  R(/pahare|cafetiere|cani|ceainice|accesorii bar/, BUC, 'pahare-cani'),
+  R(/cutite|tacamuri|tocatoare/, BUC, 'cutite-tacamuri'),
+  R(/^bucatarie/, BUC, 'ustensile-organizare'),
+  R(/canapele|coltare/, MOB, 'canapele-coltare'),
+  R(/fotolii|taburet/, MOB, 'fotolii-taburete'),
+  R(/masute|mese/, MOB, 'mese'),
+  R(/comode|rafturi|biblioteci/, MOB, 'comode-vitrine'),
+  R(/mobilier bucatarie/, MOB, 'mobila-bucatarie'),
+  R(/scaune birou|birouri|mobilier hol/, MOB, 'birou-hol'),
+  R(/scaune/, MOB, 'scaune'),
+  R(/mobilier baie/, MOB, 'mobila-baie'),
+  R(/paturi|mobila dormitor/, MOB, 'paturi-dormitor'),
+  R(/^mobilier/, MOB, 'living-sufragerie'),
+];
 
 // ---------- paa-home.ro ----------
 const PAA = [
@@ -159,14 +207,19 @@ function first(rules, text) {
  * @param {string} merchant  campaign_name din feed
  * @param {string} category  categoria din feed
  * @param {string} title
+ * @param {string} [subcategory]  subcategoria din feed (folosită la mezoni)
  * @returns {[string,string]|null}
  */
-function classify(merchant, category, title) {
+function classify(merchant, category, title, subcategory = '') {
   const m = norm(merchant), c = norm(category), t = norm(title);
+  if (m.includes('mezoni')) {
+    const r = first(MEZONI, norm(category + (subcategory ? ' > ' + subcategory : '')));
+    return r && r[0] ? r : null; // null = produs care nu intră pe site (ex: îngrijire personală, genți)
+  }
   if (m.includes('labelshop')) return labelshop(c, t);
   if (m.includes('printingmall')) return printingmall(c, t);
   if (m.includes('depozitsolar')) return [CL, 'fotovoltaice'];
-  if (m.includes('patuldeacasa')) return [MOB, 'lenjerii-saltele'];
+  if (m.includes('patuldeacasa')) return [DEC, 'lenjerii-pat'];
   if (m.includes('mobilalaguna') || m.includes('decasamobila')) {
     const tf = first(FURNITURE_TITLE_FIRST, t); if (tf) return tf;
     if (!GENERIC_CAT.test(c)) { const r = first(FURNITURE, c); if (r) return r; }

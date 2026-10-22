@@ -1,10 +1,10 @@
 import type { APIRoute } from 'astro';
-import { CATEGORIES, PER_PAGE, productsInCat, productsInSub, deals, SITE } from '../lib/site';
+import { CATEGORIES, staticPages, productsInCat, productsInSub, deals, SITE } from '../lib/site';
 
 const BASE = SITE.url;
 
-function pageUrls(path: string, count: number) {
-  const pages = Math.max(1, Math.ceil(count / PER_PAGE));
+function pageUrls(path: string, count: number, kind: 'cat' | 'sub' | 'promo') {
+  const pages = staticPages(count, kind);
   const urls = [`${BASE}${path}`];
   for (let i = 2; i <= pages; i++) urls.push(`${BASE}${path}/${i}`);
   return urls;
@@ -13,13 +13,13 @@ function pageUrls(path: string, count: number) {
 export const GET: APIRoute = () => {
   const staticPages = [BASE, `${BASE}/confidentialitate`, `${BASE}/blog`, `${BASE}/blog/cum-alegi-imprimanta-termica`];
   const catPages = CATEGORIES.flatMap(c => [
-    ...pageUrls(`/${c.slug}`, productsInCat(c.slug).length),
+    ...pageUrls(`/${c.slug}`, productsInCat(c.slug).length, 'cat'),
     ...c.subs.flatMap(s => {
       const n = productsInSub(c.slug, s.slug).length;
-      return n ? pageUrls(`/${c.slug}/${s.slug}`, n) : [];
+      return n ? pageUrls(`/${c.slug}/${s.slug}`, n, 'sub') : [];
     }),
   ]);
-  const promo = pageUrls('/promotii', deals().length);
+  const promo = pageUrls('/promotii', deals().length, 'promo');
   const allUrls = [...staticPages, ...catPages, ...promo];
   const today = new Date().toISOString().slice(0, 10);
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

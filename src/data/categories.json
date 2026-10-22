@@ -5,22 +5,106 @@
     "short": "Mobilă",
     "icon": "🛋️",
     "accent": "#B4532A",
-    "desc": "Canapele, colțare, paturi, dulapuri, mese, scaune și tot ce face o casă locuibilă.",
+    "desc": "Canapele, colțare, paturi, dulapuri, mese, scaune, iluminat interior — tot ce face o casă locuibilă.",
     "subs": [
-      { "slug": "canapele-coltare", "name": "Canapele și colțare" },
-      { "slug": "fotolii-taburete", "name": "Fotolii și taburete" },
-      { "slug": "paturi-dormitor", "name": "Paturi și dormitoare" },
-      { "slug": "dulapuri-dressinguri", "name": "Dulapuri și dressinguri" },
-      { "slug": "mobila-bucatarie", "name": "Mobilă de bucătărie" },
-      { "slug": "mese", "name": "Mese și măsuțe" },
-      { "slug": "scaune", "name": "Scaune și scaune de bar" },
-      { "slug": "living-sufragerie", "name": "Living și sufragerie" },
-      { "slug": "comode-vitrine", "name": "Comode, vitrine, console" },
-      { "slug": "mobila-baie", "name": "Mobilă baie" },
-      { "slug": "birou-hol", "name": "Birou și hol" },
-      { "slug": "camera-copiilor", "name": "Camera copiilor" },
-      { "slug": "lenjerii-saltele", "name": "Textile, saltele, perne" },
-      { "slug": "lampi-oglinzi", "name": "Lămpi și oglinzi" }
+      {
+        "slug": "canapele-coltare",
+        "name": "Canapele și colțare"
+      },
+      {
+        "slug": "fotolii-taburete",
+        "name": "Fotolii și taburete"
+      },
+      {
+        "slug": "paturi-dormitor",
+        "name": "Paturi și dormitoare"
+      },
+      {
+        "slug": "dulapuri-dressinguri",
+        "name": "Dulapuri și dressinguri"
+      },
+      {
+        "slug": "mobila-bucatarie",
+        "name": "Mobilă de bucătărie"
+      },
+      {
+        "slug": "mese",
+        "name": "Mese și măsuțe"
+      },
+      {
+        "slug": "scaune",
+        "name": "Scaune și scaune de bar"
+      },
+      {
+        "slug": "living-sufragerie",
+        "name": "Living și sufragerie"
+      },
+      {
+        "slug": "comode-vitrine",
+        "name": "Comode, vitrine, console"
+      },
+      {
+        "slug": "mobila-baie",
+        "name": "Mobilă baie"
+      },
+      {
+        "slug": "birou-hol",
+        "name": "Birou și hol"
+      },
+      {
+        "slug": "camera-copiilor",
+        "name": "Camera copiilor și jucării"
+      },
+      {
+        "slug": "lenjerii-saltele",
+        "name": "Saltele, toppere, perne de dormit"
+      },
+      {
+        "slug": "lampi-oglinzi",
+        "name": "Iluminat interior și oglinzi"
+      }
+    ]
+  },
+  {
+    "slug": "decoratiuni-textile",
+    "name": "Decorațiuni & Textile",
+    "short": "Decor",
+    "icon": "🖼️",
+    "accent": "#C2387A",
+    "desc": "Covoare, tablouri, perne decorative, lenjerii, prosoape, decorațiuni și tot ce ține de Crăciun.",
+    "subs": [
+      {
+        "slug": "covoare",
+        "name": "Covoare și covorașe"
+      },
+      {
+        "slug": "tablouri",
+        "name": "Tablouri și rame foto"
+      },
+      {
+        "slug": "decoratiuni",
+        "name": "Decorațiuni, ceasuri, lumânări"
+      },
+      {
+        "slug": "perne-decorative",
+        "name": "Perne decorative"
+      },
+      {
+        "slug": "lenjerii-pat",
+        "name": "Lenjerii, cearșafuri, cuverturi"
+      },
+      {
+        "slug": "prosoape-baie",
+        "name": "Prosoape și halate"
+      },
+      {
+        "slug": "draperii-huse",
+        "name": "Draperii, perdele, huse"
+      },
+      {
+        "slug": "craciun",
+        "name": "Crăciun și sărbători"
+      }
     ]
   },
   {
@@ -29,16 +113,82 @@
     "short": "Electrocasnice",
     "icon": "🧹",
     "accent": "#2A7AB4",
-    "desc": "Accesorii pentru aspiratoare robot și verticale, filtre, mopuri, utilaje de uz casnic.",
+    "desc": "Electrocasnice mici, accesorii pentru aspiratoare, filtre, mopuri, organizare și utilaje de uz casnic.",
     "subs": [
-      { "slug": "accesorii-aspiratoare-robot", "name": "Accesorii aspiratoare robot" },
-      { "slug": "accesorii-aspiratoare-verticale", "name": "Accesorii aspiratoare verticale" },
-      { "slug": "accesorii-aspiratoare", "name": "Filtre și saci aspiratoare" },
-      { "slug": "filtre-purificatoare", "name": "Filtre purificatoare aer" },
-      { "slug": "curatenie", "name": "Mopuri, mături, detergenți" },
-      { "slug": "accesorii-bucatarie", "name": "Accesorii roboți de bucătărie" },
-      { "slug": "utilaje-uz-casnic", "name": "Utilaje uz casnic" },
-      { "slug": "aparate-bucatarie-profesionale", "name": "Aparate profesionale bucătărie" }
+      {
+        "slug": "electrocasnice-mici",
+        "name": "Electrocasnice mici"
+      },
+      {
+        "slug": "accesorii-aspiratoare-robot",
+        "name": "Accesorii aspiratoare robot"
+      },
+      {
+        "slug": "accesorii-aspiratoare-verticale",
+        "name": "Accesorii aspiratoare verticale"
+      },
+      {
+        "slug": "accesorii-aspiratoare",
+        "name": "Filtre și saci aspiratoare"
+      },
+      {
+        "slug": "filtre-purificatoare",
+        "name": "Filtre purificatoare aer"
+      },
+      {
+        "slug": "curatenie",
+        "name": "Mopuri, mături, detergenți"
+      },
+      {
+        "slug": "accesorii-bucatarie",
+        "name": "Accesorii roboți de bucătărie"
+      },
+      {
+        "slug": "utilaje-uz-casnic",
+        "name": "Utilaje uz casnic"
+      },
+      {
+        "slug": "aparate-bucatarie-profesionale",
+        "name": "Aparate profesionale bucătărie"
+      },
+      {
+        "slug": "organizare-casa",
+        "name": "Organizare, rufe, baie"
+      }
+    ]
+  },
+  {
+    "slug": "bucatarie-servire",
+    "name": "Bucătărie & Servire",
+    "short": "Bucătărie",
+    "icon": "🍽️",
+    "accent": "#7A5C2E",
+    "desc": "Vase de gătit și copt, servicii de masă, pahare, tacâmuri, ustensile și organizare în bucătărie.",
+    "subs": [
+      {
+        "slug": "vase-gatit",
+        "name": "Vase de gătit și copt"
+      },
+      {
+        "slug": "servire",
+        "name": "Servicii de masă, boluri, platouri"
+      },
+      {
+        "slug": "pahare-cani",
+        "name": "Pahare, căni, accesorii bar"
+      },
+      {
+        "slug": "cutite-tacamuri",
+        "name": "Cuțite, tacâmuri, tocătoare"
+      },
+      {
+        "slug": "ustensile-organizare",
+        "name": "Ustensile și organizare"
+      },
+      {
+        "slug": "textile-masa",
+        "name": "Fețe de masă și naproane"
+      }
     ]
   },
   {
@@ -49,17 +199,54 @@
     "accent": "#3E8E41",
     "desc": "Motocoase, drujbe, motocultoare, pompe, irigații, zootehnie și mobilier de terasă.",
     "subs": [
-      { "slug": "motocoase", "name": "Motocoase și trimmere" },
-      { "slug": "drujbe", "name": "Drujbe" },
-      { "slug": "motocultoare", "name": "Motocultoare și motosape" },
-      { "slug": "pompe-apa", "name": "Pompe de apă" },
-      { "slug": "irigatii", "name": "Sisteme de irigare" },
-      { "slug": "furtunuri", "name": "Furtunuri" },
-      { "slug": "unelte-gradina", "name": "Unelte și utilaje de grădină" },
-      { "slug": "motoare-generatoare", "name": "Motoare și generatoare" },
-      { "slug": "zootehnie", "name": "Zootehnie" },
-      { "slug": "mori-cereale", "name": "Mori de cereale și uruială" },
-      { "slug": "curte-terasa", "name": "Terasă, pergole, garduri" }
+      {
+        "slug": "motocoase",
+        "name": "Motocoase și trimmere"
+      },
+      {
+        "slug": "drujbe",
+        "name": "Drujbe"
+      },
+      {
+        "slug": "motocultoare",
+        "name": "Motocultoare și motosape"
+      },
+      {
+        "slug": "pompe-apa",
+        "name": "Pompe de apă"
+      },
+      {
+        "slug": "irigatii",
+        "name": "Sisteme de irigare"
+      },
+      {
+        "slug": "furtunuri",
+        "name": "Furtunuri"
+      },
+      {
+        "slug": "unelte-gradina",
+        "name": "Unelte și utilaje de grădină"
+      },
+      {
+        "slug": "motoare-generatoare",
+        "name": "Motoare și generatoare"
+      },
+      {
+        "slug": "zootehnie",
+        "name": "Zootehnie"
+      },
+      {
+        "slug": "mori-cereale",
+        "name": "Mori de cereale și uruială"
+      },
+      {
+        "slug": "curte-terasa",
+        "name": "Mobilier grădină, terasă, piscine"
+      },
+      {
+        "slug": "animale-companie",
+        "name": "Animale de companie"
+      }
     ]
   },
   {
@@ -70,12 +257,31 @@
     "accent": "#D9481F",
     "desc": "Scule electrice, scule de mână, aparate de măsură, utilaje de construcții și piese de schimb.",
     "subs": [
-      { "slug": "scule-electrice", "name": "Scule electrice" },
-      { "slug": "scule-mana", "name": "Scule de mână și truse" },
-      { "slug": "aparate-masura", "name": "Aparate de măsură" },
-      { "slug": "utilaje-constructii", "name": "Utilaje construcții" },
-      { "slug": "echipament-atelier", "name": "Protecție, lanterne, depozitare" },
-      { "slug": "piese-schimb", "name": "Piese de schimb", "hidden": true }
+      {
+        "slug": "scule-electrice",
+        "name": "Scule electrice"
+      },
+      {
+        "slug": "scule-mana",
+        "name": "Scule de mână și truse"
+      },
+      {
+        "slug": "aparate-masura",
+        "name": "Aparate de măsură"
+      },
+      {
+        "slug": "utilaje-constructii",
+        "name": "Utilaje construcții"
+      },
+      {
+        "slug": "echipament-atelier",
+        "name": "Protecție, lanterne, depozitare"
+      },
+      {
+        "slug": "piese-schimb",
+        "name": "Piese de schimb",
+        "hidden": true
+      }
     ]
   },
   {
@@ -86,11 +292,26 @@
     "accent": "#D99A00",
     "desc": "Climatizare, încălzire, panouri fotovoltaice, stații de încărcare auto, UPS-uri și baterii.",
     "subs": [
-      { "slug": "climatizare-ventilatie", "name": "Climatizare și ventilație" },
-      { "slug": "incalzire", "name": "Încălzire" },
-      { "slug": "fotovoltaice", "name": "Panouri și sisteme fotovoltaice" },
-      { "slug": "statii-incarcare", "name": "Stații încărcare mașini electrice" },
-      { "slug": "ups-baterii", "name": "UPS-uri, baterii, stabilizatoare" }
+      {
+        "slug": "climatizare-ventilatie",
+        "name": "Climatizare și ventilație"
+      },
+      {
+        "slug": "incalzire",
+        "name": "Încălzire"
+      },
+      {
+        "slug": "fotovoltaice",
+        "name": "Panouri și sisteme fotovoltaice"
+      },
+      {
+        "slug": "statii-incarcare",
+        "name": "Stații încărcare mașini electrice"
+      },
+      {
+        "slug": "ups-baterii",
+        "name": "UPS-uri, baterii, stabilizatoare"
+      }
     ]
   },
   {
@@ -101,14 +322,38 @@
     "accent": "#5B4FC4",
     "desc": "Camere de supraveghere, alarme, videointerfoane, control acces, automatizări porți, casă inteligentă.",
     "subs": [
-      { "slug": "camere-supraveghere", "name": "Camere de supraveghere" },
-      { "slug": "inregistratoare-kituri", "name": "NVR, DVR și kituri" },
-      { "slug": "alarme", "name": "Sisteme de alarmă" },
-      { "slug": "videointerfoane", "name": "Videointerfoane și sonerii" },
-      { "slug": "control-acces", "name": "Control acces și pontaj" },
-      { "slug": "antiincendiu", "name": "Detecție incendiu" },
-      { "slug": "automatizari-porti", "name": "Porți, bariere, automatizări" },
-      { "slug": "smart-home", "name": "Smart Home" }
+      {
+        "slug": "camere-supraveghere",
+        "name": "Camere de supraveghere"
+      },
+      {
+        "slug": "inregistratoare-kituri",
+        "name": "NVR, DVR și kituri"
+      },
+      {
+        "slug": "alarme",
+        "name": "Sisteme de alarmă"
+      },
+      {
+        "slug": "videointerfoane",
+        "name": "Videointerfoane și sonerii"
+      },
+      {
+        "slug": "control-acces",
+        "name": "Control acces și pontaj"
+      },
+      {
+        "slug": "antiincendiu",
+        "name": "Detecție incendiu"
+      },
+      {
+        "slug": "automatizari-porti",
+        "name": "Porți, bariere, automatizări"
+      },
+      {
+        "slug": "smart-home",
+        "name": "Smart Home"
+      }
     ]
   },
   {
@@ -119,12 +364,30 @@
     "accent": "#0E8A8A",
     "desc": "Rețelistică, cabluri, aparataj electric, iluminat LED, sonorizare și multimedia.",
     "subs": [
-      { "slug": "retelistica", "name": "Rețelistică și telefonie" },
-      { "slug": "cabluri-conectori", "name": "Cabluri și conectori" },
-      { "slug": "aparataj-electric", "name": "Aparataj electric" },
-      { "slug": "surse-alimentare", "name": "Surse și alimentatoare" },
-      { "slug": "iluminat", "name": "Iluminat LED" },
-      { "slug": "audio-video", "name": "Sonorizare, audio, video" }
+      {
+        "slug": "retelistica",
+        "name": "Rețelistică și telefonie"
+      },
+      {
+        "slug": "cabluri-conectori",
+        "name": "Cabluri și conectori"
+      },
+      {
+        "slug": "aparataj-electric",
+        "name": "Aparataj electric"
+      },
+      {
+        "slug": "surse-alimentare",
+        "name": "Surse și alimentatoare"
+      },
+      {
+        "slug": "iluminat",
+        "name": "Iluminat LED"
+      },
+      {
+        "slug": "audio-video",
+        "name": "Sonorizare, audio, video"
+      }
     ]
   },
   {
@@ -135,13 +398,34 @@
     "accent": "#E63329",
     "desc": "Etichete autoadezive, imprimante termice, riboane, imprimante de birou, tonere, ambalaje.",
     "subs": [
-      { "slug": "etichete", "name": "Etichete autoadezive" },
-      { "slug": "imprimante-etichete", "name": "Imprimante și echipamente etichetare" },
-      { "slug": "consumabile-etichetare", "name": "Riboane și consumabile" },
-      { "slug": "ambalare", "name": "Ambalare și coletare" },
-      { "slug": "imprimante-birou", "name": "Imprimante și multifuncționale" },
-      { "slug": "tonere-cartuse", "name": "Tonere, cartușe, drumuri" },
-      { "slug": "distrugatoare-laminatoare", "name": "Distrugătoare și laminatoare" }
+      {
+        "slug": "etichete",
+        "name": "Etichete autoadezive"
+      },
+      {
+        "slug": "imprimante-etichete",
+        "name": "Imprimante și echipamente etichetare"
+      },
+      {
+        "slug": "consumabile-etichetare",
+        "name": "Riboane și consumabile"
+      },
+      {
+        "slug": "ambalare",
+        "name": "Ambalare și coletare"
+      },
+      {
+        "slug": "imprimante-birou",
+        "name": "Imprimante și multifuncționale"
+      },
+      {
+        "slug": "tonere-cartuse",
+        "name": "Tonere, cartușe, drumuri"
+      },
+      {
+        "slug": "distrugatoare-laminatoare",
+        "name": "Distrugătoare și laminatoare"
+      }
     ]
   }
 ]

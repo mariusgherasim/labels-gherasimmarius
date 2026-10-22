@@ -20,6 +20,7 @@ export interface Props {
   total: number;
   currentPage: number;
   totalPages: number;
+  staticCount?: number; // câte pagini există static (restul se încarcă în browser)
   baseUrl: string;
   scope: string;      // ex: "gradina-agricultura", "gradina-agricultura/drujbe", "promo"
   catScope?: string;  // categoria (pentru căutare)
@@ -60,7 +61,7 @@ const pageSuffix = p.currentPage > 1 ? ` — pagina ${p.currentPage}` : '';
     )}
 
     <section class="section-products">
-      <div class="container" data-listing data-scope={p.scope} data-base={p.baseUrl} data-total={p.total}>
+      <div class="container" data-listing data-scope={p.scope} data-base={p.baseUrl} data-total={p.total} data-static={p.staticCount ?? p.totalPages}>
         <div class="listing-toolbar">
           <p class="listing-count"><strong>{fmtInt(p.total)}</strong> produse{p.totalPages > 1 && <> · pagina {p.currentPage} din {p.totalPages}</>}</p>
           <label class="listing-sort">
@@ -76,11 +77,11 @@ const pageSuffix = p.currentPage > 1 ? ` — pagina ${p.currentPage}` : '';
         </div>
         <div class="products-grid" data-grid>
           {p.products.map((x, i) => (
-            <ProductCard title={x.title} price={x.price} old_price={x.old_price} brand={x.brand} image={x.image} url={x.url} category={x.cat} merchant={x.merchant} eager={i < 4} />
+            <ProductCard title={x.title} price={x.price} old_price={x.old_price} brand={x.brand} image={x.image} url={x.url} category={x.cat} merchant={x.merchant} sizes={x.sizes} eager={i < 4} />
           ))}
         </div>
         <div data-pager>
-          <Pagination currentPage={p.currentPage} totalPages={p.totalPages} baseUrl={p.baseUrl} />
+          <Pagination currentPage={p.currentPage} totalPages={p.totalPages} baseUrl={p.baseUrl} staticCount={p.staticCount ?? p.totalPages} />
         </div>
       </div>
     </section>

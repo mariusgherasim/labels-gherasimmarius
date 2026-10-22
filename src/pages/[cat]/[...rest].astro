@@ -4,7 +4,7 @@
 //   /gradina-agricultura/drujbe     /gradina-agricultura/drujbe/3
 // + redirecturi pentru vechile URL-uri LabelShop (/etichete, /echipamente, /ambalare, /consumabile)
 import Listing from '../../components/Listing.astro';
-import { CATEGORIES, PER_PAGE, productsInCat, productsInSub, countSub, fmtInt, SITE, type Product } from '../../lib/site';
+import { CATEGORIES, PER_PAGE, staticPages, productsInCat, productsInSub, countSub, fmtInt, SITE, type Product } from '../../lib/site';
 
 export function getStaticPaths() {
   const LEGACY: Record<string, string> = {
@@ -17,19 +17,19 @@ export function getStaticPaths() {
   const pages = (n: number) => Math.max(1, Math.ceil(n / PER_PAGE));
   for (const c of CATEGORIES) {
     const list = productsInCat(c.slug);
-    const tp = pages(list.length);
+    const tp = staticPages(list.length, 'cat');
     for (let i = 1; i <= tp; i++) paths.push({ params: { cat: c.slug, rest: i === 1 ? undefined : String(i) }, props: { kind: 'cat', cat: c.slug, page: i } });
     for (const s of c.subs) {
       const n = productsInSub(c.slug, s.slug).length;
       if (!n) continue;
-      const sp = pages(n);
+      const sp = staticPages(n, 'sub');
       for (let i = 1; i <= sp; i++) paths.push({ params: { cat: c.slug, rest: i === 1 ? s.slug : `${s.slug}/${i}` }, props: { kind: 'sub', cat: c.slug, sub: s.slug, page: i } });
     }
   }
   // vechile URL-uri → redirect spre subcategoria nouă (aceeași pagină)
   for (const [old, target] of Object.entries(LEGACY)) {
     const [, tc, ts] = target.split('/');
-    const tp = pages(productsInSub(tc, ts).length);
+    const tp = staticPages(productsInSub(tc, ts).length, 'sub');
     for (let i = 1; i <= tp; i++) paths.push({ params: { cat: old, rest: i === 1 ? undefined : String(i) }, props: { kind: 'legacy', target: i === 1 ? target : `${target}/${i}` } });
   }
   return paths;
@@ -42,6 +42,7 @@ if (props.kind !== 'legacy') {
   const sub = props.kind === 'sub' ? cat.subs.find(s => s.slug === props.sub)! : null;
   const list: Product[] = sub ? productsInSub(cat.slug, sub.slug) : productsInCat(cat.slug);
   const totalPages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+  const staticCount = staticPages(list.length, sub ? 'sub' : 'cat');
   const page = props.page as number;
   const slice = list.slice((page - 1) * PER_PAGE, page * PER_PAGE);
   const baseUrl = sub ? `/${cat.slug}/${sub.slug}` : `/${cat.slug}`;
@@ -69,6 +70,7 @@ if (props.kind !== 'legacy') {
     total: list.length,
     currentPage: page,
     totalPages,
+    staticCount,
     baseUrl,
     scope: sub ? `${cat.slug}/${sub.slug}` : cat.slug,
     catScope: cat.slug,

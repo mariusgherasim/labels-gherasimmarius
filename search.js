@@ -230,18 +230,19 @@
     }
     async function render(sort, page) {
       grid.classList.add('listing-loading');
-      const list = (await getData()).slice().sort(SORTS[sort]);
+      const list = SORTS[sort] ? (await getData()).slice().sort(SORTS[sort]) : (await getData());
       const total = Math.max(1, Math.ceil(list.length / PER_PAGE));
       page = Math.min(Math.max(1, page), total);
       grid.innerHTML = list.slice((page - 1) * PER_PAGE, page * PER_PAGE).map(cardHTML).join('');
       pager.innerHTML = pagerHTML(page, total);
       count.innerHTML = '<strong>' + list.length.toLocaleString('ro-RO') + '</strong> produse · pagina ' + page + ' din ' + total;
       grid.classList.remove('listing-loading');
-      const u = new URL(location.href); u.searchParams.set('sort', sort); page > 1 ? u.searchParams.set('p', page) : u.searchParams.delete('p');
+      const u = new URL(location.href); sort ? u.searchParams.set('sort', sort) : u.searchParams.delete('sort'); page > 1 ? u.searchParams.set('p', page) : u.searchParams.delete('p');
       history.replaceState(null, '', u);
     }
+    const staticN = +(listing.dataset.static || 0);
     pager.addEventListener('click', (e) => {
-      const b = e.target.closest('[data-p]'); if (!b || !sel.value) return;
+      const b = e.target.closest('[data-p]'); if (!b) return;
       render(sel.value, +b.dataset.p).then(() => listing.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     });
     sel.addEventListener('change', () => {
@@ -249,8 +250,9 @@
       render(sel.value, 1);
     });
     const params = new URLSearchParams(location.search);
-    const s0 = params.get('sort');
-    if (s0 && SORTS[s0]) { sel.value = s0; render(s0, +(params.get('p') || 1)); }
+    const s0 = params.get('sort'), p0 = +(params.get('p') || 1);
+    if (s0 && SORTS[s0]) { sel.value = s0; render(s0, p0); }
+    else if (p0 > 1) { render('', p0); } // pagină peste limita statică (ex: /decoratiuni-textile/covoare?p=200)
   }
 
   // ======================================================================

@@ -1,4 +1,5 @@
 ---
+import { fmt } from '../lib/site';
 export interface Props {
   title: string;
   price: number;
@@ -7,44 +8,31 @@ export interface Props {
   image: string;
   url: string;
   category: string;
+  merchant?: string;
+  eager?: boolean;
 }
-const { title, price, old_price, brand, image, url, category } = Astro.props;
-const discount = old_price && old_price > price
-  ? Math.round(100 - (price / old_price) * 100)
-  : null;
-const formattedPrice = price.toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const formattedOld = old_price ? old_price.toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : null;
+const { title, price, old_price, brand, image, url, category, merchant = '', eager = false } = Astro.props;
+const discount = old_price && old_price > price ? Math.round(100 - (price / old_price) * 100) : null;
 ---
 <article class="product-card">
   {discount && <span class="badge-discount">-{discount}%</span>}
-  <a href={url} target="_blank" rel="nofollow noopener sponsored" class="card-image-link" aria-label={title}>
+  <a href={url} target="_blank" rel="nofollow noopener sponsored" class="card-image-link aff" aria-label={title} data-name={title} data-cat={category}>
     <div class="card-image">
-      <img
-        src={image || '/placeholder.svg'}
-        alt={title}
-        loading="lazy"
-        decoding="async"
-        onerror="this.src='/placeholder.svg'"
-      />
+      <img src={image || '/placeholder.svg'} alt={title} loading={eager ? 'eager' : 'lazy'} decoding="async" onerror="this.onerror=null;this.src='/placeholder.svg'" />
     </div>
   </a>
   <div class="card-body">
     {brand && <span class="card-brand">{brand}</span>}
     <h3 class="card-title">
-      <a href={url} target="_blank" rel="nofollow noopener sponsored">{title}</a>
+      <a href={url} target="_blank" rel="nofollow noopener sponsored" class="aff" data-name={title} data-cat={category}>{title}</a>
     </h3>
     <div class="card-price">
-      <span class="price-current">{formattedPrice} RON</span>
-      {formattedOld && <span class="price-old">{formattedOld} RON</span>}
+      <span class="price-current">{fmt(price)} lei</span>
+      {discount && <span class="price-old">{fmt(old_price as number)} lei</span>}
     </div>
-    <a
-      href={url}
-      target="_blank"
-      rel="nofollow noopener sponsored"
-      class="btn-buy"
-      onclick="gtag('event','affiliate_click',{item_name:'{title}',category:'{category}'});"
-    >
-      Vezi oferta →
+    <a href={url} target="_blank" rel="nofollow noopener sponsored" class="btn-buy aff" data-name={title} data-cat={category}>
+      Vezi oferta <span aria-hidden="true">→</span>
     </a>
+    {merchant && <span class="card-merchant">la {merchant}</span>}
   </div>
 </article>

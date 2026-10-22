@@ -1,142 +1,89 @@
 ---
+import Logo from './Logo.astro';
+import Stickers from './Stickers.astro';
+import { CATEGORIES, countSub, PRODUCTS, MERCHANTS, fmtInt } from '../lib/site';
 const currentPath = Astro.url.pathname;
+const total = PRODUCTS.length;
 ---
 <div class="top-bar">
   <div class="top-bar-inner">
-    <span class="top-bar-left">Consultanță tehnică · Livrare rapidă din stoc · 20+ ani experiență</span>
-    <div class="top-bar-right">
-      <span>Site afiliat <a href="https://www.labelshop.ro" target="_blank" rel="nofollow noopener">labelshop.ro</a></span>
-      <span>via <a href="https://2performant.com" target="_blank" rel="nofollow noopener">2Performant</a></span>
-    </div>
+    <span class="top-bar-left"><strong>{fmtInt(total)}</strong> produse · <strong>{MERCHANTS.length}</strong> magazine românești<span class="tb-extra"> · prețuri actualizate din feed</span></span>
+    <span class="top-bar-right">Site afiliat <a href="https://2performant.com" target="_blank" rel="nofollow noopener">2Performant</a> · <a href="/promotii">Promoții</a> · <a href="/blog">Ghiduri</a></span>
   </div>
 </div>
 
 <header class="site-header">
-  <div class="header-inner" id="header-inner">
-    <a href="/" class="logo" aria-label="LabelShop — acasă">
-      <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect width="36" height="36" rx="8" fill="#E63329"/>
-        <path d="M7 9h13l8 8-8 8H7l8-8-8-8z" fill="white"/>
-      </svg>
-      <span class="logo-text">Label<strong>Shop</strong></span>
-    </a>
-
-    <nav class="main-nav" aria-label="Navigare principală">
-      <ul>
-
-        <!-- ETICHETE -->
-        <li class="nav-item">
-          <a href="/etichete" class={currentPath.startsWith('/etichete') ? 'active' : ''}>
-            Etichete <span class="arrow">▾</span>
-          </a>
-          <div class="dropdown">
-            <a href="/etichete">Etichete în rolă</a>
-            <a href="/etichete">Etichete în coală (A4)</a>
-            <a href="/etichete">Etichete de preț</a>
-            <a href="/etichete">Etichete inkjet</a>
-            <a href="/etichete">Etichete personalizate</a>
-            <span class="dropdown-heading">Categorii speciale</span>
-            <a href="/etichete" class="dropdown-sub">Etichete ocazii și sărbători</a>
-            <a href="/etichete" class="dropdown-sub">Etichete "Handmade"</a>
-            <a href="/etichete" class="dropdown-sub">Etichete HACCP alimente</a>
-            <a href="/etichete" class="dropdown-sub">Etichete promoționale</a>
-            <a href="/etichete" class="dropdown-sub">Etichete logistică</a>
-            <a href="/etichete" class="dropdown-sub">Etichete "Fabricat în"</a>
-            <a href="/etichete" class="dropdown-sub">Etichete sticle</a>
-            <a href="/etichete" class="dropdown-sub">Etichete borcane</a>
-          </div>
-        </li>
-
-        <!-- CONSUMABILE -->
-        <li class="nav-item">
-          <a href="/consumabile" class={currentPath.startsWith('/consumabile') ? 'active' : ''}>
-            Consumabile <span class="arrow">▾</span>
-          </a>
-          <div class="dropdown">
-            <a href="/consumabile">Riboane</a>
-            <a href="/consumabile" class="dropdown-sub">Riboane ceară</a>
-            <a href="/consumabile" class="dropdown-sub">Riboane ceară și rășină</a>
-            <a href="/consumabile" class="dropdown-sub">Riboane rășină</a>
-            <span class="dropdown-heading">Alte consumabile</span>
-            <a href="/consumabile">Hârtie A4, Hârtie copiator</a>
-            <a href="/consumabile">Cartușe și tonere</a>
-            <a href="/consumabile">Capete de imprimare</a>
-            <a href="/consumabile">Consumabile Brother</a>
-          </div>
-        </li>
-
-        <!-- ECHIPAMENTE -->
-        <li class="nav-item">
-          <a href="/echipamente" class={currentPath.startsWith('/echipamente') ? 'active' : ''}>
-            Echipamente <span class="arrow">▾</span>
-          </a>
-          <div class="dropdown">
-            <a href="/echipamente">Imprimante termice etichete</a>
-            <a href="/echipamente" class="dropdown-sub">Transfer Termic — Volum mic</a>
-            <a href="/echipamente" class="dropdown-sub">Transfer Termic — Volum mediu</a>
-            <a href="/echipamente" class="dropdown-sub">Transfer Termic — Volum mare</a>
-            <span class="dropdown-heading">Alte echipamente</span>
-            <a href="/echipamente">Imprimante etichete inkjet color</a>
-            <a href="/echipamente">Imprimante portabile</a>
-            <a href="/echipamente">Accesorii imprimante</a>
-            <a href="/echipamente">Inscripționare și marcare</a>
-            <a href="/echipamente">Aplicatoare și marcatoare</a>
-            <a href="/echipamente">Dispensere și roluitori</a>
-            <a href="/echipamente">Cititoare coduri de bare</a>
-          </div>
-        </li>
-
-        <!-- AMBALARE -->
-        <li class="nav-item">
-          <a href="/ambalare" class={currentPath.startsWith('/ambalare') ? 'active' : ''}>
-            Ambalare & Coletare <span class="arrow">▾</span>
-          </a>
-          <div class="dropdown dropdown-wide">
-            <div class="dropdown-wide-col">
-              <a href="/ambalare">Ambalaje personalizate</a>
-              <a href="/ambalare" class="dropdown-sub">Pungi personalizate</a>
-              <a href="/ambalare">Bandă adezivă</a>
-              <a href="/ambalare">Bandă umectibilă</a>
-              <a href="/ambalare">Cutii de carton</a>
-              <a href="/ambalare" class="dropdown-sub">Cutii clasice</a>
-              <a href="/ambalare" class="dropdown-sub">Cutii cu autoformare</a>
-              <a href="/ambalare" class="dropdown-sub">Cutii pentru pizza</a>
-              <a href="/ambalare" class="dropdown-sub">Cutii e-commerce</a>
-              <a href="/ambalare">Folie stretch și folie cu bule</a>
-              <a href="/ambalare">Eco / Reciclabile</a>
-              <a href="/ambalare">Plasă protecție</a>
-            </div>
-            <div class="dropdown-wide-col">
-              <a href="/ambalare">Plicuri</a>
-              <a href="/ambalare" class="dropdown-sub">Plicuri curierat AWB</a>
-              <a href="/ambalare" class="dropdown-sub">Plicuri de carton</a>
-              <a href="/ambalare" class="dropdown-sub">Plicuri cu bule</a>
-              <a href="/ambalare" class="dropdown-sub">Plicuri ecommerce</a>
-              <a href="/ambalare">Pungi și sacoșe</a>
-              <a href="/ambalare" class="dropdown-sub">Pungi curierat</a>
-              <a href="/ambalare" class="dropdown-sub">Pungi coloane de aer</a>
-              <a href="/ambalare" class="dropdown-sub">Pungi hârtie</a>
-              <a href="/ambalare" class="dropdown-sub">Pungi ziplock cu fermoar</a>
-              <a href="/ambalare">Tuburi de carton</a>
-              <a href="/ambalare">Separatoare carton și colțare</a>
-            </div>
-          </div>
-        </li>
-
-        <li class="nav-item"><a href="/promotii" class={currentPath.startsWith('/promotii') ? 'active' : ''} style="color:var(--red);font-weight:800;">Promoții 🔥</a></li>
-        <li class="nav-item"><a href="/blog" class={currentPath.startsWith('/blog') ? 'active' : ''}>Blog</a></li>
-      </ul>
-    </nav>
-
-    <div class="header-search">
-      <input type="search" id="search-input" placeholder="Caută produse..." autocomplete="off" aria-label="Caută produse" />
-      <div id="search-results" class="search-dropdown" hidden></div>
-    </div>
-
-    <button class="nav-toggle" id="nav-toggle" aria-label="Deschide meniu" aria-expanded="false">
+  <div class="header-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Deschide meniul" aria-expanded="false" aria-controls="mobile-drawer">
       <span></span><span></span><span></span>
     </button>
+    <Logo />
+
+    <div class="header-search" id="header-search">
+      <form action="/cautare" method="get" role="search" class="search-form">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2.2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <input type="search" name="q" id="search-input" placeholder="Caută: drujbă, canapea, cameră IP, etichete…" autocomplete="off" aria-label="Caută produse" />
+        <button type="submit" class="search-submit">Caută</button>
+      </form>
+      <div id="search-panel" class="search-panel" hidden></div>
+    </div>
+
+    <a href="/promotii" class="header-deals">
+      <span class="header-deals-ico" aria-hidden="true">%</span>
+      <span>Promoții</span>
+    </a>
   </div>
+
+  <nav class="cat-bar" aria-label="Categorii">
+    <ul class="cat-bar-list">
+      {CATEGORIES.map(c => {
+        const subs = c.subs.filter(s => !s.hidden);
+        const half = Math.ceil(subs.length / 2);
+        return (
+          <li class="cat-bar-item" style={`--acc:${c.accent}`}>
+            <a href={`/${c.slug}`} class={currentPath.startsWith(`/${c.slug}`) ? 'active' : ''}>
+              <span aria-hidden="true">{c.icon}</span> {c.short}
+            </a>
+            <div class="mega">
+              <div class="mega-head">
+                <a href={`/${c.slug}`} class="mega-title">{c.icon} {c.name} <span>→</span></a>
+                <p>{c.desc}</p>
+              </div>
+              <div class={`mega-cols ${subs.length > 7 ? 'two' : ''}`}>
+                {[subs.slice(0, subs.length > 7 ? half : subs.length), subs.length > 7 ? subs.slice(half) : []].map(col => col.length > 0 && (
+                  <ul>
+                    {col.map(s => (
+                      <li><a href={`/${c.slug}/${s.slug}`}>{s.name} <em>{fmtInt(countSub(c.slug, s.slug))}</em></a></li>
+                    ))}
+                  </ul>
+                ))}
+              </div>
+            </div>
+          </li>
+        );
+      })}
+      <li class="cat-bar-item cat-bar-blog"><a href="/blog" class={currentPath.startsWith('/blog') ? 'active' : ''}>📝 Blog</a></li>
+    </ul>
+  </nav>
+  <Stickers only="top" />
 </header>
 
-<script src="/search.js" defer></script>
+<!-- Meniu mobil -->
+<div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+<aside class="mobile-drawer" id="mobile-drawer" aria-label="Meniu" hidden>
+  <div class="drawer-head">
+    <Logo size={30} />
+    <button class="drawer-close" id="drawer-close" aria-label="Închide meniul">✕</button>
+  </div>
+  <a href="/promotii" class="drawer-deals">🔥 Promoții și reduceri</a>
+  {CATEGORIES.map(c => (
+    <details class="drawer-cat" style={`--acc:${c.accent}`}>
+      <summary><span aria-hidden="true">{c.icon}</span> {c.name}</summary>
+      <ul>
+        <li><a href={`/${c.slug}`}><strong>Toate din {c.short}</strong></a></li>
+        {c.subs.map(s => <li><a href={`/${c.slug}/${s.slug}`}>{s.name}</a></li>)}
+      </ul>
+    </details>
+  ))}
+  <a href="/blog" class="drawer-link">📝 Blog și ghiduri</a>
+</aside>

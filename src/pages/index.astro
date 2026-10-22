@@ -3,203 +3,117 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ProductCard from '../components/ProductCard.astro';
-import products from '../data/products.json';
+import { CATEGORIES, PRODUCTS, MERCHANTS, SITE, productsInCat, countCat, countSub, deals, diverse, discount, fmtInt, type Product } from '../lib/site';
 
-const totalProducts = products.length;
-const etichete  = products.filter(p => p.category === 'etichete');
-const consumabile = products.filter(p => p.category === 'consumabile');
-const echipamente = products.filter(p => p.category === 'echipamente');
-const ambalare  = products.filter(p => p.category === 'ambalare');
+const total = PRODUCTS.length;
+const allDeals = deals();
+const topDeals = diverse(allDeals, 12, 2);
+const maxDisc = Math.max(...allDeals.map(discount));
+const subCount = CATEGORIES.reduce((n, c) => n + c.subs.filter(s => countSub(c.slug, s.slug) > 0).length, 0);
 
-const featured = products.filter(p => p.old_price && p.old_price > p.price).slice(0, 8);
-
-const categories = [
-  { slug: 'etichete', label: 'Etichete autoadezive', count: etichete.length, icon: '🏷️', desc: 'În rolă, în coală A4, HACCP, personalizate, de preț, inkjet' },
-  { slug: 'echipamente', label: 'Echipamente & Imprimante', count: echipamente.length, icon: '🖨️', desc: 'Imprimante termice, inkjet color, aplicatoare, cititoare bare' },
-  { slug: 'ambalare', label: 'Ambalare & Coletare', count: ambalare.length, icon: '📦', desc: 'Cutii carton, plicuri, pungi, folii stretch, bandă adezivă' },
-  { slug: 'consumabile', label: 'Consumabile', count: consumabile.length, icon: '🔧', desc: 'Riboane ceară/rășină, cartușe, capete de imprimare, hârtie' },
-];
+// pentru fiecare categorie: 4 produse variate, întâi cele cu reducere
+const pickFor = (slug: string): Product[] => {
+  const list = productsInCat(slug);
+  const disc = list.filter(p => discount(p) > 0);
+  return diverse([...disc.slice(0, 40), ...list.slice(0, 80)], 4, 1).length >= 4
+    ? diverse([...disc.slice(0, 40), ...list.slice(0, 80)], 4, 1)
+    : diverse([...disc.slice(0, 40), ...list.slice(0, 80)], 4, 4);
+};
 ---
 <Base
-  title="LabelShop — Etichete autoadezive, Imprimante termice, Soluții ambalare | labels.gherasimmarius.com"
-  description={`Soluții complete de etichetare & ambalare: etichete autoadezive în rolă sau coală A4, imprimante termice, riboane, cutii carton, plicuri. Livrare rapidă din stoc. ${totalProducts}+ produse disponibile.`}
+  title={`${SITE.name} — mobilă, grădină, scule, securitate și birou | ${fmtInt(total)} produse`}
+  description={`${SITE.description} ${fmtInt(allDeals.length)} produse la reducere acum.`}
 >
   <Header />
   <main>
-
-    <!-- PROMO STRIP -->
     <div class="promo-strip">
-      <p>🎉 Oferte și promoții constante, nu doar de Black Friday! <a href="/promotii">Vezi promoțiile →</a></p>
+      <p>🔥 <strong>{fmtInt(allDeals.length)}</strong> produse la reducere acum, până la <strong>-{maxDisc}%</strong>. <a href="/promotii">Vezi promoțiile →</a></p>
     </div>
 
-    <!-- HERO -->
     <section class="hero">
-      <div class="hero-inner container">
+      <div class="container hero-inner">
         <div class="hero-text">
-          <p class="hero-eyebrow">Soluții complete de etichetare & ambalare</p>
-          <h1>Etichete autoadezive,<br/><span class="hero-accent">Imprimante termice</span><br/>& Ambalaje</h1>
+          <p class="hero-eyebrow">Casă · Curte · Atelier · Birou</p>
+          <h1>Tot ce-ți trebuie pentru <span class="hero-accent">casă, curte</span> și atelier</h1>
           <p class="hero-desc">
-            Etichete în rolă sau coală A4, imprimante termice pentru orice volum, riboane, cutii carton, plicuri și consumabile — totul dintr-o singură sursă, cu 20+ ani de experiență în tipografie industrială.
+            De la canapele și paturi la drujbe, pompe de apă, camere de supraveghere și etichete pentru firmă —
+            {fmtInt(total)} de produse adunate din {MERCHANTS.length} magazine românești, într-un singur loc, cu prețurile și reducerile lor reale.
           </p>
           <div class="hero-stats">
-            <div class="stat"><strong>{totalProducts}+</strong><span>produse</span></div>
-            <div class="stat"><strong>20+</strong><span>ani experiență</span></div>
-            <div class="stat"><strong>90 zile</strong><span>cookie afiliere</span></div>
-            <div class="stat"><strong>Stoc</strong><span>livrare aceeași zi</span></div>
+            <div class="stat"><strong>{fmtInt(total)}</strong><span>produse</span></div>
+            <div class="stat"><strong>{MERCHANTS.length}</strong><span>magazine</span></div>
+            <div class="stat"><strong>{subCount}</strong><span>tipuri de produse</span></div>
+            <div class="stat"><strong>-{maxDisc}%</strong><span>reducere maximă</span></div>
           </div>
           <div class="hero-cta">
-            <a href="/etichete" class="btn-primary">Etichete autoadezive →</a>
-            <a href="/echipamente" class="btn-secondary">Imprimante termice</a>
+            <a href="/promotii" class="btn-primary">Vezi reducerile →</a>
+            <button type="button" class="btn-secondary" data-open-search>Caută un produs</button>
           </div>
         </div>
-        <div class="hero-visual" aria-hidden="true">
-          <div class="label-roll-visual">
-            <div class="roll-outer"></div>
-            <div class="roll-inner"></div>
-            <div class="roll-label">ETICHETE<span>autoadezive</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CATEGORIES -->
-    <section class="section-categories">
-      <div class="container">
-        <h2>Categorii de produse</h2>
-        <div class="categories-grid">
-          {categories.map(cat => (
-            <a href={`/${cat.slug}`} class="category-card">
-              <div class="cat-icon">{cat.icon}</div>
-              <div class="cat-info">
-                <strong>{cat.label}</strong>
-                <span class="cat-count">{cat.count} produse</span>
-                <p>{cat.desc}</p>
-              </div>
+        <div class="hero-cats">
+          {CATEGORIES.map(c => (
+            <a href={`/${c.slug}`} class="hero-cat" style={`--acc:${c.accent}`}>
+              <span class="hero-cat-ico" aria-hidden="true">{c.icon}</span>
+              <strong>{c.short}</strong>
+              <em>{fmtInt(countCat(c.slug))}</em>
             </a>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- PROMOTII -->
     <section class="section-products">
       <div class="container">
         <div class="section-head">
-          <h2>🔥 Oferte & Promoții</h2>
-          <a href="/promotii" class="see-all">Toate promoțiile →</a>
+          <h2>🔥 Cele mai bune reduceri azi</h2>
+          <a href="/promotii" class="see-all">Toate promoțiile ({fmtInt(allDeals.length)}) →</a>
         </div>
-        <div class="products-grid">
-          {featured.map(p => (
-            <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
-          ))}
+        <div class="products-grid products-grid--6">
+          {topDeals.map((p, i) => <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.cat} merchant={p.merchant} eager={i < 4} />)}
         </div>
       </div>
     </section>
 
-    <!-- ETICHETE -->
-    <section class="section-products section-alt">
-      <div class="container">
-        <div class="section-head">
-          <h2>🏷️ Etichete autoadezive</h2>
-          <a href="/etichete" class="see-all">Toate etichetele ({etichete.length}) →</a>
+    {CATEGORIES.map((c, i) => (
+      <section class={`section-products cat-block ${i % 2 === 0 ? 'section-alt' : ''}`} style={`--acc:${c.accent}`}>
+        <div class="container">
+          <div class="section-head">
+            <h2><span aria-hidden="true">{c.icon}</span> {c.name}</h2>
+            <a href={`/${c.slug}`} class="see-all">Toate ({fmtInt(countCat(c.slug))}) →</a>
+          </div>
+          <div class="cat-block-subs">
+            {c.subs.filter(s => !s.hidden && countSub(c.slug, s.slug) > 0).map(s => (
+              <a href={`/${c.slug}/${s.slug}`} class="sub-chip">{s.name}</a>
+            ))}
+          </div>
+          <div class="products-grid products-grid--4">
+            {pickFor(c.slug).map(p => <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.cat} merchant={p.merchant} />)}
+          </div>
         </div>
-        <div class="products-grid products-grid--4">
-          {etichete.slice(0,4).map(p => (
-            <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+    ))}
 
-    <!-- ECHIPAMENTE -->
-    <section class="section-products">
-      <div class="container">
-        <div class="section-head">
-          <h2>🖨️ Imprimante & Echipamente</h2>
-          <a href="/echipamente" class="see-all">Toate echipamentele ({echipamente.length}) →</a>
-        </div>
-        <div class="products-grid products-grid--4">
-          {echipamente.slice(0,4).map(p => (
-            <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- AMBALARE -->
-    <section class="section-products section-alt">
-      <div class="container">
-        <div class="section-head">
-          <h2>📦 Ambalare & Coletare</h2>
-          <a href="/ambalare" class="see-all">Toate ambalajele ({ambalare.length}) →</a>
-        </div>
-        <div class="products-grid products-grid--4">
-          {ambalare.slice(0,4).map(p => (
-            <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- CONSUMABILE -->
-    <section class="section-products">
-      <div class="container">
-        <div class="section-head">
-          <h2>🔧 Consumabile</h2>
-          <a href="/consumabile" class="see-all">Toate consumabilele ({consumabile.length}) →</a>
-        </div>
-        <div class="products-grid products-grid--4">
-          {consumabile.slice(0,4).map(p => (
-            <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- USP -->
     <section class="usp-strip">
       <div class="container">
         <div class="usp-grid">
-          <div class="usp-item">
-            <span class="usp-icon">🚀</span>
-            <div class="usp-text"><strong>Livrare rapidă din stoc</strong><p>Produsele disponibile expediate în aceeași zi prin curierat rapid</p></div>
-          </div>
-          <div class="usp-item">
-            <span class="usp-icon">🏭</span>
-            <div class="usp-text"><strong>Producție la comandă</strong><p>Etichete personalizate, ambalaje cu logo, în orice volum</p></div>
-          </div>
-          <div class="usp-item">
-            <span class="usp-icon">🔬</span>
-            <div class="usp-text"><strong>Consultanță tehnică</strong><p>Specialiști cu 20+ ani experiență în tipografie industrială</p></div>
-          </div>
-          <div class="usp-item">
-            <span class="usp-icon">🛡️</span>
-            <div class="usp-text"><strong>Soluții complete</strong><p>Etichete + imprimante + riboane + ambalaje dintr-o singură sursă</p></div>
-          </div>
+          <div class="usp-item"><span class="usp-icon">🏪</span><div class="usp-text"><strong>{MERCHANTS.length} magazine, o singură căutare</strong><p>Nu mai deschizi zece taburi ca să găsești o pompă sau un colțar.</p></div></div>
+          <div class="usp-item"><span class="usp-icon">🏷️</span><div class="usp-text"><strong>Prețuri reale</strong><p>Prețurile și reducerile vin direct din feedurile magazinelor.</p></div></div>
+          <div class="usp-item"><span class="usp-icon">🚚</span><div class="usp-text"><strong>Cumperi direct de la magazin</strong><p>Comanda, livrarea și garanția sunt ale magazinului partener.</p></div></div>
+          <div class="usp-item"><span class="usp-icon">📬</span><div class="usp-text"><strong>Oferte pe categorii</strong><p>Abonează-te și primești reducerile care te interesează.</p></div></div>
         </div>
       </div>
     </section>
 
-    <!-- SEO TEXT BLOCK -->
-    <section class="section-products section-alt">
+    <section class="section-products seo-block">
       <div class="container">
-        <div style="max-width:820px;">
-          <h2 style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;margin-bottom:16px;padding-bottom:10px;border-bottom:3px solid var(--yellow);">
-            Etichete autoadezive în rolă sau coală A4, Imprimante termice, Soluții de ambalare
-          </h2>
-          <p style="font-size:0.92rem;line-height:1.8;color:#444;margin-bottom:12px;">
-            LabelShop vă oferă soluții complete de etichetare & ambalare. Găsiți etichete autoadezive fie ca <strong>etichete în rolă</strong>, fie ca <strong>etichete în coală</strong> (etichete autoadezive A4). Se pot comanda etichete albe, etichete prețuri, dar și etichete personalizate în orice formă sau dimensiune.
-          </p>
-          <p style="font-size:0.92rem;line-height:1.8;color:#444;margin-bottom:12px;">
-            Pentru imprimarea internă de etichete autoadezive în rolă personalizate, puteți opta pentru <strong>imprimante de etichete transfer termic</strong> (imprimante termice) sau <strong>imprimante etichete inkjet color</strong>. Aceste imprimante sunt adaptate în funcție de volum și buget, obținând etichete autoadezive imprimate la o culoare sau policromie.
-          </p>
-          <p style="font-size:0.92rem;line-height:1.8;color:#444;">
-            Din gama de echipamente care simplifică procesul de etichetare și ambalare puteți alege: aplicator etichete manual sau semiautomat, marcator prețuri, dispenser etichete simplu sau profesional. Pentru soluții de ambalare și depozitare găsiți plicuri, cutii carton, coltare și tuburi carton, benzi adezive, folii cu bule și folii stretch.
-          </p>
+        <div class="seo-text">
+          <h2>Mobilă, grădină, scule, securitate și etichete — într-un singur loc</h2>
+          <p>{SITE.name} adună produse pentru casă, curte și atelier de la magazine românești specializate. Găsești <a href="/mobila-living/canapele-coltare">canapele și colțare extensibile</a>, <a href="/mobila-living/paturi-dormitor">paturi tapițate</a>, <a href="/mobila-living/mese">mese dining</a> și <a href="/mobila-living/scaune">scaune</a>, dar și tot ce trebuie pentru grădină: <a href="/gradina-agricultura/motocoase">motocoase</a>, <a href="/gradina-agricultura/drujbe">drujbe</a>, <a href="/gradina-agricultura/pompe-apa">pompe de apă</a> și <a href="/gradina-agricultura/irigatii">sisteme de irigare</a>.</p>
+          <p>Pentru atelier și șantier ai <a href="/scule-utilaje/scule-electrice">scule electrice</a> Milwaukee, Hecht sau DeToolz, <a href="/scule-utilaje/utilaje-constructii">utilaje de construcții</a> și piese de schimb. Pentru siguranța casei: <a href="/securitate-smart-home/camere-supraveghere">camere de supraveghere</a> Hikvision și Dahua, <a href="/securitate-smart-home/alarme">sisteme de alarmă</a>, <a href="/securitate-smart-home/videointerfoane">videointerfoane</a> și <a href="/securitate-smart-home/automatizari-porti">automatizări pentru porți</a>.</p>
+          <p>Firmele găsesc în continuare <a href="/birou-etichete-ambalare/etichete">etichete autoadezive</a>, <a href="/birou-etichete-ambalare/imprimante-etichete">imprimante termice</a>, <a href="/birou-etichete-ambalare/consumabile-etichetare">riboane</a>, <a href="/birou-etichete-ambalare/ambalare">ambalaje</a>, imprimante de birou și tonere.</p>
         </div>
       </div>
     </section>
-
   </main>
   <Footer />
 </Base>

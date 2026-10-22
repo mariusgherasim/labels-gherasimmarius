@@ -1,10 +1,14 @@
 ---
+import Stickers from '../components/Stickers.astro';
+import { SITE } from '../lib/site';
 export interface Props {
   title: string;
   description?: string;
   canonical?: string;
+  noindex?: boolean;
+  scope?: string; // categoria curentă (pentru căutare și stickere)
 }
-const { title, description = "Magazinul ambalajelor tale — etichete autoadezive, imprimante termice, ambalaje și accesorii de etichetare la prețuri competitive.", canonical } = Astro.props;
+const { title, description = SITE.description, canonical, noindex = false, scope = '' } = Astro.props;
 const GA_ID = "G-HS59YL4Y3D";
 const GA_LABELS = "G-P66P18C438";
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
@@ -17,13 +21,18 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#1D1F23" />
 
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="SEARCH_CONSOLE_TOKEN" />
 
   <!-- Google Analytics GA4 -->
   <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
-  <script define:vars={{ GA_ID }}>
+  <script define:vars={{ GA_ID, GA_LABELS }}>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -34,15 +43,16 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/style.css?v=2" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
-<body>
+<body data-scope={scope}>
   <slot />
+  <Stickers only="float" />
   <!-- Cookie banner -->
-  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Consimțământ cookie-uri">
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Consimțământ cookie-uri" hidden>
     <p>Acest site folosește cookie-uri analitice (Google Analytics) pentru a înțelege cum este utilizat. <a href="/confidentialitate">Politica de confidențialitate</a></p>
     <div class="cookie-actions">
       <button id="cookie-accept" class="btn-cookie-accept">Accept</button>
@@ -50,5 +60,7 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
     </div>
   </div>
   <script src="/cookie.js" defer></script>
+  <script src="/site.js?v=2" defer></script>
+  <script src="/search.js?v=2" defer></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ import Footer from '../../components/Footer.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import allProducts from '../../data/products.json';
 
-const relatedProducts = allProducts.filter(p => p.category === 'echipamente').slice(0, 4);
+const relatedProducts = allProducts.filter(p => p.sub === 'imprimante-etichete').slice(0, 4);
 const article = {
   title: 'Cum alegi imprimanta termică potrivită pentru afacerea ta',
   date: '2026-09-07',
@@ -14,7 +14,7 @@ const article = {
 };
 ---
 <Base
-  title={`${article.title} | Blog LabelShop`}
+  title={`${article.title} | Blog Casa Atelier`}
   description="Transfer termic sau termic direct? Volum mic, mediu sau mare? Ghid practic pentru alegerea imprimantei de etichete potrivite."
 >
   <Header />
@@ -64,11 +64,11 @@ const article = {
         <div style="margin-top:48px;">
           <div class="section-head">
             <h2>🖨️ Imprimante recomandate</h2>
-            <a href="/echipamente" class="see-all">Toate echipamentele →</a>
+            <a href="/birou-etichete-ambalare/imprimante-etichete" class="see-all">Toate imprimantele →</a>
           </div>
           <div class="products-grid products-grid--4">
             {relatedProducts.map(p => (
-              <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.category} />
+              <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand={p.brand} image={p.image} url={p.url} category={p.cat} merchant={p.merchant} />
             ))}
           </div>
         </div>

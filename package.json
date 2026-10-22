@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "import-feed": "node scripts/import-feed.cjs"
+    "sync": "node scripts/sync-feeds.cjs",
+    "email": "node generate-email.cjs"
   },
   "dependencies": {
     "astro": "^4.16.0",

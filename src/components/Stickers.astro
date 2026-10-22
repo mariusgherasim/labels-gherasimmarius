@@ -1,0 +1,50 @@
+---
+// Stickere cu oferte — prezente pe toate paginile. Se populează din src/data/stickers.json.
+// Filtrarea pe dată și pe categorie se face în browser (site.js), ca să nu fie nevoie de rebuild zilnic.
+import data from '../data/stickers.json';
+type S = { id: string; active?: boolean; position: string; image?: string; title?: string; text?: string; cta?: string; url: string; start?: string; end?: string; scope?: string | string[]; color?: string };
+export interface Props { only: 'top' | 'float' | 'inline' }
+const { only } = Astro.props;
+const list = ((data as any).stickers as S[]).filter(s => s.active !== false && s.url);
+const scopeAttr = (s: S) => Array.isArray(s.scope) ? s.scope.join(',') : (s.scope || 'all');
+const byPos = (pos: string) => list.filter(s => s.position === pos);
+const top = byPos('top'), inline = byPos('inline'), floats = list.filter(s => s.position === 'bottom-left' || s.position === 'bottom-right');
+---
+{only === 'top' && top.map(s => (
+  <div class="sticker sticker-top" data-sticker={s.id} data-start={s.start || ''} data-end={s.end || ''} data-scope={scopeAttr(s)} style={s.color ? `--st:${s.color}` : ''} hidden>
+    <a href={s.url} target="_blank" rel="nofollow noopener sponsored" class="sticker-link aff" data-name={`sticker:${s.id}`} data-cat="sticker">
+      {s.image ? <img src={s.image} alt={s.title || 'Ofertă'} loading="lazy" /> : <span><strong>{s.title}</strong>{' '}{s.text}{' '}<u>{s.cta || 'Vezi oferta'} →</u></span>}
+    </a>
+    <button class="sticker-close" aria-label="Închide">✕</button>
+  </div>
+))}
+
+{only === 'float' && floats.map(s => (
+  <div class={`sticker sticker-float sticker-${s.position}`} data-sticker={s.id} data-start={s.start || ''} data-end={s.end || ''} data-scope={scopeAttr(s)} style={s.color ? `--st:${s.color}` : ''} hidden>
+    <a href={s.url} target="_blank" rel="nofollow noopener sponsored" class="sticker-link aff" data-name={`sticker:${s.id}`} data-cat="sticker">
+      {s.image ? <img src={s.image} alt={s.title || 'Ofertă'} loading="lazy" /> : (
+        <span class="sticker-text"><strong>{s.title}</strong><span>{s.text}</span><u>{s.cta || 'Vezi oferta'} →</u></span>
+      )}
+    </a>
+    <button class="sticker-close" aria-label="Închide">✕</button>
+  </div>
+))}
+
+{only === 'inline' && inline.length > 0 && (
+  <section class="sticker-rail" data-sticker-rail hidden>
+    <div class="container">
+      <h2 class="sticker-rail-title">Oferte speciale</h2>
+      <div class="sticker-rail-grid">
+        {inline.map(s => (
+          <div class="sticker sticker-inline" data-sticker={s.id} data-start={s.start || ''} data-end={s.end || ''} data-scope={scopeAttr(s)} style={s.color ? `--st:${s.color}` : ''} hidden>
+            <a href={s.url} target="_blank" rel="nofollow noopener sponsored" class="sticker-link aff" data-name={`sticker:${s.id}`} data-cat="sticker">
+              {s.image ? <img src={s.image} alt={s.title || 'Ofertă'} loading="lazy" /> : (
+                <span class="sticker-text"><strong>{s.title}</strong><span>{s.text}</span><u>{s.cta || 'Vezi oferta'} →</u></span>
+              )}
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

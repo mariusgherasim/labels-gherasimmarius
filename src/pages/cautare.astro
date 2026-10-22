@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { CATEGORIES, SITE } from '../lib/site';
+---
+<Base title={`Căutare | ${SITE.name}`} description="Caută în toate produsele de pe site." noindex>
+  <Header />
+  <main>
+    <section class="cat-hero">
+      <div class="container">
+        <nav class="crumbs"><a href="/">Acasă</a><span>/</span><span>Căutare</span></nav>
+        <h1 data-search-title>Căutare</h1>
+        <p data-search-lead>Scrie ce cauți în bara de sus.</p>
+      </div>
+    </section>
+    <div class="sub-pills-wrap">
+      <div class="container">
+        <div class="sub-pills" data-search-cats></div>
+      </div>
+    </div>
+    <section class="section-products">
+      <div class="container" data-search-page data-cats={JSON.stringify(CATEGORIES.map(c => ({ slug: c.slug, name: c.short, icon: c.icon })))}>
+        <div class="listing-toolbar">
+          <p class="listing-count" data-search-count>Se încarcă…</p>
+          <label class="listing-sort">
+            <span>Sortează:</span>
+            <select data-search-sort aria-label="Sortează rezultatele">
+              <option value="">Relevanță</option>
+              <option value="discount">Reducere mare</option>
+              <option value="price-asc">Preț crescător</option>
+              <option value="price-desc">Preț descrescător</option>
+            </select>
+          </label>
+        </div>
+        <div class="products-grid" data-grid></div>
+        <div data-pager></div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

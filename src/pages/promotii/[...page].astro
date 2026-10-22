@@ -1,0 +1,29 @@
+---
+import Listing from '../../components/Listing.astro';
+import { PER_PAGE, deals, discount, fmtInt, SITE } from '../../lib/site';
+
+export function getStaticPaths() {
+  const total = deals().length;
+  const tp = Math.max(1, Math.ceil(total / PER_PAGE));
+  return Array.from({ length: tp }, (_, i) => ({ params: { page: i === 0 ? undefined : String(i + 1) }, props: { page: i + 1, tp } }));
+}
+const { page, tp } = Astro.props as { page: number; tp: number };
+const list = deals();
+const maxDisc = Math.max(...list.map(discount));
+const slice = list.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+---
+<Listing
+  seoTitle={`Promoții${page > 1 ? ` — pagina ${page}` : ''}: ${fmtInt(list.length)} produse la reducere | ${SITE.name}`}
+  seoDesc={`${fmtInt(list.length)} produse la reducere, până la -${maxDisc}%: mobilă, scule, grădină, securitate, electrice, etichete. Reducerile sunt preluate direct din feedurile magazinelor.`}
+  h1="Promoții și reduceri"
+  lead={`${fmtInt(list.length)} produse la reducere, până la -${maxDisc}%. Ordonate după cât economisești.`}
+  icon="🔥"
+  accent="#E63329"
+  crumbs={[{ href: '/', label: 'Acasă' }, { label: 'Promoții' }]}
+  products={slice}
+  total={list.length}
+  currentPage={page}
+  totalPages={tp}
+  baseUrl="/promotii"
+  scope="promo"
+/>

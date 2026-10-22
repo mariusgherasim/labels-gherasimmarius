@@ -1,40 +1,45 @@
 ---
+// Paginare: pe desktop se văd până la 19 numere în jurul paginii curente, pe mobil 5.
 export interface Props {
   currentPage: number;
   totalPages: number;
   baseUrl: string;
 }
 const { currentPage, totalPages, baseUrl } = Astro.props;
-const prev = currentPage > 1 ? (currentPage === 2 ? baseUrl : `${baseUrl}/${currentPage - 1}`) : null;
-const next = currentPage < totalPages ? `${baseUrl}/${currentPage + 1}` : null;
+const href = (p: number) => (p === 1 ? baseUrl : `${baseUrl}/${p}`);
+const prev = currentPage > 1 ? href(currentPage - 1) : null;
+const next = currentPage < totalPages ? href(currentPage + 1) : null;
 
-const pages: (number | '...')[] = [];
-for (let i = 1; i <= totalPages; i++) {
-  if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
-    pages.push(i);
-  } else if (pages[pages.length - 1] !== '...') {
-    pages.push('...');
+function windowed(radius: number): (number | '…')[] {
+  let start = Math.max(1, currentPage - radius), end = Math.min(totalPages, currentPage + radius);
+  // păstrează mereu același număr de butoane, chiar la margini
+  const want = radius * 2 + 1;
+  if (end - start + 1 < want) {
+    if (start === 1) end = Math.min(totalPages, start + want - 1);
+    else start = Math.max(1, end - want + 1);
   }
+  const out: (number | '…')[] = [];
+  if (start > 1) { out.push(1); if (start > 2) out.push('…'); }
+  for (let i = start; i <= end; i++) out.push(i);
+  if (end < totalPages) { if (end < totalPages - 1) out.push('…'); out.push(totalPages); }
+  return out;
 }
+const desktop = windowed(9);
+const mobile = windowed(2);
 ---
 {totalPages > 1 && (
   <nav class="pagination" aria-label="Paginare">
-    {prev
-      ? <a href={prev} class="page-btn" aria-label="Pagina anterioară">← Anterior</a>
-      : <span class="page-btn disabled">← Anterior</span>
-    }
-    <div class="page-numbers">
-      {pages.map(p =>
-        p === '...'
-          ? <span class="page-ellipsis">…</span>
-          : p === currentPage
-            ? <span class="page-num active" aria-current="page">{p}</span>
-            : <a href={p === 1 ? baseUrl : `${baseUrl}/${p}`} class="page-num">{p}</a>
-      )}
+    {prev ? <a href={prev} class="page-btn" rel="prev">← <span class="hide-mobile">Anterior</span></a> : <span class="page-btn disabled">← <span class="hide-mobile">Anterior</span></span>}
+    <div class="page-numbers hide-mobile">
+      {desktop.map(p => p === '…' ? <span class="page-ellipsis">…</span>
+        : p === currentPage ? <span class="page-num active" aria-current="page">{p}</span>
+        : <a href={href(p)} class="page-num">{p}</a>)}
     </div>
-    {next
-      ? <a href={next} class="page-btn" aria-label="Pagina următoare">Următor →</a>
-      : <span class="page-btn disabled">Următor →</span>
-    }
+    <div class="page-numbers hide-desktop">
+      {mobile.map(p => p === '…' ? <span class="page-ellipsis">…</span>
+        : p === currentPage ? <span class="page-num active" aria-current="page">{p}</span>
+        : <a href={href(p)} class="page-num">{p}</a>)}
+    </div>
+    {next ? <a href={next} class="page-btn" rel="next"><span class="hide-mobile">Următor</span> →</a> : <span class="page-btn disabled"><span class="hide-mobile">Următor</span> →</span>}
   </nav>
 )}

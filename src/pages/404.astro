@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { CATEGORIES, SITE } from '../lib/site';
+---
+<Base title={`Pagina nu există | ${SITE.name}`} noindex>
+  <Header />
+  <main>
+    <section class="cat-hero">
+      <div class="container">
+        <h1>Pagina nu mai există</h1>
+        <p>Poate produsul a ieșit din stoc sau linkul s-a schimbat. Încearcă o categorie:</p>
+      </div>
+    </section>
+    <section class="section-products">
+      <div class="container">
+        <div class="cat-block-subs">
+          {CATEGORIES.map(c => <a href={`/${c.slug}`} class="sub-chip">{c.icon} {c.name}</a>)}
+          <a href="/promotii" class="sub-chip">🔥 Promoții</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

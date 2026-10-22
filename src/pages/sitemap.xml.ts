@@ -1,33 +1,30 @@
 import type { APIRoute } from 'astro';
-import products from '../data/products.json';
+import { CATEGORIES, PER_PAGE, productsInCat, productsInSub, deals, SITE } from '../lib/site';
 
-const BASE = 'https://labels.gherasimmarius.com';
-const PER_PAGE = 24;
+const BASE = SITE.url;
 
-function pageUrls(slug: string, count: number) {
-  const pages = Math.ceil(count / PER_PAGE);
-  const urls = [`${BASE}/${slug}`];
-  for (let i = 2; i <= pages; i++) urls.push(`${BASE}/${slug}/${i}`);
+function pageUrls(path: string, count: number) {
+  const pages = Math.max(1, Math.ceil(count / PER_PAGE));
+  const urls = [`${BASE}${path}`];
+  for (let i = 2; i <= pages; i++) urls.push(`${BASE}${path}/${i}`);
   return urls;
 }
 
 export const GET: APIRoute = () => {
-  const cats = ['etichete', 'echipamente', 'ambalare', 'consumabile'] as const;
-  const staticPages = [BASE, `${BASE}/confidentialitate`, `${BASE}/promotii`, `${BASE}/blog`, `${BASE}/blog/cum-alegi-imprimanta-termica`];
-  
-  const catPages = cats.flatMap(c => {
-    const count = products.filter(p => p.category === c).length;
-    return pageUrls(c, count);
-  });
-
-  const allUrls = [...staticPages, ...catPages];
+  const staticPages = [BASE, `${BASE}/confidentialitate`, `${BASE}/blog`, `${BASE}/blog/cum-alegi-imprimanta-termica`];
+  const catPages = CATEGORIES.flatMap(c => [
+    ...pageUrls(`/${c.slug}`, productsInCat(c.slug).length),
+    ...c.subs.flatMap(s => {
+      const n = productsInSub(c.slug, s.slug).length;
+      return n ? pageUrls(`/${c.slug}/${s.slug}`, n) : [];
+    }),
+  ]);
+  const promo = pageUrls('/promotii', deals().length);
+  const allUrls = [...staticPages, ...catPages, ...promo];
+  const today = new Date().toISOString().slice(0, 10);
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allUrls.map(url => `  <url>
-    <loc>${url}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>${url === BASE ? '1.0' : '0.8'}</priority>
-  </url>`).join('\n')}
+${allUrls.map(url => `  <url><loc>${url}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${url === BASE ? '1.0' : /\/\d+$/.test(url) ? '0.5' : '0.8'}</priority></url>`).join('\n')}
 </urlset>`;
   return new Response(xml, { headers: { 'Content-Type': 'application/xml' } });
 };

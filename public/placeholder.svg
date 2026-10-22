@@ -1,5 +1,1 @@
-<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="200" height="200" fill="#F7F5F2"/>
-  <rect x="60" y="70" width="80" height="60" rx="4" fill="#E5E3DF"/>
-  <path d="M80 90h40M80 100h30M80 110h20" stroke="#BFBCB8" stroke-width="3" stroke-linecap="round"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><rect width="300" height="300" fill="#F7F5F0"/><path d="M110 150 150 115l40 35M122 146v42h56v-42" stroke="#C9C2B4" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="150" y="226" font-family="Inter,Arial" font-size="15" fill="#9A9488" text-anchor="middle">Imagine indisponibilă</text></svg>

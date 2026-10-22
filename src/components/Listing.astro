@@ -1,0 +1,89 @@
+---
+// Pagină de listare comună: categorie, subcategorie, promoții.
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import ProductCard from './ProductCard.astro';
+import Pagination from './Pagination.astro';
+import { fmtInt, type Product } from '../lib/site';
+
+export interface Props {
+  seoTitle: string;
+  seoDesc: string;
+  h1: string;
+  lead?: string;
+  icon?: string;
+  accent?: string;
+  crumbs: { href?: string; label: string }[];
+  pills?: { href: string; label: string; count?: number; active?: boolean }[];
+  products: Product[];
+  total: number;
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+  scope: string;      // ex: "gradina-agricultura", "gradina-agricultura/drujbe", "promo"
+  catScope?: string;  // categoria (pentru căutare)
+}
+const p = Astro.props;
+const pageSuffix = p.currentPage > 1 ? ` — pagina ${p.currentPage}` : '';
+---
+<Base title={p.seoTitle} description={p.seoDesc} scope={p.catScope || ''}>
+  <Header />
+  <main>
+    <section class="cat-hero" style={p.accent ? `--acc:${p.accent}` : ''}>
+      <div class="container">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          {p.crumbs.map((c, i) => (
+            <>
+              {i > 0 && <span aria-hidden="true">/</span>}
+              {c.href ? <a href={c.href}>{c.label}</a> : <span>{c.label}</span>}
+            </>
+          ))}
+        </nav>
+        <h1>{p.icon && <span class="cat-hero-icon" aria-hidden="true">{p.icon}</span>}{p.h1}<span class="cat-hero-page">{pageSuffix}</span></h1>
+        {p.lead && <p>{p.lead}</p>}
+      </div>
+    </section>
+
+    {p.pills && p.pills.length > 0 && (
+      <div class="sub-pills-wrap">
+        <div class="container">
+          <div class="sub-pills" role="list">
+            {p.pills.map(x => (
+              <a href={x.href} class={`sub-pill ${x.active ? 'active' : ''}`} role="listitem">
+                {x.label}{x.count !== undefined && <em>{fmtInt(x.count)}</em>}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+
+    <section class="section-products">
+      <div class="container" data-listing data-scope={p.scope} data-base={p.baseUrl} data-total={p.total}>
+        <div class="listing-toolbar">
+          <p class="listing-count"><strong>{fmtInt(p.total)}</strong> produse{p.totalPages > 1 && <> · pagina {p.currentPage} din {p.totalPages}</>}</p>
+          <label class="listing-sort">
+            <span>Sortează:</span>
+            <select data-sort aria-label="Sortează produsele">
+              <option value="">Recomandate</option>
+              <option value="discount">Reducere mare</option>
+              <option value="price-asc">Preț crescător</option>
+              <option value="price-desc">Preț descrescător</option>
+              <option value="name">Nume A–Z</option>
+            </select>
+          </label>
+        </div>
+        <div class="products-grid" data-grid>
+          {p.products.map((x, i) => (
+            <ProductCard title={x.title} price={x.price} old_price={x.old_price} brand={x.brand} image={x.image} url={x.url} category={x.cat} merchant={x.merchant} eager={i < 4} />
+          ))}
+        </div>
+        <div data-pager>
+          <Pagination currentPage={p.currentPage} totalPages={p.totalPages} baseUrl={p.baseUrl} />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

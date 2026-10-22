@@ -1,0 +1,31 @@
+{
+  "_cum_se_folosește": [
+    "Adaugi un obiect în lista 'stickers'. Câmpuri:",
+    "id: unic, fără spații (ex: 'milwaukee-noiembrie')",
+    "active: true/false — oprești stickerul fără să-l ștergi",
+    "position: 'bottom-left' | 'bottom-right' (plutitor în colț) | 'top' (bandă sub meniu) | 'inline' (rând de oferte deasupra footerului)",
+    "image: URL banner 2Performant (opțional — fără imagine se afișează varianta text)",
+    "title, text, cta: texte pentru varianta text",
+    "url: linkul de afiliere 2Performant",
+    "start, end: 'AAAA-LL-ZZ' — stickerul apare doar în intervalul ăsta (opțional)",
+    "scope: 'all' sau lista de categorii unde apare, ex: ['gradina-agricultura','scule-utilaje']",
+    "color: culoarea de fundal pentru varianta text (opțional)",
+    "La închidere (✕) stickerul dispare doar pentru pagina curentă — reapare la următoarea pagină."
+  ],
+  "stickers": [
+    {
+      "id": "exemplu-dezactivat",
+      "active": false,
+      "position": "bottom-right",
+      "image": "",
+      "title": "Reduceri de toamnă",
+      "text": "Până la -30% la scule electrice",
+      "cta": "Vezi oferta",
+      "url": "https://event.2performant.com/...",
+      "start": "2026-11-01",
+      "end": "2026-11-30",
+      "scope": "all",
+      "color": "#E63329"
+    }
+  ]
+}

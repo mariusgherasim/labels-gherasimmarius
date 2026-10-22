@@ -1,0 +1,91 @@
+---
+// Toate paginile de categorie și subcategorie, cu paginare:
+//   /gradina-agricultura            /gradina-agricultura/2
+//   /gradina-agricultura/drujbe     /gradina-agricultura/drujbe/3
+// + redirecturi pentru vechile URL-uri LabelShop (/etichete, /echipamente, /ambalare, /consumabile)
+import Listing from '../../components/Listing.astro';
+import { CATEGORIES, PER_PAGE, productsInCat, productsInSub, countSub, fmtInt, SITE, type Product } from '../../lib/site';
+
+export function getStaticPaths() {
+  const LEGACY: Record<string, string> = {
+    etichete: '/birou-etichete-ambalare/etichete',
+    echipamente: '/birou-etichete-ambalare/imprimante-etichete',
+    ambalare: '/birou-etichete-ambalare/ambalare',
+    consumabile: '/birou-etichete-ambalare/consumabile-etichetare',
+  };
+  const paths: any[] = [];
+  const pages = (n: number) => Math.max(1, Math.ceil(n / PER_PAGE));
+  for (const c of CATEGORIES) {
+    const list = productsInCat(c.slug);
+    const tp = pages(list.length);
+    for (let i = 1; i <= tp; i++) paths.push({ params: { cat: c.slug, rest: i === 1 ? undefined : String(i) }, props: { kind: 'cat', cat: c.slug, page: i } });
+    for (const s of c.subs) {
+      const n = productsInSub(c.slug, s.slug).length;
+      if (!n) continue;
+      const sp = pages(n);
+      for (let i = 1; i <= sp; i++) paths.push({ params: { cat: c.slug, rest: i === 1 ? s.slug : `${s.slug}/${i}` }, props: { kind: 'sub', cat: c.slug, sub: s.slug, page: i } });
+    }
+  }
+  // vechile URL-uri → redirect spre subcategoria nouă (aceeași pagină)
+  for (const [old, target] of Object.entries(LEGACY)) {
+    const [, tc, ts] = target.split('/');
+    const tp = pages(productsInSub(tc, ts).length);
+    for (let i = 1; i <= tp; i++) paths.push({ params: { cat: old, rest: i === 1 ? undefined : String(i) }, props: { kind: 'legacy', target: i === 1 ? target : `${target}/${i}` } });
+  }
+  return paths;
+}
+
+const props = Astro.props as any;
+let view: any = null;
+if (props.kind !== 'legacy') {
+  const cat = CATEGORIES.find(c => c.slug === props.cat)!;
+  const sub = props.kind === 'sub' ? cat.subs.find(s => s.slug === props.sub)! : null;
+  const list: Product[] = sub ? productsInSub(cat.slug, sub.slug) : productsInCat(cat.slug);
+  const totalPages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+  const page = props.page as number;
+  const slice = list.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+  const baseUrl = sub ? `/${cat.slug}/${sub.slug}` : `/${cat.slug}`;
+  const name = sub ? sub.name : cat.name;
+  const brands = [...new Set(list.map(p => p.brand).filter(Boolean))].slice(0, 6);
+  const minPrice = Math.min(...list.map(p => p.price));
+  const pageTxt = page > 1 ? ` — pagina ${page}` : '';
+  view = {
+    seoTitle: `${name}${pageTxt} (${fmtInt(list.length)} produse) | ${SITE.name}`,
+    seoDesc: sub
+      ? `${sub.name}: ${fmtInt(list.length)} produse de la ${fmtInt(Math.floor(minPrice))} lei${brands.length ? ` — ${brands.join(', ')}` : ''}. Compară prețuri și reduceri pe ${SITE.name}.`
+      : `${cat.desc} ${fmtInt(list.length)} produse${pageTxt}.`,
+    h1: name,
+    lead: sub ? `${fmtInt(list.length)} produse în ${cat.name}${brands.length ? ` · ${brands.join(', ')}` : ''}` : cat.desc,
+    icon: cat.icon,
+    accent: cat.accent,
+    crumbs: sub
+      ? [{ href: '/', label: 'Acasă' }, { href: `/${cat.slug}`, label: cat.name }, { label: sub.name }]
+      : [{ href: '/', label: 'Acasă' }, { label: cat.name }],
+    pills: [
+      { href: `/${cat.slug}`, label: 'Toate', active: !sub },
+      ...cat.subs.filter(s => countSub(cat.slug, s.slug) > 0).map(s => ({ href: `/${cat.slug}/${s.slug}`, label: s.name, count: countSub(cat.slug, s.slug), active: sub?.slug === s.slug })),
+    ],
+    products: slice,
+    total: list.length,
+    currentPage: page,
+    totalPages,
+    baseUrl,
+    scope: sub ? `${cat.slug}/${sub.slug}` : cat.slug,
+    catScope: cat.slug,
+  };
+}
+---
+{props.kind === 'legacy' ? (
+  <html lang="ro">
+    <head>
+      <meta charset="utf-8" />
+      <title>Pagina s-a mutat</title>
+      <meta http-equiv="refresh" content={`0;url=${props.target}`} />
+      <link rel="canonical" href={new URL(props.target, Astro.site).href} />
+      <meta name="robots" content="noindex" />
+    </head>
+    <body><p>Pagina s-a mutat: <a href={props.target}>{props.target}</a></p></body>
+  </html>
+) : (
+  <Listing {...view} />
+)}

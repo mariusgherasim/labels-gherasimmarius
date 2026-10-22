@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://labels.gherasimmarius.com',
+  site: 'https://casaatelier.website',
   output: 'static',
 });

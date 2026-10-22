@@ -17,7 +17,7 @@ const path = require('path');
 const readline = require('readline');
 
 const ROOT = __dirname;
-const SITE_URL = 'https://labels.gherasimmarius.com';
+const SITE_URL = 'https://casaatelier.website';
 const SITE_NAME = 'Casa Atelier';
 const products = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/products.json'), 'utf8'));
 const CATS = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/categories.json'), 'utf8'));

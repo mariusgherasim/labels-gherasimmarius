@@ -5,8 +5,8 @@ import allProducts from '../data/products.json';
 export const SITE = {
   name: 'Casa Atelier',
   wordmark: ['casa', 'atelier'],
-  domain: 'labels.gherasimmarius.com',
-  url: 'https://labels.gherasimmarius.com',
+  domain: 'casaatelier.website',
+  url: 'https://casaatelier.website',
   tagline: 'Tot ce-ți trebuie pentru casă, curte și atelier',
   description: 'Mobilă, scule, grădină, securitate, electrice, birou și etichete — peste 30.000 de produse de la magazine românești verificate, cu prețuri și reduceri actualizate.',
 };

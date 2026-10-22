@@ -1,6 +1,6 @@
 # Casa Atelier (labels-site): ghid de operare
 
-Site afiliat 2Performant pe Astro (static). Rulează deocamdată pe **https://labels.gherasimmarius.com**.
+Site afiliat 2Performant pe Astro (static). Rulează pe **https://casaatelier.website** (din 22.10.2026; înainte labels.gherasimmarius.com).
 Nume de lucru: **Casa Atelier**. Îl schimbi dintr-un singur loc: `src/lib/site.ts` → `SITE`.
 
 ## Magazine (feeduri 2Performant)
@@ -17,11 +17,12 @@ labelshop.ro · a2t.ro · micul-meserias.ro · mobilalaguna.ro (2 feeduri) · de
    git push origin main
    ```
 
-## Actualizare produse
-1. Descarci feedurile XML din 2Performant și le pui în folderul **`feeds/`**. Numele fișierelor nu contează, magazinul se recunoaște din feed.
-2. Dublu-click pe **sync-feeds.bat** (sau `npm run sync`).
-3. Te uiți la raport. Produsele pe care regulile nu le-au clasificat apar în `feeds/_neclasificate.txt`.
-4. Push cu `git add src/data/products.json public/data` → commit → push.
+## Actualizare produse (zilnic, local, fără GitHub Actions)
+1. Descarci feedurile XML din 2Performant și le pui în folderul **`feeds/`** (le înlocuiești pe cele de ieri). Numele fișierelor nu contează.
+2. Dublu-click pe **sync-si-publica.bat**: sincronizează, verifică build-ul și face push. Dacă ceva dă eroare, nu publică nimic.
+3. Doar sincronizare, fără push: **sync-feeds.bat**.
+4. Produsele neclasificate apar în `feeds/_neclasificate.txt`.
+Workflow-ul automat „Update feed weekly” e dezactivat (fișierul lui din `.github/workflows` e șters).
 
 Feedurile XML nu se urcă pe GitHub (sunt în `.gitignore`).
 

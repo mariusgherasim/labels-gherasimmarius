@@ -33,6 +33,7 @@ function parsePrice(v) {
   return parseFloat(s);
 }
 const suspect = [];
+const repaired = [];
 
 const subKnown = new Set(CATS.flatMap(c => c.subs.map(s => `${c.slug}/${s.slug}`)));
 const hiddenSubs = new Set(CATS.flatMap(c => c.subs.filter(s => s.hidden).map(s => `${c.slug}/${s.slug}`)));
@@ -90,7 +91,7 @@ for (const f of files) {
     st.total++;
     if (String(it.product_active).toLowerCase() === 'false') { st.inactive++; return; }
     const title = decode(it.title);
-    const price = parsePrice(it.price);
+    let price = parsePrice(it.price);
     const url = decode(it.aff_code);
     const image = decode(it.image_urls).split(',').map(s => s.trim()).find(Boolean) || '';
     if (!title || !(price > 0) || !url || !image) return;
@@ -105,7 +106,15 @@ for (const f of files) {
       return;
     }
     let old = parsePrice(it.old_price);
-    const pct = old > price ? Math.round(100 - (price / old) * 100) : 0;
+    let pct = old > price ? Math.round(100 - (price / old) * 100) : 0;
+    // Eroare cunoscută în feedul mobilalaguna: prețul 999,82 vine rupt în două —
+    // old_price = 999 (partea întreagă) și price = 82 (zecimalele). Reconstruim prețul real.
+    if (pct > MAX_DISCOUNT && Number.isInteger(price) && price < 100 && Number.isInteger(old)) {
+      st.repaired = (st.repaired || 0) + 1;
+      repaired.push(`${merchant}\tfeed: ${it.price} / ${it.old_price}\t→ ${(old + price / 100).toFixed(2)} lei\t${title}`);
+      price = Math.round((old + price / 100) * 100) / 100;
+      old = NaN; pct = 0;
+    }
     if (pct > MAX_DISCOUNT) {
       suspect.push(`${merchant}\tpreț ${it.price}\tpreț vechi ${it.old_price}\t-${pct}%\t${title}`);
       st.suspect = (st.suspect || 0) + 1;
@@ -194,6 +203,7 @@ fs.writeFileSync(path.join(ROOT, 'public/data/explore.json'), JSON.stringify(exp
 
 fs.writeFileSync(path.join(FEEDS, '_neclasificate.txt'), unclassified.join('\n'));
 fs.writeFileSync(path.join(FEEDS, '_preturi-suspecte.txt'), suspect.join('\n'));
+fs.writeFileSync(path.join(FEEDS, '_preturi-reparate.txt'), repaired.join('\n'));
 
 // ---------- raport ----------
 console.log('\nMagazin'.padEnd(28), ' total', 'păstrate', 'inactive', 'neclasif.', 'comasate');
@@ -202,5 +212,6 @@ const perCat = {};
 products.forEach(p => { perCat[p.cat] = (perCat[p.cat] || 0) + 1; });
 console.log('\nPe categorii:', perCat);
 console.log(`\nTOTAL: ${products.length} produse · ${Object.keys(explore.brands).length} branduri în panoul de căutare`);
+if (repaired.length) console.log(`🔧 ${repaired.length} prețuri rupte în feed (ex: 999 + 82 → 999,82 lei) au fost reparate → vezi feeds/_preturi-reparate.txt`);
 if (suspect.length) console.log(`⚠ ${suspect.length} produse cu preț suspect (reducere peste ${MAX_DISCOUNT}%) NU au intrat pe site → vezi feeds/_preturi-suspecte.txt`);
 if (unclassified.length) console.log(`⚠ ${unclassified.length} produse neclasificate → vezi feeds/_neclasificate.txt`);

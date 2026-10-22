@@ -107,13 +107,18 @@ for (const f of files) {
     }
     let old = parsePrice(it.old_price);
     let pct = old > price ? Math.round(100 - (price / old) * 100) : 0;
-    // Eroare cunoscută în feedul mobilalaguna: prețul 999,82 vine rupt în două —
-    // old_price = 999 (partea întreagă) și price = 82 (zecimalele). Reconstruim prețul real.
-    if (pct > MAX_DISCOUNT && Number.isInteger(price) && price < 100 && Number.isInteger(old)) {
-      st.repaired = (st.repaired || 0) + 1;
-      repaired.push(`${merchant}\tfeed: ${it.price} / ${it.old_price}\t→ ${(old + price / 100).toFixed(2)} lei\t${title}`);
-      price = Math.round((old + price / 100) * 100) / 100;
-      old = NaN; pct = 0;
+    // Eroare cunoscută în feedul mobilalaguna: prețul vine rupt în două —
+    // old_price = partea întreagă („999.0”, „2.325”, „2,924”) și price = zecimalele („82”, „37”).
+    // Ex: 2.325,37 lei apare ca price=37, old_price=2.325. Reconstruim prețul real.
+    const rawP = String(it.price ?? '').trim(), rawO = String(it.old_price ?? '').trim();
+    if (merchant.includes('mobilalaguna') && /^\d{1,2}(\.0+)?$/.test(rawP) && /\d/.test(rawO)) {
+      const whole = parseInt(rawO.replace(/[.,]0+$/, '').replace(/[^\d]/g, ''), 10);
+      if (whole > 0) {
+        const real = Math.round((whole + parseInt(rawP, 10) / 100) * 100) / 100;
+        st.repaired = (st.repaired || 0) + 1;
+        repaired.push(`${merchant}\tfeed: price=${rawP} old_price=${rawO}\t→ ${real.toFixed(2)} lei\t${title}`);
+        price = real; old = NaN; pct = 0;
+      }
     }
     if (pct > MAX_DISCOUNT) {
       suspect.push(`${merchant}\tpreț ${it.price}\tpreț vechi ${it.old_price}\t-${pct}%\t${title}`);

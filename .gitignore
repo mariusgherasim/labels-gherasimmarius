@@ -28,3 +28,4 @@ feeds/*.xml
 feeds/_neclasificate.txt
 # emailul generat
 email-output.html
+/*.xml

@@ -33,6 +33,9 @@ function parsePrice(v) {
   return parseFloat(s);
 }
 const suspect = [];
+// ultimul preț corect cunoscut per produs — folosit când feedul trimite prețul trunchiat
+const CACHE_FILE = path.join(__dirname, 'price-cache.json');
+const priceCache = fs.existsSync(CACHE_FILE) ? (JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8')).prices || {}) : {};
 const repaired = [];
 
 const subKnown = new Set(CATS.flatMap(c => c.subs.map(s => `${c.slug}/${s.slug}`)));
@@ -107,17 +110,40 @@ for (const f of files) {
     }
     let old = parsePrice(it.old_price);
     let pct = old > price ? Math.round(100 - (price / old) * 100) : 0;
-    // Eroare cunoscută în feedul mobilalaguna: prețul vine rupt în două —
-    // old_price = partea întreagă („999.0”, „2.325”, „2,924”) și price = zecimalele („82”, „37”).
-    // Ex: 2.325,37 lei apare ca price=37, old_price=2.325. Reconstruim prețul real.
+    // Eroare cunoscută în feedul mobilalaguna: prețul vine rupt în două.
+    //   sub 1.000 lei:  999,82   → price=82, old_price=999.0   → reconstruim exact
+    //   peste 1.000 lei: 2.624,40 → price=40, old_price=2.62    → ultima cifră se pierde,
+    //   așa că folosim ultimul preț corect cunoscut (scripts/price-cache.json), dacă se potrivește.
     const rawP = String(it.price ?? '').trim(), rawO = String(it.old_price ?? '').trim();
+    const pid = `${merchant.split('.')[0]}-${it.product_id}`;
     if (merchant.includes('mobilalaguna') && /^\d{1,2}(\.0+)?$/.test(rawP) && /\d/.test(rawO)) {
-      const whole = parseInt(rawO.replace(/[.,]0+$/, '').replace(/[^\d]/g, ''), 10);
-      if (whole > 0) {
-        const real = Math.round((whole + parseInt(rawP, 10) / 100) * 100) / 100;
+      const cents = parseInt(rawP, 10), o = parseFloat(rawO.replace(',', '.'));
+      let real = NaN, how = '';
+      if (o >= 100) { // partea întreagă e completă
+        real = parseInt(rawO.replace(/[.,]0+$/, '').replace(/[^\d]/g, ''), 10) + cents / 100; how = 'exact';
+      } else if (/^\d+[.,]\d{3}$/.test(rawO)) { // „2.624” — mii cu 3 cifre, complet
+        real = Math.round(o * 1000) + cents / 100; how = 'exact';
+      } else if (o > 0) { // „2.62” / „2.4” / „12.3” — trunchiat, căutăm în cache
+        const dec = (rawO.split(/[.,]/)[1] || '').length;          // câte cifre au rămas după punct
+        // feedul ROTUNJEȘTE miile: 1.218 → „1.22”, 2.624 → „2.62”, 2.400 → „2.4”
+        const half = Math.pow(10, 3 - dec) / 2;
+        const lo = o * 1000 - half, hi = o * 1000 + half;
+        const prev = priceCache[pid];
+        if (prev && Math.floor(prev) >= lo && Math.floor(prev) < hi) {
+          if (Math.round((prev % 1) * 100) === cents) { real = prev; how = 'din cache'; }
+          // doar banii s-au schimbat (ex: 1.241,98 → 1.241,99): partea întreagă e cea cunoscută
+          else { real = Math.floor(prev) + cents / 100; how = 'estimat: lei din cache + bani din feed'; }
+        }
+      }
+      if (real > 0) {
+        real = Math.round(real * 100) / 100;
         st.repaired = (st.repaired || 0) + 1;
-        repaired.push(`${merchant}\tfeed: price=${rawP} old_price=${rawO}\t→ ${real.toFixed(2)} lei\t${title}`);
+        repaired.push(`${merchant}\tfeed: price=${rawP} old_price=${rawO}\t→ ${real.toFixed(2)} lei (${how})\t${title}`);
         price = real; old = NaN; pct = 0;
+      } else {
+        suspect.push(`${merchant}\tPREȚ PIERDUT în feed: price=${rawP} old_price=${rawO} (aprox. ${Math.round(o * 1000)},${String(cents).padStart(2, '0')} lei, prețul s-a schimbat față de ultimul cunoscut)\t${title}`);
+        st.suspect = (st.suspect || 0) + 1;
+        return;
       }
     }
     if (pct > MAX_DISCOUNT) {
@@ -149,6 +175,10 @@ for (const f of files) {
   });
   console.log(`✓ ${f}`);
 }
+
+// actualizează cache-ul de prețuri (doar mobilalaguna, unde feedul strică prețurile)
+for (const p of products) if (p.merchant.includes('mobilalaguna')) priceCache[p.id] = p.price;
+fs.writeFileSync(CACHE_FILE, JSON.stringify({ _info: 'Ultimul preț corect cunoscut per produs (mobilalaguna). Se actualizează automat la fiecare sync. Nu-l șterge.', prices: priceCache }));
 
 // ordine stabilă, amestecată între magazine
 products.sort((a, b) => hash(a.id) - hash(b.id));
@@ -218,5 +248,5 @@ products.forEach(p => { perCat[p.cat] = (perCat[p.cat] || 0) + 1; });
 console.log('\nPe categorii:', perCat);
 console.log(`\nTOTAL: ${products.length} produse · ${Object.keys(explore.brands).length} branduri în panoul de căutare`);
 if (repaired.length) console.log(`🔧 ${repaired.length} prețuri rupte în feed (ex: 999 + 82 → 999,82 lei) au fost reparate → vezi feeds/_preturi-reparate.txt`);
-if (suspect.length) console.log(`⚠ ${suspect.length} produse cu preț suspect (reducere peste ${MAX_DISCOUNT}%) NU au intrat pe site → vezi feeds/_preturi-suspecte.txt`);
+if (suspect.length) console.log(`⚠ ${suspect.length} produse cu preț suspect sau pierdut în feed NU au intrat pe site → vezi feeds/_preturi-suspecte.txt`);
 if (unclassified.length) console.log(`⚠ ${unclassified.length} produse neclasificate → vezi feeds/_neclasificate.txt`);

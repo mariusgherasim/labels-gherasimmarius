@@ -497,3 +497,4 @@ mobilalaguna.ro	PREȚ PIERDUT în feed: price=88.0 old_price=4.24 (aprox. 4240,8
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=11.0 old_price=3.12 (aprox. 3120,11 lei, prețul s-a schimbat față de ultimul cunoscut)	Lichidare Set Mobila Bucatarie Italia 260 cm C7
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=7.0 old_price=4.83 (aprox. 4830,07 lei, prețul s-a schimbat față de ultimul cunoscut)	Lichidare Set Mobila Bucatarie Cucina 262 cm C3
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=99.0 old_price=1.83 (aprox. 1830,99 lei, prețul s-a schimbat față de ultimul cunoscut)	Dulap Hol Dublu cu Oglinda Giulia Bej Casmir
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=70.0 old_price=4.1 (aprox. 4100,70 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet mobila dormitor Siena C03 + living Solea Combo Plus bej si stejar

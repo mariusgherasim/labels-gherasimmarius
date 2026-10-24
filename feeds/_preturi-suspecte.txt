@@ -52,7 +52,6 @@ mobilalaguna.ro	PREȚ PIERDUT în feed: price=73.0 old_price=1.17 (aprox. 1170,7
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=50.0 old_price=1.19 (aprox. 1190,50 lei, prețul s-a schimbat față de ultimul cunoscut)	Pat Douglas Tapitat Alb 160x200
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=73.0 old_price=1.17 (aprox. 1170,73 lei, prețul s-a schimbat față de ultimul cunoscut)	Pat Douglas Tapitat Alb 140x200
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=28.0 old_price=1.21 (aprox. 1210,28 lei, prețul s-a schimbat față de ultimul cunoscut)	Pat Douglas Tapitat Alb 180x200
-mobilalaguna.ro	PREȚ PIERDUT în feed: price=5.0 old_price=2.95 (aprox. 2950,05 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie + Living Ferrara / Alb
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=8.0 old_price=1.42 (aprox. 1420,08 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Mobila Bucatarie Mina Pure 220 Alb C49
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=75.0 old_price=1.41 (aprox. 1410,75 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Mobila Bucatarie Mina Pure 200 Alb C48
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=16.0 old_price=1.27 (aprox. 1270,16 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Mobila Bucatarie Mina Pure 140 Alb C47
@@ -129,10 +128,6 @@ mobilalaguna.ro	PREȚ PIERDUT în feed: price=54.0 old_price=3.19 (aprox. 3190,5
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=83.0 old_price=2.97 (aprox. 2970,83 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Mobila Bucatarie Colt Mina Yang 140*300 Ferrara/Alb C143
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=2.0 old_price=2.62 (aprox. 2620,02 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Mobila Bucatarie Colt Mina Yang 180*220 Ferrara/Alb C140
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=93.0 old_price=3.04 (aprox. 3040,93 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Mobila Bucatarie Colt Mina Yang 180*260 Ferrara/Alb C139
-mobilalaguna.ro	PREȚ PIERDUT în feed: price=76.0 old_price=4.18 (aprox. 4180,76 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor + Living Stejar / Alb
-mobilalaguna.ro	PREȚ PIERDUT în feed: price=14.0 old_price=4.34 (aprox. 4340,14 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor + Living Alb
-mobilalaguna.ro	PREȚ PIERDUT în feed: price=46.0 old_price=3.93 (aprox. 3930,46 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor + Living Gri Antracit / K02
-mobilalaguna.ro	PREȚ PIERDUT în feed: price=7.0 old_price=4.6 (aprox. 4600,07 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor + Living Gri Antracit / Alb
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=19.0 old_price=1.08 (aprox. 1080,19 lei, prețul s-a schimbat față de ultimul cunoscut)	Pat Class optional lada de depozitare 160x200 Fara lada
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=38.0 old_price=2.01 (aprox. 2010,38 lei, prețul s-a schimbat față de ultimul cunoscut)	Pat Class optional lada de depozitare 160x200 4 sertare
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=78.0 old_price=1.54 (aprox. 1540,78 lei, prețul s-a schimbat față de ultimul cunoscut)	Pat Class optional lada de depozitare 160x200 2 sertare
@@ -498,3 +493,5 @@ mobilalaguna.ro	PREȚ PIERDUT în feed: price=11.0 old_price=3.12 (aprox. 3120,1
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=7.0 old_price=4.83 (aprox. 4830,07 lei, prețul s-a schimbat față de ultimul cunoscut)	Lichidare Set Mobila Bucatarie Cucina 262 cm C3
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=99.0 old_price=1.83 (aprox. 1830,99 lei, prețul s-a schimbat față de ultimul cunoscut)	Dulap Hol Dublu cu Oglinda Giulia Bej Casmir
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=70.0 old_price=4.1 (aprox. 4100,70 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet mobila dormitor Siena C03 + living Solea Combo Plus bej si stejar
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=35.0 old_price=4.25 (aprox. 4250,35 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor Noce C8 + Living Ontario C1 gri antarcit si lemn
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=20.0 old_price=3.48 (aprox. 3480,20 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet mobila dormitor Siena C01 + living Solea Combo bej si stejar

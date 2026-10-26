@@ -26,6 +26,34 @@
       "end": "2026-11-30",
       "scope": "all",
       "color": "#E63329"
+    },
+    {
+      "id": "havit-printingmall",
+      "active": true,
+      "position": "bottom-right",
+      "image": "",
+      "title": "HAVIT la Printing Mall",
+      "text": "Căști, tastaturi, mouse-uri, boxe și accesorii gaming la prețuri accesibile",
+      "cta": "Vezi produsele HAVIT",
+      "url": "https://event.2performant.com/events/click?ad_type=quicklink&aff_code=676a7e7d9&unique=86b1363ff&redirect_to=https%253A//www.printingmall.ro/2-performant-havit",
+      "start": "",
+      "end": "",
+      "scope": ["birou-etichete-ambalare", "electric-retea"],
+      "color": "#1F5FA8"
+    },
+    {
+      "id": "havit-printingmall-rand",
+      "active": true,
+      "position": "inline",
+      "image": "",
+      "title": "🎧 HAVIT — periferice și audio",
+      "text": "Căști, tastaturi, mouse-uri, boxe, accesorii gaming. Raport bun preț–calitate, la Printing Mall.",
+      "cta": "Vezi oferta HAVIT",
+      "url": "https://event.2performant.com/events/click?ad_type=quicklink&aff_code=676a7e7d9&unique=86b1363ff&redirect_to=https%253A//www.printingmall.ro/2-performant-havit",
+      "start": "",
+      "end": "",
+      "scope": "all",
+      "color": "#1F5FA8"
     }
   ]
 }

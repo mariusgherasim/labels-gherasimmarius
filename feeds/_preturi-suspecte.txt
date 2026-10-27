@@ -495,3 +495,6 @@ mobilalaguna.ro	PREȚ PIERDUT în feed: price=99.0 old_price=1.83 (aprox. 1830,9
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=70.0 old_price=4.1 (aprox. 4100,70 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet mobila dormitor Siena C03 + living Solea Combo Plus bej si stejar
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=35.0 old_price=4.25 (aprox. 4250,35 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor Noce C8 + Living Ontario C1 gri antarcit si lemn
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=20.0 old_price=3.48 (aprox. 3480,20 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet mobila dormitor Siena C01 + living Solea Combo bej si stejar
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=26.0 old_price=5.74 (aprox. 5740,26 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor Auris C09 + Living Nano Combo Plus bej si stejar
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=15.0 old_price=6.17 (aprox. 6170,15 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor Auris C12 + Living Nano Combo bej si stejar
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=95.0 old_price=6.29 (aprox. 6290,95 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor Nara CO6 + Living Silensia C2 UNO bej si stejar

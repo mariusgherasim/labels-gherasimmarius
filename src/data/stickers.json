@@ -54,6 +54,20 @@
       "end": "",
       "scope": "all",
       "color": "#1F5FA8"
+    },
+    {
+      "id": "printingmall-brand",
+      "active": true,
+      "position": "top-right",
+      "image": "",
+      "title": "Tonere compatibile Printing Mall",
+      "text": "Consumabile de printare la prețuri mici, mult sub cele originale",
+      "cta": "Vezi tonerele",
+      "url": "https://event.2performant.com/events/click?ad_type=quicklink&aff_code=676a7e7d9&unique=86b1363ff&redirect_to=https%253A//www.printingmall.ro/printing-mall",
+      "start": "",
+      "end": "",
+      "scope": "all",
+      "color": "#E63329"
     }
   ]
 }

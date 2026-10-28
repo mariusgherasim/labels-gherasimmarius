@@ -1,0 +1,66 @@
+---
+// Pagină de ofertă: tonere compatibile marca Printing Mall + periferice HAVIT (comision 10%)
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { PRODUCTS, SITE, fmt } from '../../lib/site';
+
+const QL = (path: string) => `https://event.2performant.com/events/click?ad_type=quicklink&aff_code=676a7e7d9&unique=86b1363ff&redirect_to=https%253A//www.printingmall.ro/${path}`;
+const BRAND_URL = QL('printing-mall');
+const HAVIT_URL = QL('2-performant-havit');
+
+const brand = PRODUCTS.filter(p => p.merchant === 'printingmall.ro' && /compatibil printing mall/i.test(p.title))
+  .sort((a, b) => a.price - b.price);
+const minPrice = brand.length ? Math.min(...brand.map(p => p.price)) : 0;
+---
+<Base
+  title={`Tonere compatibile Printing Mall de la ${fmt(minPrice)} lei | ${SITE.name}`}
+  description={`${brand.length} cartușe toner compatibile marca Printing Mall pentru Brother, Samsung, Xerox, HP și altele, de la ${fmt(minPrice)} lei. Plus periferice HAVIT: căști, tastaturi, mouse-uri, boxe.`}
+  scope="birou-etichete-ambalare"
+>
+  <Header />
+  <main>
+    <section class="cat-hero" style="--acc:#E63329">
+      <div class="container">
+        <nav class="crumbs"><a href="/">Acasă</a><span>/</span><a href="/birou-etichete-ambalare">Birou, Etichete & Ambalare</a><span>/</span><span>Oferte Printing Mall</span></nav>
+        <h1>🖨️ Tonere compatibile Printing Mall</h1>
+        <p>Consumabile de printare la un preț corect, cu randament de până la 8.000 de pagini, de la <strong style="color:#FFC629">{fmt(minPrice)} lei</strong>. O alternativă mai ieftină la cartușele originale pentru Brother, Samsung, Xerox, HP și alte imprimante.</p>
+        <div class="hero-cta" style="margin-top:18px">
+          <a href={BRAND_URL} target="_blank" rel="nofollow noopener sponsored" class="btn-primary aff" data-name="pm-brand-hero" data-cat="oferta-printingmall">Toate tonerele Printing Mall →</a>
+          <a href={HAVIT_URL} target="_blank" rel="nofollow noopener sponsored" class="btn-secondary aff" data-name="havit-hero" data-cat="oferta-printingmall">Periferice HAVIT</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-products">
+      <div class="container">
+        <div class="section-head">
+          <h2>Cartușe toner compatibile ({brand.length})</h2>
+          <a href={BRAND_URL} target="_blank" rel="nofollow noopener sponsored" class="see-all aff" data-name="pm-brand-all" data-cat="oferta-printingmall">Vezi toată gama pe printingmall.ro →</a>
+        </div>
+        {brand.length > 0 ? (
+          <div class="products-grid">
+            {brand.map((p, i) => <ProductCard title={p.title} price={p.price} old_price={p.old_price} brand="Printing Mall" image={p.image} url={p.url} category={p.cat} merchant={p.merchant} eager={i < 4} />)}
+          </div>
+        ) : (
+          <p>Produsele se actualizează. <a href={BRAND_URL} target="_blank" rel="nofollow noopener sponsored" class="aff">Vezi gama direct pe printingmall.ro →</a></p>
+        )}
+      </div>
+    </section>
+
+    <section class="section-products section-alt">
+      <div class="container">
+        <div class="seo-text">
+          <h2>De ce tonere compatibile?</h2>
+          <p>Un cartuș toner compatibil face aceeași treabă ca unul original, la o fracțiune din preț. Pentru un birou care printează zilnic facturi, oferte sau documente, diferența se vede repede în buget.</p>
+          <p>Înainte să comanzi, verifică <strong>modelul exact al imprimantei</strong> (îl găsești pe față sau pe eticheta din spate) și caută-l în titlul cartușului. Randamentul în pagini e calculat la o acoperire standard de 5%.</p>
+          <h2 style="margin-top:28px">🎧 Periferice HAVIT</h2>
+          <p>Tot la Printing Mall găsești HAVIT: căști, tastaturi, mouse-uri, boxe și accesorii de gaming, cu un raport bun preț–calitate.</p>
+          <p><a href={HAVIT_URL} target="_blank" rel="nofollow noopener sponsored" class="btn-primary aff" data-name="havit-body" data-cat="oferta-printingmall" style="color:#fff;margin-top:6px">Vezi produsele HAVIT →</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

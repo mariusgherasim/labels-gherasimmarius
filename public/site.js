@@ -48,6 +48,11 @@
   document.querySelectorAll('[data-sticker-rail]').forEach((rail) => {
     rail.hidden = !rail.querySelector('[data-sticker]:not([hidden])');
   });
+  // mai multe stickere în același colț de sus → se afișează câte unul, ales la întâmplare la fiecare pagină
+  ['.sticker-top-right', '.sticker-top-left'].forEach((sel) => {
+    const vis = [...document.querySelectorAll(sel + ':not([hidden])')];
+    if (vis.length > 1) { const keep = Math.floor(Math.random() * vis.length); vis.forEach((el, i) => { if (i !== keep) el.hidden = true; }); }
+  });
   // stickere plutitoare sus (top-right / top-left): mereu imediat sub meniu (și sub bara de subcategorii, când e lipită sus)
   const tops = document.querySelectorAll('.sticker-top-right:not([hidden]), .sticker-top-left:not([hidden])');
   if (tops.length) {

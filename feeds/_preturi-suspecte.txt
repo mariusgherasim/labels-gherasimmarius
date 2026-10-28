@@ -498,3 +498,6 @@ mobilalaguna.ro	PREȚ PIERDUT în feed: price=20.0 old_price=3.48 (aprox. 3480,2
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=26.0 old_price=5.74 (aprox. 5740,26 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor Auris C09 + Living Nano Combo Plus bej si stejar
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=15.0 old_price=6.17 (aprox. 6170,15 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor Auris C12 + Living Nano Combo bej si stejar
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=95.0 old_price=6.29 (aprox. 6290,95 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor Nara CO6 + Living Silensia C2 UNO bej si stejar
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=30.0 old_price=3.92 (aprox. 3920,30 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie Gastro C24 si Living Milan C2 UNO Alb Stejar
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=73.0 old_price=4.09 (aprox. 4090,73 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor Auris C02 + Living Solea Combo bej si stejar
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=1.0 old_price=4.77 (aprox. 4770,01 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Dormitor Auris C08 + Living Solea Combo Plus bej si stejar

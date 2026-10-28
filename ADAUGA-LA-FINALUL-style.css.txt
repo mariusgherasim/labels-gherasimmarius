@@ -1,0 +1,9 @@
+
+/* ---------- Stickere plutitoare SUS (top-right / top-left), sub meniu ---------- */
+.sticker-top-right, .sticker-top-left { top: calc(var(--header-h, 120px) + 16px); bottom: auto; }
+.sticker-top-right { right: 18px; }
+.sticker-top-left { left: 18px; }
+@media (max-width: 760px) {
+  .sticker-top-right, .sticker-top-left { top: calc(var(--header-h, 110px) + 10px); max-width: 58vw; }
+  .sticker-top-right { right: 10px; } .sticker-top-left { left: 10px; }
+}

@@ -3,7 +3,7 @@
     "Adaugi un obiect în lista 'stickers'. Câmpuri:",
     "id: unic, fără spații (ex: 'milwaukee-noiembrie')",
     "active: true/false — oprești stickerul fără să-l ștergi",
-    "position: 'bottom-left' | 'bottom-right' (plutitor în colț) | 'top' (bandă sub meniu) | 'inline' (rând de oferte deasupra footerului)",
+    "position: 'top-right' / 'top-left' (plutitor sus, sub meniu) | 'bottom-left' / 'bottom-right' (plutitor jos) | 'top' (bandă sub meniu) | 'inline' (rând de oferte deasupra footerului)",
     "image: URL banner 2Performant (opțional — fără imagine se afișează varianta text)",
     "title, text, cta: texte pentru varianta text",
     "url: linkul de afiliere 2Performant",
@@ -30,7 +30,7 @@
     {
       "id": "havit-printingmall",
       "active": true,
-      "position": "bottom-right",
+      "position": "top-right",
       "image": "",
       "title": "HAVIT la Printing Mall",
       "text": "Căști, tastaturi, mouse-uri, boxe și accesorii gaming la prețuri accesibile",
@@ -38,12 +38,12 @@
       "url": "https://event.2performant.com/events/click?ad_type=quicklink&aff_code=676a7e7d9&unique=86b1363ff&redirect_to=https%253A//www.printingmall.ro/2-performant-havit",
       "start": "",
       "end": "",
-      "scope": ["birou-etichete-ambalare", "electric-retea"],
+      "scope": "all",
       "color": "#1F5FA8"
     },
     {
       "id": "havit-printingmall-rand",
-      "active": true,
+      "active": false,
       "position": "inline",
       "image": "",
       "title": "🎧 HAVIT — periferice și audio",

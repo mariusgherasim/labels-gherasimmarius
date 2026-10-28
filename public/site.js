@@ -48,6 +48,25 @@
   document.querySelectorAll('[data-sticker-rail]').forEach((rail) => {
     rail.hidden = !rail.querySelector('[data-sticker]:not([hidden])');
   });
+  // stickere plutitoare sus (top-right / top-left): mereu imediat sub meniu (și sub bara de subcategorii, când e lipită sus)
+  const tops = document.querySelectorAll('.sticker-top-right:not([hidden]), .sticker-top-left:not([hidden])');
+  if (tops.length) {
+    const pills = document.querySelector('.sub-pills-wrap');
+    const place = () => {
+      let y = header ? header.getBoundingClientRect().bottom : 0;
+      if (pills) { const r = pills.getBoundingClientRect(); if (r.top <= y + 1 && r.bottom > y) y = r.bottom; }
+      const off = { 'top-right': 0, 'top-left': 0 };
+      tops.forEach((el) => {
+        const k = el.classList.contains('sticker-top-left') ? 'top-left' : 'top-right';
+        el.style.top = Math.round(Math.max(y, 0) + 14 + off[k]) + 'px';
+        off[k] += el.offsetHeight + 12;
+      });
+    };
+    place();
+    window.addEventListener('scroll', place, { passive: true });
+    window.addEventListener('resize', place);
+  }
+
   // două stickere în același colț: le așezăm unul peste altul
   ['bottom-left', 'bottom-right'].forEach((pos) => {
     let off = 0;

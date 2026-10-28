@@ -364,3 +364,12 @@ button.page-btn, button.page-num { font: inherit; font-weight: 700; color: inher
 @media (max-width: 560px) { .cookie-banner { flex-direction: column; align-items: stretch; } .cookie-actions > * { flex: 1; } }
 
 body.no-scroll { overflow: hidden; }
+
+/* ---------- Stickere plutitoare SUS (top-right / top-left), sub meniu ---------- */
+.sticker-top-right, .sticker-top-left { top: calc(var(--header-h, 120px) + 16px); bottom: auto; }
+.sticker-top-right { right: 18px; }
+.sticker-top-left { left: 18px; }
+@media (max-width: 760px) {
+  .sticker-top-right, .sticker-top-left { top: calc(var(--header-h, 110px) + 10px); max-width: 58vw; }
+  .sticker-top-right { right: 10px; } .sticker-top-left { left: 10px; }
+}

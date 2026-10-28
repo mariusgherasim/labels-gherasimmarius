@@ -8,7 +8,7 @@ const { only } = Astro.props;
 const list = ((data as any).stickers as S[]).filter(s => s.active !== false && s.url);
 const scopeAttr = (s: S) => Array.isArray(s.scope) ? s.scope.join(',') : (s.scope || 'all');
 const byPos = (pos: string) => list.filter(s => s.position === pos);
-const top = byPos('top'), inline = byPos('inline'), floats = list.filter(s => s.position === 'bottom-left' || s.position === 'bottom-right');
+const top = byPos('top'), inline = byPos('inline'), floats = list.filter(s => ['bottom-left', 'bottom-right', 'top-left', 'top-right'].includes(s.position));
 ---
 {only === 'top' && top.map(s => (
   <div class="sticker sticker-top" data-sticker={s.id} data-start={s.start || ''} data-end={s.end || ''} data-scope={scopeAttr(s)} style={s.color ? `--st:${s.color}` : ''} hidden>

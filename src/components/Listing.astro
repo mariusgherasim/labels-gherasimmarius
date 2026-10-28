@@ -49,9 +49,9 @@ const pageSuffix = p.currentPage > 1 ? ` — pagina ${p.currentPage}` : '';
     {p.pills && p.pills.length > 0 && (
       <div class="sub-pills-wrap">
         <div class="container">
-          <div class="sub-pills" role="list">
+          <div class="sub-pills">
             {p.pills.map(x => (
-              <a href={x.href} class={`sub-pill ${x.active ? 'active' : ''}`} role="listitem">
+              <a href={x.href} class={`sub-pill ${x.active ? 'active' : ''}`}>
                 {x.label}{x.count !== undefined && <em>{fmtInt(x.count)}</em>}
               </a>
             ))}

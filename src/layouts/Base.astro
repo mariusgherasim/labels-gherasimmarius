@@ -52,13 +52,24 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <!-- fonturile se încarcă fără să blocheze afișarea paginii (viteză pe mobil) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=optional" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=optional" /></noscript>
 
-  <link rel="stylesheet" href="/style.css?v=2" />
+  <link rel="stylesheet" href="/style.css?v=3" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- TrustBox script -->
-  <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+  <!-- TrustBox script — se încarcă după ce pagina e afișată, ca să nu încetinească site-ul pe mobil -->
+  <script is:inline>
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var s = document.createElement('script');
+        s.src = 'https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js';
+        s.async = true;
+        document.head.appendChild(s);
+      }, 1200);
+    });
+  </script>
   <!-- End TrustBox script -->
 </head>
 <body data-scope={scope}>
@@ -74,7 +85,7 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
     </div>
   </div>
   <script src="/cookie.js" defer></script>
-  <script src="/site.js?v=2" defer></script>
-  <script src="/search.js?v=2" defer></script>
+  <script src="/site.js?v=3" defer></script>
+  <script src="/search.js?v=3" defer></script>
 </body>
 </html>

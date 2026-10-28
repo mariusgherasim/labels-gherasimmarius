@@ -2,8 +2,8 @@
    Casa Atelier — stil (paleta LabelShop: roșu #E63329, galben #FFC629, grafit)
    ========================================================================== */
 :root {
-  --red: #E63329;
-  --red-dark: #C42820;
+  --red: #D42A20;      /* contrast 5:1 pe alb (accesibilitate); nuanța de brand din logo rămâne #E63329 */
+  --red-dark: #B0221A;
   --yellow: #FFC629;
   --yellow-light: #FFF5D6;
   --charcoal: #1D1F23;
@@ -200,7 +200,7 @@ button { font: inherit; cursor: pointer; }
 
 /* ---------- Promo strip / hero ---------- */
 .promo-strip { background: var(--yellow); text-align: center; padding: 9px 16px; font-size: 14px; color: var(--charcoal); }
-.promo-strip a { font-weight: 800; color: var(--red-dark); text-decoration: none; }
+.promo-strip a { font-weight: 800; color: var(--charcoal); text-decoration: underline; }
 .hero { background: var(--charcoal); color: #fff; padding: 52px 0 56px; position: relative; overflow: hidden; }
 .hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
 .hero-inner { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; position: relative; }
@@ -373,3 +373,19 @@ body.no-scroll { overflow: hidden; }
   .sticker-top-right, .sticker-top-left { top: calc(var(--header-h, 110px) + 10px); max-width: 58vw; }
   .sticker-top-right { right: 10px; } .sticker-top-left { left: 10px; }
 }
+
+/* ---------- Mobil: stickerele de sus devin compacte (nu mai acoperă pagina și nu mai încetinesc LCP) ---------- */
+@media (max-width: 760px) {
+  .sticker-top-right, .sticker-top-left { max-width: 46vw; }
+  .sticker-top-right .sticker-text, .sticker-top-left .sticker-text { padding: 7px 10px; gap: 2px; transform: none; border-radius: 10px; }
+  .sticker-top-right .sticker-text strong, .sticker-top-left .sticker-text strong { font-size: .78rem; line-height: 1.25; }
+  .sticker-top-right .sticker-text span, .sticker-top-left .sticker-text span { display: none; }
+  .sticker-top-right .sticker-text u, .sticker-top-left .sticker-text u { font-size: 11px; padding: 2px 8px; margin-top: 2px; }
+  .sticker-top-right .sticker-close, .sticker-top-left .sticker-close { width: 22px; height: 22px; top: -8px; right: -8px; }
+}
+
+/* ---------- Contrast în footer (accesibilitate) ---------- */
+.site-footer .logo-text strong { color: #FF6B5E; }
+.footer-bottom { color: rgba(255,255,255,.62); }
+.footer-aff { color: rgba(255,255,255,.62); }
+.footer-merchants { color: rgba(255,255,255,.62); }

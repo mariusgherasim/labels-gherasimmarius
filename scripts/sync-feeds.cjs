@@ -17,6 +17,21 @@ const FEEDS = path.join(ROOT, 'feeds');
 const CATS = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/categories.json'), 'utf8'));
 const MIN_DISCOUNT = 5;  // sub 5% reducere nu afișăm preț vechi / badge
 const MAX_DISCOUNT = 80; // peste 80% e aproape sigur o eroare în feed → produsul NU intră pe site
+// Printing Mall trimite prețuri greșite pentru echipamente (imprimante, plottere, scanere, videoproiectoare,
+// distrugătoare): 1,00 lei când nu are preț, sau doar miile (2,0 în loc de 2.489,00 lei). Prețul real nu se
+// poate reconstrui din feed, așa că aceste produse NU intră pe site și sunt notate în _preturi-suspecte.txt.
+// Revin singure când magazinul corectează feedul.
+const PM_EQUIP = /multifunc|imprimant|plotter|scan|videoproiector|distrug|bizhub|imageforce|e-studio|versalink|ecosys|laminator|ecotank (?:l|m|et)\d/i;
+const PM_CONSUM = /flacon|cerneal|toner|cartus|banda|hartie|role|developer|unitate imagine|coli /i;
+const PM_OFFICE = /konica|canon|epson|brother|\bhp\b|xerox|kyocera|toshiba|ricoh|lexmark|sharp|bundle|^set /i;
+function brokenPrice(merchant, title, price) {
+  if (merchant !== 'printingmall.ro') return '';
+  if (price <= 1.01) return `preț fictiv ${price} lei`;
+  if (price < 100 && Number.isInteger(price) && PM_EQUIP.test(title) && !PM_CONSUM.test(title)) return `preț trunchiat ${price} lei (probabil ${price}.xxx lei)`;
+  // piese și seturi de la brandurile mari de birou (unități imagine, bundle-uri): sub 50 lei fără bani = trunchiat
+  if (price < 50 && Number.isInteger(price) && PM_OFFICE.test(title) && !/flacon|cerneal/i.test(title)) return `preț trunchiat ${price} lei (probabil ${price}.xxx lei)`;
+  return '';
+}
 
 // Prețuri în orice format: "998.13", "998,13", "1.412,00", "1,412.00", "1 412,50", "998.13 RON"
 function parsePrice(v) {
@@ -98,6 +113,13 @@ for (const f of files) {
     const url = decode(it.aff_code);
     const image = decode(it.image_urls).split(',').map(s => s.trim()).find(Boolean) || '';
     if (!title || !(price > 0) || !url || !image) return;
+    // prețuri greșite de la Printing Mall (vezi brokenPrice) → nu intră pe site
+    const broken = brokenPrice(merchant, title, price);
+    if (broken) {
+      suspect.push(`${merchant}\t${broken} în feed\t${title}`);
+      st.placeholder = (st.placeholder || 0) + 1;
+      return;
+    }
     if (seen.has(url)) return;
     seen.add(url);
     const category = decode(it.category);

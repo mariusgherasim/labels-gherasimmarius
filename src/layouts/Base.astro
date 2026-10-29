@@ -11,7 +11,6 @@ export interface Props {
 }
 const { title, description = SITE.description, canonical, noindex = false, scope = '' } = Astro.props;
 const GA_ID = "G-HS59YL4Y3D";
-const GA_LABELS = "G-P66P18C438";
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
 ---
 <!DOCTYPE html>
@@ -39,14 +38,29 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
 
   <!-- Google Search Console -->
 
-  <!-- Google Analytics GA4 -->
-  <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
-  <script define:vars={{ GA_ID, GA_LABELS }}>
+  <!-- Google Analytics GA4 — un singur ID (al doilea ID descărca încă 194 KB).
+       gtag.js se încarcă după afișarea paginii sau la prima atingere/derulare;
+       evenimentele de până atunci stau în dataLayer și se trimit, nu se pierd. -->
+  <script define:vars={{ GA_ID }}>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
     gtag('js', new Date());
     gtag('config', GA_ID);
-    gtag('config', GA_LABELS);
+    (function () {
+      var done = false;
+      function loadGA() {
+        if (done) return; done = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+        document.head.appendChild(s);
+      }
+      ['scroll', 'pointerdown', 'keydown', 'touchstart'].forEach(function (e) {
+        window.addEventListener(e, loadGA, { once: true, passive: true });
+      });
+      window.addEventListener('load', function () { setTimeout(loadGA, 1500); });
+    })();
   </script>
 
   <!-- Fonts -->

@@ -192,10 +192,36 @@ function labelshop(cat, t) {
 }
 
 // ---------- printingmall.ro ----------
+// Produsele HAVIT și restul electronicelor (căști, încărcătoare, mouse, proiectoare...) NU se iau de la
+// Printing Mall: pe site apar din feedul HAVIT Romania (decizie 29.10.2026). false = exclus intenționat.
+const PM_NOT_OFFICE = /^electronics > (audio|electronics accessories|video|communications)|^health|^furniture|^luggage|^home & garden/;
 function printingmall(cat, t) {
-  if (/shredder|laminator|stapler/.test(cat)) return [BIR, 'distrugatoare-laminatoare'];
-  if (/consumables|toner|drum|maintenance|ribbon/.test(cat)) return [BIR, 'tonere-cartuse'];
+  if (/havit/.test(t) || PM_NOT_OFFICE.test(cat)) return false;
+  if (/p-touch|aparat de etichetat|imprimant[ae] (termic|de etichete)|etichetator/.test(t)) return [BIR, 'imprimante-etichete'];
+  if (/shredder|laminator|stapler/.test(cat) || /^distrugator|laminator/.test(t)) return [BIR, 'distrugatoare-laminatoare'];
+  if (/ribbon/.test(cat)) return [BIR, 'consumabile-etichetare'];
+  if (/consumables|toner|drum|maintenance/.test(cat)) return [BIR, 'tonere-cartuse'];
+  // seturile „Plotter + Scanner” rămân la imprimante; scanerele simple merg la Scanere
+  if ((/> scanners/.test(cat) || /^[^-]*\bscan+er\b/.test(t)) && !/plotter|multifunc/.test(t)) return [BIR, 'scanere'];
   return [BIR, 'imprimante-birou'];
+}
+
+// ---------- havit-romania.ro ----------
+const HV = 'electronice-gadgeturi';
+const HAVIT = [
+  R(/ingrijire par|aparat de masaj|curatenie casa/, EL, 'electrocasnice-mici'),
+  R(/proiectoare/, HV, 'proiectoare'),
+  R(/cabluri|adaptoare|hub/, HV, 'cabluri-adaptoare'),
+  R(/accesorii mobile|foto & video mobile|suport telefon/, HV, 'incarcatoare-baterii'),
+  R(/gaming/, HV, 'gaming'),
+  R(/audio|casti|boxe/, HV, 'casti-audio'),
+  R(/periferice pc|ghiozdan|laptop/, HV, 'periferice-pc'),
+];
+function havit(cat, t) {
+  // categoria din feed poate avea mai multe căi (separate prin |); luăm cea mai specifică
+  const paths = cat.split('|').map(x => x.replace('toate produsele/', '')).sort((a, b) => b.length - a.length);
+  for (const pth of paths) { const r = first(HAVIT, pth); if (r) return r; }
+  return first(HAVIT, t) || [HV, 'periferice-pc'];
 }
 
 function first(rules, text) {
@@ -218,6 +244,7 @@ function classify(merchant, category, title, subcategory = '') {
   }
   if (m.includes('labelshop')) return labelshop(c, t);
   if (m.includes('printingmall')) return printingmall(c, t);
+  if (m.includes('havit')) return havit(c, t);
   if (m.includes('depozitsolar')) return [CL, 'fotovoltaice'];
   if (m.includes('patuldeacasa')) return [DEC, 'lenjerii-pat'];
   if (m.includes('mobilalaguna') || m.includes('decasamobila')) {

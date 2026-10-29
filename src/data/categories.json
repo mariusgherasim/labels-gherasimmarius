@@ -391,12 +391,46 @@
     ]
   },
   {
+    "slug": "electronice-gadgeturi",
+    "name": "Electronice & Gadgeturi",
+    "short": "Electronice",
+    "icon": "🎧",
+    "accent": "#1F5FA8",
+    "desc": "Căști, boxe, încărcătoare, baterii externe, cabluri, mouse-uri, tastaturi, accesorii gaming și videoproiectoare.",
+    "subs": [
+      {
+        "slug": "casti-audio",
+        "name": "Căști și boxe"
+      },
+      {
+        "slug": "gaming",
+        "name": "Gaming"
+      },
+      {
+        "slug": "incarcatoare-baterii",
+        "name": "Încărcătoare și accesorii telefon"
+      },
+      {
+        "slug": "cabluri-adaptoare",
+        "name": "Cabluri, adaptoare și hub-uri"
+      },
+      {
+        "slug": "periferice-pc",
+        "name": "Periferice PC și laptop"
+      },
+      {
+        "slug": "proiectoare",
+        "name": "Videoproiectoare"
+      }
+    ]
+  },
+  {
     "slug": "birou-etichete-ambalare",
     "name": "Birou, Etichete & Ambalare",
     "short": "Birou & Etichete",
     "icon": "🏷️",
     "accent": "#E63329",
-    "desc": "Etichete autoadezive, imprimante termice, riboane, imprimante de birou, tonere, ambalaje.",
+    "desc": "Etichete autoadezive, imprimante termice, riboane, imprimante și multifuncționale de birou, scanere, tonere, ambalaje.",
     "subs": [
       {
         "slug": "etichete",
@@ -416,7 +450,11 @@
       },
       {
         "slug": "imprimante-birou",
-        "name": "Imprimante și multifuncționale"
+        "name": "Imprimante, multifuncționale și plottere"
+      },
+      {
+        "slug": "scanere",
+        "name": "Scanere de documente"
       },
       {
         "slug": "tonere-cartuse",

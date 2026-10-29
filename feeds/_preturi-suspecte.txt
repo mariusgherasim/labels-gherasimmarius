@@ -156,13 +156,16 @@ printingmall.ro	preț trunchiat 2 lei (probabil 2.xxx lei) în feed	Brother ADS-
 printingmall.ro	preț fictiv 1 lei în feed	HP LaserJet Pro MFP 3302sdw - Multifunctional laser color A4
 printingmall.ro	preț trunchiat 15 lei (probabil 15.xxx lei) în feed	SET Canon imageforce C3126 + Alimentator documente DADF-F1 single pass +Desk S3 + Set tonere CMYK C-EXV 1007
 printingmall.ro	preț trunchiat 3 lei (probabil 3.xxx lei) în feed	Brother MFC-J6975DW - Multifunctional Inkjet color A3
-printingmall.ro	preț trunchiat 3 lei (probabil 3.xxx lei) în feed	Videoproiector Havit PJ800 Plus-EU,1920x1080, Android, 600 ANSI, Auriu
-printingmall.ro	preț trunchiat 3 lei (probabil 3.xxx lei) în feed	Videoproiector Havit PJ228 Plus-EU, 1920x1080, 250 ANSI, Android, Cu baterie, Autofocus, Negru
-printingmall.ro	preț fictiv 1 lei în feed	Videoproiector Havit PJ223 Plus-EU, 1920x1080, 1200 ANSI, Google TV, Negru
-printingmall.ro	preț fictiv 1 lei în feed	Videoproiector Havit PJ220 PRO-EU,1920x1080, 330 ANSI, Android, Autofocus, Negru
-printingmall.ro	preț fictiv 1 lei în feed	Videoproiector PJ209 Plus, 1920x1080, 550 Ansi, Google TV, Negru
-printingmall.ro	preț fictiv 1 lei în feed	Videoproiector PJ300 Plus-EU, 1920x1080, 550 Ansi, Google TV, Negru
-printingmall.ro	preț fictiv 1 lei în feed	Videoproiector PJ209 Pro, 1920x1080, 450 Ansi, Android TV, Alb
+havit-romania.ro	preț trunchiat 3 lei (probabil 3.xxx lei) în feed	Videoproiector Havit PJ800 Plus-EU,1920x1080, Android, 600 ANSI, Auriu
+havit-romania.ro	preț trunchiat 3 lei (probabil 3.xxx lei) în feed	Videoproiector Havit PJ228 Plus-EU, 1920x1080, 250 ANSI, Android, Cu baterie, Autofocus, Negru
+havit-romania.ro	preț trunchiat 2 lei (probabil 2.xxx lei) în feed	Videoproiector Havit PJ223 Plus-EU, 1920x1080, 1200 ANSI, Google TV, Negru
+havit-romania.ro	preț fictiv 1 lei în feed	Videoproiector Havit PJ220 PRO-EU,1920x1080, 330 ANSI, Android, Autofocus, Negru
+havit-romania.ro	preț fictiv 1 lei în feed	Videoproiector PJ209 Plus, 1920x1080, 550 Ansi, Google TV, Negru
+havit-romania.ro	preț fictiv 1 lei în feed	Videoproiector PJ300 Plus-EU, 1920x1080, 550 Ansi, Google TV, Negru
+havit-romania.ro	preț fictiv 1 lei în feed	Scaun Gaming Havit Gamenote GC927, RGB, Ergonomic
+havit-romania.ro	preț fictiv 1 lei în feed	Robot curatare geamuri Havit HCR107Pro, 72W, pulverizare apa, telecomanda, Alb
+havit-romania.ro	preț fictiv 1 lei în feed	Videoproiector PJ209 Pro, 1920x1080, 450 Ansi, Android TV, Alb
+havit-romania.ro	preț fictiv 1 lei în feed	Boxa portabila Bluetooth Havit SK910BT, BT 5.3, 100W, IPX6, Negru
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=26.0 old_price=1.42 (aprox. 1420,26 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Mobila Bucatarie Gastro 160 Alb/Stejar - C21
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=11.0 old_price=1.45 (aprox. 1450,11 lei, prețul s-a schimbat față de ultimul cunoscut)	Living Pati 051 - Mobila Sufragerie Alba
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=99.0 old_price=1.09 (aprox. 1090,99 lei, prețul s-a schimbat față de ultimul cunoscut)	Living Ontario C1 - Mobila sufragerie

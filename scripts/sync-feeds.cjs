@@ -25,7 +25,7 @@ const PM_EQUIP = /multifunc|imprimant|plotter|scan|videoproiector|distrug|bizhub
 const PM_CONSUM = /flacon|cerneal|toner|cartus|banda|hartie|role|developer|unitate imagine|coli /i;
 const PM_OFFICE = /konica|canon|epson|brother|\bhp\b|xerox|kyocera|toshiba|ricoh|lexmark|sharp|bundle|^set /i;
 function brokenPrice(merchant, title, price) {
-  if (merchant !== 'printingmall.ro') return '';
+  if (merchant !== 'printingmall.ro' && merchant !== 'havit-romania.ro') return ''; // același sistem de feed, aceleași erori
   if (price <= 1.01) return `preț fictiv ${price} lei`;
   if (price < 100 && Number.isInteger(price) && PM_EQUIP.test(title) && !PM_CONSUM.test(title)) return `preț trunchiat ${price} lei (probabil ${price}.xxx lei)`;
   // piese și seturi de la brandurile mari de birou (unități imagine, bundle-uri): sub 50 lei fără bani = trunchiat
@@ -113,18 +113,19 @@ for (const f of files) {
     const url = decode(it.aff_code);
     const image = decode(it.image_urls).split(',').map(s => s.trim()).find(Boolean) || '';
     if (!title || !(price > 0) || !url || !image) return;
-    // prețuri greșite de la Printing Mall (vezi brokenPrice) → nu intră pe site
+    if (seen.has(url)) return;
+    seen.add(url);
+    const category = decode(it.category);
+    const subcategory = decode(it.subcategory);
+    const cls = classify(merchant, category, title, subcategory);
+    if (cls === false) { st.excluded = (st.excluded || 0) + 1; return; } // exclus intenționat (ex: HAVIT de la Printing Mall)
+    // prețuri greșite de la Printing Mall / HAVIT (vezi brokenPrice) → nu intră pe site
     const broken = brokenPrice(merchant, title, price);
     if (broken) {
       suspect.push(`${merchant}\t${broken} în feed\t${title}`);
       st.placeholder = (st.placeholder || 0) + 1;
       return;
     }
-    if (seen.has(url)) return;
-    seen.add(url);
-    const category = decode(it.category);
-    const subcategory = decode(it.subcategory);
-    const cls = classify(merchant, category, title, subcategory);
     if (!cls || !subKnown.has(cls.join('/'))) {
       st.noClass++;
       unclassified.push(`${merchant}\t${category}${subcategory ? ' > ' + subcategory : ''}\t${title}`);

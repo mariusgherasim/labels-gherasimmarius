@@ -517,3 +517,5 @@ mobilalaguna.ro	PREȚ PIERDUT în feed: price=48.0 old_price=6.29 (aprox. 6290,4
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=55.0 old_price=4.77 (aprox. 4770,55 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie Linea C27 si Living Solea Combo bej cu stejar
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=11.0 old_price=4.99 (aprox. 4990,11 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie Linea C16 si Living Nano Combo bej cu stejar
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=15.0 old_price=3.95 (aprox. 3950,15 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie Linea C06 si Living Nano bej cu stejar
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=11.0 old_price=3.18 (aprox. 3180,11 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie Mina Grafit C69 si Living Pati 190 Gri Antracit
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=21.0 old_price=3.41 (aprox. 3410,21 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie Mina Dual C96 si Living Pati 114 Gri Antracit Alb

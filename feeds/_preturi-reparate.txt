@@ -662,6 +662,8 @@ mobilalaguna.ro	feed: price=71.0 old_price=634.0	→ 634.71 lei (exact)	Living N
 mobilalaguna.ro	feed: price=98.0 old_price=1.07	→ 1066.98 lei (din cache)	Living Nori C03 - Mobila sufragerie
 mobilalaguna.ro	feed: price=34.0 old_price=1.33	→ 1329.34 lei (din cache)	Living Nori C02 - Mobila sufragerie
 mobilalaguna.ro	feed: price=84.0 old_price=1.22	→ 1224.84 lei (din cache)	Living Nori C01 - Mobila sufragerie
+mobilalaguna.ro	feed: price=88.0 old_price=302.0	→ 302.88 lei (exact)	Lichidare Corp Inferior Azur
+mobilalaguna.ro	feed: price=77.0 old_price=206.0	→ 206.77 lei (exact)	Lichidare Corp Superior Azur
 mobilalaguna.ro	feed: price=84.0 old_price=351.0	→ 351.84 lei (exact)	Lichidare Comoda TV 1600 Azur
 mobilalaguna.ro	feed: price=61.0 old_price=2.06	→ 2059.61 lei (din cache)	Pat Tapitat Adam cu somiera si sertar Bej - Falcone 102
 mobilalaguna.ro	feed: price=44.0 old_price=1.87	→ 1867.44 lei (din cache)	Pat Tapitat Adam cu somiera si sertar Gri - Falcone 21
@@ -3133,7 +3135,6 @@ mobilalaguna.ro	feed: price=45.0 old_price=3.92	→ 3915.45 lei (din cache)	Pat 
 mobilalaguna.ro	feed: price=45.0 old_price=3.92	→ 3915.45 lei (din cache)	Pat Tapitat Lotus tip bubble cu somiera rabatabila si lada de depozitare Gri Inchis - Coral 80 160x200
 mobilalaguna.ro	feed: price=96.0 old_price=414.0	→ 414.96 lei (exact)	Lichidare Living Prestige - Dulap 1U
 mobilalaguna.ro	feed: price=25.0 old_price=262.0	→ 262.25 lei (exact)	Lichidare Living Prestige - Comoda 1004
-mobilalaguna.ro	feed: price=90.0 old_price=277.0	→ 277.90 lei (exact)	Lichidare Living Prestige - Corp inferior
 mobilalaguna.ro	feed: price=95.0 old_price=3.63	→ 3631.95 lei (din cache)	Pat Tapitat Base tip bubble cu somiera rabatabila si lada de depozitare Albastru - Velluto 25 160x200
 mobilalaguna.ro	feed: price=95.0 old_price=3.63	→ 3631.95 lei (din cache)	Pat Tapitat Base tip bubble cu somiera rabatabila si lada de depozitare Roz - Velluto 14 160x200
 mobilalaguna.ro	feed: price=95.0 old_price=3.63	→ 3631.95 lei (din cache)	Pat Tapitat Base tip bubble cu somiera rabatabila si lada de depozitare Verde Inchis - Velluto 27 160x200
@@ -3507,7 +3508,6 @@ mobilalaguna.ro	feed: price=83.0 old_price=3.43	→ 3434.83 lei (din cache)	Set 
 mobilalaguna.ro	feed: price=33.0 old_price=3.03	→ 3025.33 lei (din cache)	Set Mobila Dormitor Bej / Casmir Auris cu oglinzi CO1
 mobilalaguna.ro	feed: price=99.0 old_price=1.37	→ 1365.99 lei (din cache)	Dulap 3U Casmir / Stejar cu oglinda Siena
 mobilalaguna.ro	feed: price=18.0 old_price=935.0	→ 935.18 lei (exact)	Lichidare Living Azur C3 - Mobila sufragerie
-mobilalaguna.ro	feed: price=67.0 old_price=770.0	→ 770.67 lei (exact)	Lichidare Pantofar 4U Sonoma
 mobilalaguna.ro	feed: price=77.0 old_price=4.98	→ 4975.77 lei (din cache)	Set Mobila Dormitor Casmir / Stejar Siena cu oglinzi CO5
 mobilalaguna.ro	feed: price=71.0 old_price=3.33	→ 3325.71 lei (din cache)	Set Mobila Dormitor Casmir / Stejar Siena cu oglinzi CO4
 mobilalaguna.ro	feed: price=39.0 old_price=5.0	→ 5001.39 lei (din cache)	Set Mobila Dormitor Casmir / Stejar Siena cu oglinzi CO3

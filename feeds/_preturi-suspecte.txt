@@ -479,7 +479,6 @@ mobilalaguna.ro	PREȚ PIERDUT în feed: price=99.0 old_price=1.73 (aprox. 1730,9
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=35.0 old_price=1.35 (aprox. 1350,35 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Complet Baie Belure C03
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=72.0 old_price=1.59 (aprox. 1590,72 lei, prețul s-a schimbat față de ultimul cunoscut)	Dulap Haine Usi Glisante, Bej Casmir, 138 cm, Manere Metalice, Nara
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=96.0 old_price=2.7 (aprox. 2700,96 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Mobila Dormitor pe Colt, Bej Casmir, pat incadrat, dulapuri – Nara
-mobilalaguna.ro	PREȚ PIERDUT în feed: price=39.0 old_price=3.9 (aprox. 3900,39 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Living Rosario C8
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=81.0 old_price=4.64 (aprox. 4640,81 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Living Rosario C7
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=54.0 old_price=3.64 (aprox. 3640,54 lei, prețul s-a schimbat față de ultimul cunoscut)	Set Living Rosario C3
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=6.0 old_price=1.12 (aprox. 1120,06 lei, prețul s-a schimbat față de ultimul cunoscut)	Comoda Inalta Rosario Modul A
@@ -519,3 +518,4 @@ mobilalaguna.ro	PREȚ PIERDUT în feed: price=11.0 old_price=4.99 (aprox. 4990,1
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=15.0 old_price=3.95 (aprox. 3950,15 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie Linea C06 si Living Nano bej cu stejar
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=11.0 old_price=3.18 (aprox. 3180,11 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie Mina Grafit C69 si Living Pati 190 Gri Antracit
 mobilalaguna.ro	PREȚ PIERDUT în feed: price=21.0 old_price=3.41 (aprox. 3410,21 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie Mina Dual C96 si Living Pati 114 Gri Antracit Alb
+mobilalaguna.ro	PREȚ PIERDUT în feed: price=14.0 old_price=3.65 (aprox. 3650,14 lei, prețul s-a schimbat față de ultimul cunoscut)	Pachet Mobila Bucatarie Mina Pure C42 si Living Melo C2 UNO Alb

@@ -192,12 +192,54 @@
     ]
   },
   {
+    "slug": "animale-companie",
+    "name": "Animale de companie",
+    "short": "Animale",
+    "icon": "🐾",
+    "accent": "#C9701E",
+    "desc": "Hrană și delicii pentru câini și pisici, nisip, jucării, accesorii, sănătate și igienă, plus acvaristică, păsări, rozătoare și reptile.",
+    "subs": [
+      {
+        "slug": "hrana-caini",
+        "name": "Hrană câini"
+      },
+      {
+        "slug": "hrana-pisici",
+        "name": "Hrană pisici"
+      },
+      {
+        "slug": "accesorii-caini",
+        "name": "Accesorii câini"
+      },
+      {
+        "slug": "nisip-litiere-joaca",
+        "name": "Pisici: nisip, litiere și joacă"
+      },
+      {
+        "slug": "jucarii",
+        "name": "Jucării"
+      },
+      {
+        "slug": "sanatate-igiena",
+        "name": "Sănătate, igienă și îngrijire"
+      },
+      {
+        "slug": "castroane-culcusuri-transport",
+        "name": "Castroane, culcușuri și transport"
+      },
+      {
+        "slug": "acvaristica-pasari-rozatoare",
+        "name": "Acvaristică, păsări, rozătoare și reptile"
+      }
+    ]
+  },
+  {
     "slug": "gradina-agricultura",
     "name": "Grădină & Agricultură",
     "short": "Grădină",
     "icon": "🌱",
     "accent": "#3E8E41",
-    "desc": "Motocoase, drujbe, motocultoare, pompe, irigații, zootehnie și mobilier de terasă.",
+    "desc": "Motocoase, drujbe, motocultoare, pompe, irigații, zootehnie, fermă și combatere dăunători, mobilier de terasă.",
     "subs": [
       {
         "slug": "motocoase",
@@ -236,16 +278,16 @@
         "name": "Zootehnie"
       },
       {
+        "slug": "ferma-combatere-daunatori",
+        "name": "Fermă și combatere dăunători"
+      },
+      {
         "slug": "mori-cereale",
         "name": "Mori de cereale și uruială"
       },
       {
         "slug": "curte-terasa",
         "name": "Mobilier grădină, terasă, piscine"
-      },
-      {
-        "slug": "animale-companie",
-        "name": "Animale de companie"
       }
     ]
   },

@@ -8,11 +8,11 @@ const norm = (s) => String(s || '')
   .normalize('NFD').replace(/[̀-ͯ]/g, '')
   .replace(/&amp;/g, '&');
 
-const R = (re, cat, sub) => ({ re, cat, sub });
+const R = (re, cat, sub, need) => ({ re, cat, sub, need });
 const MOB = 'mobila-living', EL = 'electrocasnice-curatenie', GR = 'gradina-agricultura',
   SC = 'scule-utilaje', CL = 'clima-energie', SEC = 'securitate-smart-home',
   ER = 'electric-retea', BIR = 'birou-etichete-ambalare',
-  DEC = 'decoratiuni-textile', BUC = 'bucatarie-servire';
+  DEC = 'decoratiuni-textile', BUC = 'bucatarie-servire', PET = 'animale-companie';
 
 // ---------- Mobilă (mobilalaguna, decasamobilaitalia, patuldeacasa) ----------
 const FURNITURE_TITLE_FIRST = [
@@ -49,7 +49,7 @@ const MEZONI = [
   R(/craciun|paste/, DEC, 'craciun'),
   R(/^copii > (jucarii|plimbare|accesorii|imbracaminte)/, MOB, 'camera-copiilor'),
   R(/^copii > (lenjerii|pilote|perne|saltele|covoare|draperii|mobilier)/, MOB, 'camera-copiilor'),
-  R(/caini|pisici/, GR, 'animale-companie'),
+  R(/caini|pisici/, PET, '?'), // sub-ul se alege după titlu (PET_TITLE)
   R(/^gradina > iluminat/, ER, 'iluminat'),
   R(/^gradina > (aparate de spalat|unelte|masini tuns|motosape)/, GR, 'unelte-gradina'),
   R(/^gradina > gratare/, GR, 'curte-terasa'),
@@ -87,6 +87,39 @@ const MEZONI = [
   R(/paturi|mobila dormitor/, MOB, 'paturi-dormitor'),
   R(/^mobilier/, MOB, 'living-sufragerie'),
 ];
+
+// ---------- petmart.ro (categoria din feed: „Hrana Uscata Caini”, „Nisip Igienic”...) ----------
+// Ordinea contează: ferma/dăunătorii → acvaristică și animale mici → jucării → sănătate → hrană → restul.
+const PETMART = [
+  R(/combatere|capcane|insecticide|fungicide|moluscocide|fertilizanti plante|solutii (repelente|atractante)|\bferma\b|bovine|ovine|suine|\bcai\b|furaje|accesorii ferma/, GR, 'ferma-combatere-daunatori'),
+  R(/^jucarii|jucarii /, PET, 'jucarii'),
+  R(/pesti|acvari|iaz|reptile|terari|betta|ciclide|carasi|\bco2\b|filtr|pompe|reactoare|pietre aer|nisip si (pietris|aragonit)|sare marina|refractometre|densimetre|aditivi|bacterii|alge|fertilizare|lampi led|becuri uv|incalzitoare|termometre|hidrometre|ventuze|razuitoare|magneti|silicon|robineti|garnituri|furtunuri|aspiratoare|plase si minciog|decoruri|radacini|cocos|vermiculita|pamant|teste|truse|controlere|electrozi|calibrare|electrovalve|valve|fitinguri|compresoare|piese schimb|masa filtranta|materiale filtrante|bureti|pad acvarii|impotriva|breeding|remediere|intretinere|incalzire si racire|hrana (granule|fulgi|peleti|tablete|stick|wafers|naturala|speciala|de crestere|crestere|complementara|pentru)|accesorii (sticla|ceramice|diverse iluminare)|pasari|colivii|cuiburi|rozatoare|hranitoare\/ dozatoare|hranitoare automate/, PET, 'acvaristica-pasari-rozatoare'),
+  R(/farmacie|antiparazit|paraziti|suplimente|vitamine|imunostimul|afectiuni|antiinflam|antibiotice|calmante|oftalmolog|otice|dermatolog|antidiareice|suport sistem|^igiena|diverse igiena|igiena (ochi|dentara|orala|casa|adapost)|sampoane|balsamuri|parfumuri|cosmetica|periaj|forfecute|intre spalari|feromoni|covoare absorbante/, PET, 'sanatate-igiena'),
+  R(/caini|catei/, PET, 'hrana-caini', /hrana|delicii|diete|lapte/),
+  R(/pisici/, PET, 'hrana-pisici', /hrana|delicii|diete|lapte/),
+  R(/nisip igienic|litier|centre de joaca|culcusuri si saltele - pisici/, PET, 'nisip-litiere-joaca'),
+  R(/castroane|hranitoare|adapatoare|culcus|perne|paturi|cosuri|transport|custi|accesorii custi/, PET, 'castroane-culcusuri-transport'),
+  R(/zgarzi|lese|hamuri|botnite|fashion|hainute|accesorii auto|accesorii curte|dresaj|fluiere|clickere|fraie/, PET, 'accesorii-caini'),
+];
+// după titlu (petmart „General” / „Diverse”, plus produsele pentru animale de la mezoni)
+const PET_TITLE = [
+  R(/jucari|minge|frisbee|sisal/, PET, 'jucarii'),
+  R(/hrana|conserv|plic|delici|recompens|snack/, PET, 'hrana-caini'),
+  R(/nisip|litier/, PET, 'nisip-litiere-joaca'),
+  R(/sampon|perie|pieptan|antiparazit|vitamin|supliment/, PET, 'sanatate-igiena'),
+  R(/castron|bol |hranitoare|adapator|culcus|pat |perna|saltea|cusca|geanta|transport/, PET, 'castroane-culcusuri-transport'),
+  R(/zgard|lesa|ham |hamuri|botnit|haina|haine|pelerin/, PET, 'accesorii-caini'),
+];
+function petmart(c, t) {
+  for (const r of PETMART) {
+    if (!r.re.test(c)) continue;
+    if (r.need && !r.need.test(c)) continue;
+    return [r.cat, r.sub];
+  }
+  const r = first(PET_TITLE, t);
+  if (r && r[1] === 'hrana-caini' && /pisic/.test(t)) return [PET, 'hrana-pisici'];
+  return r || [PET, 'castroane-culcusuri-transport'];
+}
 
 // ---------- paa-home.ro ----------
 const PAA = [
@@ -240,9 +273,11 @@ function classify(merchant, category, title, subcategory = '') {
   const m = norm(merchant), c = norm(category), t = norm(title);
   if (m.includes('mezoni')) {
     const r = first(MEZONI, norm(category + (subcategory ? ' > ' + subcategory : '')));
+    if (r && r[0] === PET) { const p = first(PET_TITLE, t) || [PET, 'castroane-culcusuri-transport']; return p[1] === 'hrana-caini' && /pisic/.test(t) ? [PET, 'hrana-pisici'] : p; }
     return r && r[0] ? r : null; // null = produs care nu intră pe site (ex: îngrijire personală, genți)
   }
   if (m.includes('labelshop')) return labelshop(c, t);
+  if (m.includes('petmart')) return petmart(c, t);
   if (m.includes('printingmall')) return printingmall(c, t);
   if (m.includes('havit')) return havit(c, t);
   if (m.includes('depozitsolar')) return [CL, 'fotovoltaice'];

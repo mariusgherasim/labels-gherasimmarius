@@ -73,6 +73,14 @@ Le adaugi în `src/data/stickers.json`. Instrucțiunile sunt chiar în fișier. 
 - Regula hook: subiectele au cifre și întrebări retorice. Verifică-le înainte de trimitere.
 - Emailurile Etichete merg pe lista de firme. Mobila, grădina etc. sunt B2C, deci vezi pe ce grup MailerLite trimiți.
 
+## Petmart → categoria „Animale de companie” (adăugat 03.11.2026)
+- Feed: `feed_15b6d6260.xml` (petmart.ro, ~12.700 produse, ~9.000 active). Link în My feeds: `https://api.2performant.com/feed/15b6d6260.xml`. E trecut și în `sites.json` (folderul DESCARCARE AUTOMATA FEEDURI).
+- Categoria nouă `animale-companie` (🐾), cu 8 subcategorii: hrană câini, hrană pisici, accesorii câini, pisici (nisip, litiere și joacă), jucării, sănătate/igienă/îngrijire, castroane/culcușuri/transport, acvaristică/păsări/rozătoare/reptile.
+- Produsele de fermă și combaterea dăunătorilor de la Petmart merg în **Grădină & Agricultură → Fermă și combatere dăunători** (subcategorie nouă).
+- Reguli: `PETMART` + `PET_TITLE` în `scripts/classify.cjs` (după categoria din feed; titlul e plan de rezervă).
+- Subcategoria veche `gradina-agricultura/animale-companie` (câteva produse Mezoni) a fost scoasă. Produsele Mezoni pentru câini/pisici merg acum în noua categorie, după titlu.
+- Variantele de gramaj (370 g / 12 kg) rămân produse separate. Dacă devin prea multe, le putem comasa ca la covoarele Mezoni (`COLLAPSE` în sync-feeds.cjs).
+
 ## Fișiere cheie
 | Fișier | Rol |
 |---|---|

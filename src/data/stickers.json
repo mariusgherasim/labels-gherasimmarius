@@ -68,6 +68,37 @@
       "end": "",
       "scope": "all",
       "color": "#E63329"
+    },
+    {
+      "id": "mobilalaguna-bf-banner",
+      "active": true,
+      "position": "inline",
+      "image": "https://img.2performant.com/system/paperclip/banner_pictures/pics/274105/original/274105.jpg",
+      "title": "Super Reduceri la mobilă și canapele — Mobila Laguna",
+      "text": "",
+      "cta": "Vezi ofertele",
+      "url": "https://event.2performant.com/events/click?ad_type=banner&unique=2b22f3332&aff_code=676a7e7d9&campaign_unique=bb24d9ce5",
+      "start": "2026-11-03",
+      "end": "2026-11-30",
+      "scope": "all",
+      "color": "#7A4E2D"
+    },
+    {
+      "id": "mobilalaguna-bf-sticker",
+      "active": true,
+      "position": "bottom-left",
+      "image": "",
+      "title": "Super Reduceri Mobila Laguna",
+      "text": "Dormitoare, canapele, colțare, living și bucătării, direct de la producător (Maramureș, din 1994). Livrare gratuită* în 4–10 zile lucrătoare.",
+      "cta": "Vezi reducerile",
+      "url": "https://event.2performant.com/events/click?ad_type=quicklink&aff_code=676a7e7d9&unique=bb24d9ce5&redirect_to=https%253A//mobilalaguna.ro/super-reduceri-la-mobila-si-canapele/",
+      "start": "2026-11-03",
+      "end": "2026-11-30",
+      "scope": [
+        "mobila-living",
+        "decoratiuni-textile"
+      ],
+      "color": "#7A4E2D"
     }
   ]
 }

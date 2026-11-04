@@ -99,6 +99,20 @@
         "decoratiuni-textile"
       ],
       "color": "#7A4E2D"
-    }
+    },
+    {
+  "id": "paa-blackfriday-2026",
+  "active": true,
+  "position": "top",
+  "image": "",
+  "title": "Black Friday PAA-home: -25% până la -50%",
+  "text": "la peste 1.000 de accesorii pentru aspiratoare · 13–15 noiembrie",
+  "cta": "Vezi reducerile",
+  "url": "https://event.2performant.com/events/click?ad_type=quicklink&aff_code=676a7e7d9&unique=2c9f51768&redirect_to=https%253A//paa-home.ro/black-friday/",
+  "start": "2026-11-13",
+  "end": "2026-11-15",
+  "scope": "all",
+  "color": "#111111"
+  }
   ]
 }

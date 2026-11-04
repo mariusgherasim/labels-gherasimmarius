@@ -6,6 +6,7 @@ import Footer from './Footer.astro';
 import ProductCard from './ProductCard.astro';
 import Pagination from './Pagination.astro';
 import { fmtInt, type Product } from '../lib/site';
+import { collectionPage } from '../lib/seo';
 
 export interface Props {
   seoTitle: string;
@@ -27,8 +28,10 @@ export interface Props {
 }
 const p = Astro.props;
 const pageSuffix = p.currentPage > 1 ? ` — pagina ${p.currentPage}` : '';
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const jsonld = collectionPage({ name: p.h1 + pageSuffix, description: p.seoDesc, url: pageUrl, crumbs: p.crumbs });
 ---
-<Base title={p.seoTitle} description={p.seoDesc} scope={p.catScope || ''}>
+<Base title={p.seoTitle} description={p.seoDesc} scope={p.catScope || ''} jsonld={jsonld}>
   <Header />
   <main>
     <section class="cat-hero" style={p.accent ? `--acc:${p.accent}` : ''}>

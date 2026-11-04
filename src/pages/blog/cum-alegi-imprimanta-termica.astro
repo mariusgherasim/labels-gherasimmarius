@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import allProducts from '../../data/products.json';
+import { blogPosting } from '../../lib/seo';
 
 const relatedProducts = allProducts.filter(p => p.sub === 'imprimante-etichete').slice(0, 4);
 const article = {
@@ -12,10 +13,13 @@ const article = {
   category: 'Ghiduri',
   readTime: '5 min',
 };
+const desc = 'Transfer termic sau termic direct? Volum mic, mediu sau mare? Ghid practic pentru alegerea imprimantei de etichete potrivite.';
+const jsonld = blogPosting({ title: article.title, description: desc, url: new URL(Astro.url.pathname, Astro.site).href, date: article.date });
 ---
 <Base
   title={`${article.title} | Blog Casa Atelier`}
-  description="Transfer termic sau termic direct? Volum mic, mediu sau mare? Ghid practic pentru alegerea imprimantei de etichete potrivite."
+  description={desc}
+  jsonld={jsonld}
 >
   <Header />
   <main>

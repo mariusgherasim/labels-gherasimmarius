@@ -8,8 +8,10 @@ export interface Props {
   canonical?: string;
   noindex?: boolean;
   scope?: string; // categoria curentă (pentru căutare și stickere)
+  jsonld?: object | object[]; // date structurate schema.org (vezi src/lib/seo.ts)
 }
-const { title, description = SITE.description, canonical, noindex = false, scope = '' } = Astro.props;
+const { title, description = SITE.description, canonical, noindex = false, scope = '', jsonld } = Astro.props;
+const ld = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
 const GA_ID = "G-HS59YL4Y3D";
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
 ---
@@ -85,6 +87,7 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
     });
   </script>
   <!-- End TrustBox script -->
+  {ld.map(d => <script type="application/ld+json" set:html={JSON.stringify(d).replace(/</g, '\\u003c')} />)}
 </head>
 <body data-scope={scope}>
   <slot />

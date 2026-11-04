@@ -35,7 +35,9 @@
   });
 
   // ---- stickere: interval de date + categorie; închiderea ține doar pe pagina curentă ----
-  const today = new Date().toISOString().slice(0, 10);
+  // data locală a vizitatorului (nu UTC), ca stickerele să pornească la 00:00 ora României
+  const _d = new Date();
+  const today = `${_d.getFullYear()}-${String(_d.getMonth() + 1).padStart(2, '0')}-${String(_d.getDate()).padStart(2, '0')}`;
   const scope = document.body.dataset.scope || '';
   document.querySelectorAll('[data-sticker]').forEach((el) => {
     const s = el.dataset.start, en = el.dataset.end, sc = el.dataset.scope || 'all';

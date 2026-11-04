@@ -20,11 +20,13 @@ export const GET: APIRoute = () => {
     }),
   ]);
   const promo = pageUrls('/promotii', deals().length, 'promo');
-  const allUrls = [...staticPages, ...catPages, ...promo];
+  // adrese canonice, cu „/” la final (GitHub Pages redirecționează varianta fără „/”)
+  const slash = (u: string) => (u.endsWith('/') ? u : u + '/');
+  const allUrls = [...staticPages, ...catPages, ...promo].map(slash);
   const today = new Date().toISOString().slice(0, 10);
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allUrls.map(url => `  <url><loc>${url}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${url === BASE ? '1.0' : /\/\d+$/.test(url) ? '0.5' : '0.8'}</priority></url>`).join('\n')}
+${allUrls.map(url => `  <url><loc>${url}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${url === BASE + '/' ? '1.0' : /\/\d+\/$/.test(url) ? '0.5' : '0.8'}</priority></url>`).join('\n')}
 </urlset>`;
   return new Response(xml, { headers: { 'Content-Type': 'application/xml' } });
 };

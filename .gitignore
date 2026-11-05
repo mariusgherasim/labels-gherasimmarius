@@ -25,6 +25,7 @@ pnpm-debug.log*
 
 # feeduri XML (mari, se pun local în feeds/ doar pentru sincronizare)
 feeds/*.xml
+feeds/*.tsv
 feeds/_neclasificate.txt
 # emailul generat
 email-output.html

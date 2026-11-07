@@ -75,12 +75,19 @@ Le adaugi în `src/data/stickers.json`. Instrucțiunile sunt chiar în fișier. 
 
 ## Petmart → categoria „Animale de companie” (adăugat 03.11.2026)
 - Feed: `feed_15b6d6260.xml` (petmart.ro, ~12.700 produse, ~9.000 active). Link în My feeds: `https://api.2performant.com/feed/15b6d6260.xml`. E trecut și în `sites.json` (folderul DESCARCARE AUTOMATA FEEDURI).
+- **07.11.2026: Petmart scos din `sites.json`** (feedul public venea gol, apoi HTTP 404). Sync-ul citește toate fișierele .xml din `feeds/`: cât timp `feed_15b6d6260.xml` vechi rămâne acolo, produsele Petmart rămân pe site cu datele vechi. Pentru a le scoate, șterge fișierul din `feeds/` (și din folderul casa-gherasim al descărcărilor).
 - Categoria nouă `animale-companie` (🐾), cu 8 subcategorii: hrană câini, hrană pisici, accesorii câini, pisici (nisip, litiere și joacă), jucării, sănătate/igienă/îngrijire, castroane/culcușuri/transport, acvaristică/păsări/rozătoare/reptile.
 - Produsele de fermă și combaterea dăunătorilor de la Petmart merg în **Grădină & Agricultură → Fermă și combatere dăunători** (subcategorie nouă).
 - Reguli: `PETMART` + `PET_TITLE` în `scripts/classify.cjs` (după categoria din feed; titlul e plan de rezervă).
 - Subcategoria veche `gradina-agricultura/animale-companie` (câteva produse Mezoni) a fost scoasă. Produsele Mezoni pentru câini/pisici merg acum în noua categorie, după titlu.
 - Variantele de gramaj (370 g / 12 kg) rămân produse separate. Dacă devin prea multe, le putem comasa ca la covoarele Mezoni (`COLLAPSE` în sync-feeds.cjs).
 
+
+## 6biologico.ro → doar produsele pentru animale (adăugat 07.11.2026)
+- Feed: `feed_20e3de1a9.xml` (~200 produse, ~114 active; campania 2Performant `bd4c71169`, comision 15%). În `sites.json` e trecut și la beautyhealth, și la CasaGherasim: scriptul îl descarcă o dată și îl copiază în ambele foldere.
+- Pe Casa Atelier intră **doar cele ~30 de produse din categoria „Animale”** (șampoane, balsamuri, loțiuni, parfumuri pentru câini și pisici) → **Animale de companie → Sănătate și igienă**.
+- Cosmeticele pentru oameni (~84) merg pe beauty-healths.com; aici `classify()` le întoarce `null`, așa că apar la sync ca „neclasif.” și în `feeds/_neclasificate.txt` — e normal.
+- Regula: în `scripts/classify.cjs`, ramura `6biologico`.
 ## Fișiere cheie
 | Fișier | Rol |
 |---|---|

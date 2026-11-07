@@ -278,6 +278,9 @@ function classify(merchant, category, title, subcategory = '') {
   }
   if (m.includes('labelshop')) return labelshop(c, t);
   if (m.includes('petmart')) return petmart(c, t);
+  // 6biologico.ro (07.11.2026): doar produsele pentru animale (șampoane, balsamuri, loțiuni) intră aici;
+  // cosmeticele pentru oameni merg pe beauty-healths.com
+  if (m.includes('6biologico')) return /\banimale\b/.test(c) ? [PET, 'sanatate-igiena'] : null;
   if (m.includes('printingmall')) return printingmall(c, t);
   if (m.includes('havit')) return havit(c, t);
   if (m.includes('depozitsolar')) return [CL, 'fotovoltaice'];

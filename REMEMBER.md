@@ -108,3 +108,8 @@ Le adaugi în `src/data/stickers.json`. Instrucțiunile sunt chiar în fișier. 
 3. `generate-email.cjs` → `SITE_URL`
 4. fișierul `CNAME` din `public/` (dacă există)
 5. proprietate nouă în Search Console + redirect de pe labels.gherasimmarius.com
+
+## Footer: BusinessLeague + SAL ANPC (09.11.2026)
+- În `src/components/Footer.astro`, deasupra rândului ©: insigna **BusinessLeague · Affiliate Marketing Partner** (→ https://businessleague.com/, logo oficial în `public/businessleague-logo.png`) și pictograma oficială **SAL ANPC** (→ https://reclamatiisal.anpc.ro/, `public/anpc-sal.png`, de pe https://www.anpc.ro/download/sal/SAL-PICTOGRAMA.png). Stilurile `.footer-badges`, `.bl-partner`, `.sal-anpc` sunt în `public/style.css` (versiunea din `Base.astro` urcată la `?v=4`, ca browserele să ia CSS-ul nou).
+- Linkurile text „ANPC · SAL” din rândul © rămân.
+- SOL nu se mai pune: platforma europeană a fost desființată (Ordinul ANPC 270/2026).

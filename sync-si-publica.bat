@@ -5,8 +5,6 @@ echo ============================================
 echo  Casa Atelier - actualizare produse + publicare
 echo ============================================
 echo.
-echo Petmart: descarc feedul si il transform in format 2Performant...
-node scripts\petmart-merchant-to-xml.cjs
 if not exist "feeds\*.xml" (
   echo Nu am gasit niciun .xml in folderul feeds\
   echo Descarca feedurile din 2Performant si pune-le acolo.

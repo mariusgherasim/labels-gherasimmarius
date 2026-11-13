@@ -1,11 +1,1 @@
 mezoni.ro	preț 59.0	preț vechi 323.0	-82%	Carucior pentru rufe cu 3 compartimente Escala, Wenko, 90 l
-havit-romania.ro	preț trunchiat 3 lei (probabil 3.xxx lei) în feed	Videoproiector Havit PJ800 Plus-EU,1920x1080, Android, 600 ANSI, Auriu
-havit-romania.ro	preț trunchiat 3 lei (probabil 3.xxx lei) în feed	Videoproiector Havit PJ228 Plus-EU, 1920x1080, 250 ANSI, Android, Cu baterie, Autofocus, Negru
-havit-romania.ro	preț trunchiat 2 lei (probabil 2.xxx lei) în feed	Videoproiector Havit PJ223 Plus-EU, 1920x1080, 1200 ANSI, Google TV, Negru
-havit-romania.ro	preț fictiv 1 lei în feed	Videoproiector Havit PJ220 PRO-EU,1920x1080, 330 ANSI, Android, Autofocus, Negru
-havit-romania.ro	preț fictiv 1 lei în feed	Videoproiector PJ209 Plus, 1920x1080, 550 Ansi, Google TV, Negru
-havit-romania.ro	preț fictiv 1 lei în feed	Videoproiector PJ300 Plus-EU, 1920x1080, 550 Ansi, Google TV, Negru
-havit-romania.ro	preț fictiv 1 lei în feed	Scaun Gaming Havit Gamenote GC927, RGB, Ergonomic
-havit-romania.ro	preț fictiv 1 lei în feed	Robot curatare geamuri Havit HCR107Pro, 72W, pulverizare apa, telecomanda, Alb
-havit-romania.ro	preț fictiv 1 lei în feed	Videoproiector PJ209 Pro, 1920x1080, 450 Ansi, Android TV, Alb
-havit-romania.ro	preț fictiv 1 lei în feed	Boxa portabila Bluetooth Havit SK910BT, BT 5.3, 100W, IPX6, Negru

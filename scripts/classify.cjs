@@ -257,6 +257,55 @@ function havit(cat, t) {
   return first(HAVIT, t) || [HV, 'periferice-pc'];
 }
 
+// ---------- scule365.ro (15.11.2026) ----------
+// Feedul are categorii amestecate („Casa si gradina”, „Electrocasnice”, „Scule electrice” pentru acumulatori),
+// așa că decide întâi titlul, apoi categoria din feed.
+const S365_TITLE = [
+  R(/pompa (de )?stropit|pulverizator|pistol(ul)? de stropit/, GR, 'unelte-gradina'),
+  R(/motopomp|\bpompa\b|pompe |hidrofor/, GR, 'pompe-apa'),
+  R(/\bfurtun/, GR, 'furtunuri'),
+  R(/aspersor|irigat|picurare/, GR, 'irigatii'),
+  R(/drujba|motofierastra|ascutit lantur|lant drujba/, GR, 'drujbe'),
+  R(/motocoas|trimmer|tuns iarba|masina de tuns gazon|fir motocoasa/, GR, 'motocoase'),
+  R(/motocultor|motosap|motoburghi|motoforeza/, GR, 'motocultoare'),
+  R(/gard viu|foarfec[ai] de gradina|suflant|tocator crengi|despicator|plasa de umbrire/, GR, 'unelte-gradina'),
+  R(/moara|zdrobitor|teasc/, GR, 'mori-cereale'),
+  R(/tuns oi/, GR, 'zootehnie'),
+  R(/generator|motor (electric|benzina|monofazat|trifazat)|\d+ ?cp motor|motor \d/, GR, 'motoare-generatoare'),
+  R(/aeroterm|tun de caldura|convector|arzator|radiator/, CL, 'incalzire'),
+  R(/ventilator/, CL, 'climatizare-ventilatie'),
+  R(/sudur|electrod|\bppr\b|lipit tevi|bercuit/, SC, 'echipament-atelier'),
+  R(/cantar/, SC, 'aparate-masura'),
+  R(/tocat carne|umplut carnati|masina (de )?carnati|palnii|feliator/, EL, 'aparate-bucatarie-profesionale'),
+  R(/friteuz|blender|statie (de )?calcat|fier de calcat|aragaz|cuptor|plita/, EL, 'electrocasnice-mici'),
+  R(/\boale\b|tigai|cratit/, BUC, 'vase-gatit'),
+  R(/spalat cu presiune|spalat apa cu presiune|aspirator/, EL, 'utilaje-uz-casnic'),
+  R(/\bboxa\b|radio /, 'electronice-gadgeturi', 'casti-audio'),
+  R(/prelungitor (electric|cu prize|\d+ ?m)|tambur cablu|pe rola cu tambur/, ER, 'cabluri-conectori'),
+  R(/bocanc|manusi|ghete|cizme|adidasi de protectie|pantofi de protectie|dopuri urechi|genunchier|masca|ochelari de protectie|casca|vesta|salopet|centura|ham de siguranta/, SC, 'echipament-atelier'),
+  R(/compresor|pneumatic|pistol (de )?(umflat|suflat)/, SC, 'echipament-atelier'),
+  R(/cablu(ri)? (de )?pornire|\bcric|redresor|robot pornire/, SC, 'echipament-atelier'),
+  R(/electropalan|troliu|macara|scripet|placa compactoare|maiu compactor|vibrator beton|elicopterizat|betonier|taiat gresie|taietor (de )?beton|slefuitor beton|carotat|\bscara\b|scari |schela|nivela laser/, SC, 'utilaje-constructii'),
+  R(/multimetru|telemetru|ruleta|detector|clesteampermetric|ampermetric|termometru|boloboc|\bnivela\b|instrument(e)? de masura|aparat de masura|tester/, SC, 'aparate-masura'),
+  R(/^(baterie|acumulator)|incarcator (rapid )?(pentru )?acumulator|^incarcator/, SC, 'scule-electrice'),
+  R(/bormasin|masina de (gaurit|insurubat|slefuit|frezat|taiat|ascutit)|insurubat|rotopercut|demolator|polizor|\bflex\b|fierastra[iu] (circular|sabie|pendular|electric)|debitor|slefuitor|rindea|pistol (de )?(lipit|aer cald|vopsit|silicon)|multi ?tool|amestecator|mixer (pentru )?(vopsea|constructii)|fara acumulator|\d+v\b/, SC, 'scule-electrice'),
+  R(/\bdisc|burghi|panz[ae]|freza|\bbit(uri)?\b|carot|perie (de )?sarma|\bsmirghel/, SC, 'scule-electrice'),
+];
+const S365_CAT = [
+  R(/scule pentru irigat/, GR, 'irigatii'),
+  R(/accesorii pentru tuns|accesorii tuns/, GR, 'motocoase'),
+  R(/accesorii drujbe/, GR, 'drujbe'),
+  R(/scule si accesorii de gradina|casa si gradina/, GR, 'unelte-gradina'),
+  R(/sisteme de incalzire/, CL, 'incalzire'),
+  R(/bucatarie|ustensile/, BUC, 'ustensile-organizare'),
+  R(/echipamente de lucru|scule auto|uleiuri/, SC, 'echipament-atelier'),
+  R(/instrument/, SC, 'aparate-masura'),
+  R(/scule si utilaje constructii|electropalan/, SC, 'utilaje-constructii'),
+  R(/accesorii scule|discuri|burghie|carote|panze|scule electrice|scule pneumatice/, SC, 'scule-electrice'),
+  R(/scule de mana|unelte de mana|surubelnite|chei|ciocane|menghine|spacluri|trafalet|catalog/, SC, 'scule-mana'),
+  R(/electrocasnice/, EL, 'electrocasnice-mici'),
+];
+
 function first(rules, text) {
   for (const r of rules) if (r.re.test(text)) return [r.cat, r.sub];
   return null;
@@ -296,6 +345,7 @@ function classify(merchant, category, title, subcategory = '') {
   if (m.includes('micul-meserias')) {
     return (/piese de schimb/.test(c) ? null : first(MM_TITLE_FIRST, t)) || first(MM, c) || first(TITLE, t) || [SC, 'utilaje-constructii'];
   }
+  if (m.includes('scule365')) return first(S365_TITLE, t) || first(S365_CAT, c) || [SC, 'scule-mana'];
   if (m.includes('a2t')) {
     return first(A2T, c) || first(TITLE, t) || (/piese/.test(c) ? [SC, 'piese-schimb'] : [ER, 'aparataj-electric']);
   }

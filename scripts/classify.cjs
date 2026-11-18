@@ -121,6 +121,24 @@ function petmart(c, t) {
   return r || [PET, 'castroane-culcusuri-transport'];
 }
 
+// ---------- petmagazin.ro, zoomania.ro, happypets.ro (feed comun 0715b2f9a, 18.11.2026) ----------
+// Categoria vine ca „Caini>Hrana>Uscata” sau „Farmacie Veterinara > Antiinflamatoare”.
+// Specia (câine/pisică) = cea care apare prima în categorie.
+function petshop(c, t) {
+  const k = c.replace(/&gt;|>/g, ' > ');
+  if (/pesti|acvari|rozatoare|pasari|reptile|terari|iaz/.test(k)) return [PET, 'acvaristica-pasari-rozatoare'];
+  if (/jucari|ansambluri de joaca|centre de joaca/.test(k)) return [PET, 'jucarii'];
+  if (/litier|nisip/.test(k)) return [PET, 'nisip-litiere-joaca'];
+  if (/hrana|diete|recompense|conserve|plicuri|lapte/.test(k) && !/antiparazit|suplimente/.test(k)) {
+    const ip = k.search(/pisic/), ic = k.search(/cain|catel/);
+    return [PET, ip >= 0 && (ic < 0 || ip < ic) ? 'hrana-pisici' : 'hrana-caini'];
+  }
+  if (/farmacie|vitamine|suplimente|antiparazit|igiena|toaletare|perii|piepteni|sampoane|ingrijire|otice|oftalm|dentar/.test(k)) return [PET, 'sanatate-igiena'];
+  if (/castroane|boluri|perne|paturi|cosuri|cusc|custi|transport|cotete|adapatoare|hranitoare|culcus/.test(k)) return [PET, 'castroane-culcusuri-transport'];
+  if (/lese|zgarzi|hamuri|hainute|botnite|dresaj|accesorii/.test(k)) return [PET, 'accesorii-caini'];
+  return petmart(c, t);
+}
+
 // ---------- paa-home.ro ----------
 const PAA = [
   R(/purificato/, EL, 'filtre-purificatoare'),
@@ -327,6 +345,7 @@ function classify(merchant, category, title, subcategory = '') {
   }
   if (m.includes('labelshop')) return labelshop(c, t);
   if (m.includes('petmart')) return petmart(c, t);
+  if (/petmagazin|zoomania|happypets/.test(m)) return petshop(c, t);
   // 6biologico.ro (07.11.2026): doar produsele pentru animale (șampoane, balsamuri, loțiuni) intră aici;
   // cosmeticele pentru oameni merg pe beauty-healths.com
   if (m.includes('6biologico')) return /\banimale\b/.test(c) ? [PET, 'sanatate-igiena'] : null;

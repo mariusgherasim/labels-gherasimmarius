@@ -199,6 +199,22 @@ for (const f of files) {
   console.log(`✓ ${f}`);
 }
 
+// petmagazin.ro și zoomania.ro (același grup) au ~3.000 de produse identice → o singură fișă pe produs.
+// 18.11.2026: Zoomania e preferat (aprobă comisioanele în 30 de zile, Petmagazin în 60).
+// Primul magazin din listă păstrează produsul comun; la celălalt, fișa dublă e scoasă (coloana „comasate”).
+// Ca să schimbi magazinul preferat, inversează ordinea.
+const DUP_PREFER = ['zoomania.ro', 'petmagazin.ro'];
+{
+  const key = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  const have = new Set(products.filter(p => p.merchant === DUP_PREFER[0]).map(p => key(p.title)));
+  const keep = products.filter((p) => {
+    if (p.merchant !== DUP_PREFER[1] || !have.has(key(p.title))) return true;
+    const st = perMerchant[p.merchant]; st.kept--; st.merged = (st.merged || 0) + 1;
+    return false;
+  });
+  products.length = 0; for (const p of keep) products.push(p);
+}
+
 // actualizează cache-ul de prețuri (doar mobilalaguna, unde feedul strică prețurile)
 for (const p of products) if (p.merchant.includes('mobilalaguna')) priceCache[p.id] = p.price;
 fs.writeFileSync(CACHE_FILE, JSON.stringify({ _info: 'Ultimul preț corect cunoscut per produs (mobilalaguna). Se actualizează automat la fiecare sync. Nu-l șterge.', prices: priceCache }));
